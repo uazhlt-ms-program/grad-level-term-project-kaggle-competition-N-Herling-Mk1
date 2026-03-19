@@ -1,10 +1,10 @@
 # Task
 
-The task is described at [https://uazhlt-ms-program.github.io/ling-539-course-blog/assignments/class-competition](https://uazhlt-ms-program.github.io/ling-539-competition-2026/assignments/class-competition/)
+The task is described at [https://uazhlt-ms-program.github.io/ling-539-competition-2026/assignments/class-competition/](https://uazhlt-ms-program.github.io/ling-539-competition-2026/assignments/class-competition/)
 
-The competition is hosted at [https://www.kaggle.com/competitions/ling-539-sp-2024-class-competition](https://www.kaggle.com/competitions/ling-539-competition-2026)
+The competition is hosted at [https://www.kaggle.com/competitions/ling-539-competition-2026](https://www.kaggle.com/competitions/ling-539-competition-2026)
 
-**To join the competition, you must accept it at the following URL**: [https://www.kaggle.com/t/33320feca02e42bd924c3473e3a8c2fd](https://www.kaggle.com/t/03c8dd2e91474ec1b64203601079805b)
+**To join the competition, you must accept it at the following URL**: [https://www.kaggle.com/t/03c8dd2e91474ec1b64203601079805b](https://www.kaggle.com/t/03c8dd2e91474ec1b64203601079805b)
 
 # Notes
 - This project involves a **performance evaluation** as well as your **graded assessment**. It's important to keep these two things separate in your mind.
