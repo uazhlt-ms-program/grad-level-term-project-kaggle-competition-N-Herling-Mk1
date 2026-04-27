@@ -1,113 +1,154 @@
-# mk_1 — INFO 539 Term Project, Iteration 1
+# mk_1 — INFO 539 Term Project
 
 **Author:** Nathan Herling
 **Course:** INFO/LING 539 — Statistical Natural Language Processing, Spring 2026
-**Task:** [LING 539 Spring 2026 class competition](https://www.kaggle.com/competitions/ling-539-competition-2026/) — 3-class document classification
+**Task:** [Kaggle competition](https://www.kaggle.com/competitions/ling-539-competition-2026/) — 3-class document classification (0 = not-a-review, 1 = positive review, 2 = negative review). Evaluated by macro-F1.
 
 ---
 
-## Task summary
+## 1. Environment setup (Docker)
 
-Classify each document into one of:
+The project builds a thin custom image on top of the course-provided container. This ensures grading-environment parity (same `uazhlt/python-playground` base) while pinning the exact Python packages the project needs.
 
-| Label | Meaning |
-|:-:|---|
-| 0 | Not a movie or TV show review |
-| 1 | Positive movie or TV review |
-| 2 | Negative movie or TV review |
+**Files involved:**
+- `../requirements.txt` — Python dependencies
+- `../Dockerfile` — extends the course image with those dependencies
 
-**Evaluation metric:** macro-F1 across the three classes (each class weighted equally regardless of frequency).
-**Test set:** 17,580 unlabeled examples. Public leaderboard scored on ~50% of the test set, private (final) leaderboard on the remaining 50%.
+**Build the image** (once, from the repo root):
 
-**Training data:** 70,304 labeled examples after cleaning. The Pang & Lee (2004) movie-review corpus (~2,000 reviews) supplemented with substantial noisy data covering the Label 0 (not-a-review) class.
-
-| Label | Count | Pct | Median chars | Median words |
-|:-:|---:|---:|---:|---:|
-| 0 | 32,276 | 45.91% | 205 | 33 |
-| 1 | 19,139 | 27.22% | 855 | 153 |
-| 2 | 18,889 | 26.87% | 883 | 158 |
-
-**Key observation:** Label 0 is the *majority* class and is dramatically shorter than the actual reviews. This makes it relatively easy to separate from Labels 1/2. The hard work of macro-F1 is at the **1↔2 sentiment boundary**, where length distributions are nearly identical. Every additional point of macro-F1 above ~0.85 comes from improvements there.
-
----
-
-## Approach
-
-This iteration builds a **bootstrap ladder** of seven experiments, each adding exactly one element of complexity over the previous. Each rung is independently testable; each higher rung is justified by the diagnostic gap between it and the rung below.
-
-| # | Experiment | Algorithm | Course-covered? | Bayesian layer | Status |
-|:-:|---|---|:-:|---|:-:|
-| 00 | **NB Baseline** | Multinomial NB (CountVectorizer, α=1) | ✓ | implicit Dirichlet prior | done |
-| 01 | LR Baseline | TF-IDF + LR, OvR liblinear | ✓ | implicit Gaussian prior on weights | planned |
-| 02 | SVM N-gram | LinearSVC, word + char n-grams stacked | ✓ | Platt scaling for probability outputs | planned |
-| 03 | Bayesian LR Laplace | LR + Laplace approx → posterior σ over weights | (extension) | **principled posterior** σ | planned |
-| 04 | DistilBERT | Transformer fine-tune | (extension) | — | planned |
-| 05 | MC-Dropout BERT | DistilBERT + inference-time dropout sampling | (extension) | **MC posterior** σ | planned |
-| 06 | Ensemble / BMA | Weighted blend of 00, 01, 02, 04 | (combination) | Bayesian model averaging | planned |
-| 07 | MaxEnt-Calibrated | σ-keyed inference-time entropy floor on top of 03/05 | (original) | — | planned |
-
-The course-covered rule is satisfied at every rung from 00 onward. Experiments 03, 05, and 07 are *analysis layers* on top of 01 and 04 — same trained model, additional Bayesian or calibration machinery applied post-hoc.
-
----
-
-## What we measure: the RRM penalty vector
-
-Each model is evaluated against the 5-component **Regularized Risk Metric** vector adapted from prior work in HEP detector ML (INFO 510, ATLAS HSS):
-
-```
-v = [ 1 − F1_macro,    task performance
-      σ_fold,           data sensitivity (k-fold std)
-      H̄_epistemic,     mean model uncertainty (predictive variance)
-      ECE,              calibration error
-      1 − AUROC_U ]     uncertainty quality
+```bash
+docker build -t info539-mk1 .
 ```
 
-Lower is better on every component. Scalar score is the L2 norm `‖v‖₂`. A **sixth diagnostic column** is also tracked: `H̄_high-σ`, the mean predictive entropy of top-quartile-σ samples, with target ln 3 ≈ 1.099 (the MaxEnt floor for a 3-class distribution).
+**Run the container** (each session, from the repo root):
 
-For each Bayesian-layer model (Experiments 03 and 05) we run **three tuning regimes** with a shared `random_state` and identical sampled configurations, so the only thing varying between them is the selection criterion:
+```bash
+docker run -it --rm \
+    -v $(pwd):/app \
+    -w /app/mk_1 \
+    info539-mk1 \
+    bash
+```
 
-| Regime | Objective | Picks the model that... |
-|---|---|---|
-| F1-tuned | maximize `f1_macro` | scores best on the leaderboard |
-| RRM-tuned | minimize `‖v‖₂` | trades F1 for calibration/uncertainty quality |
-| MaxEnt-tuned | minimize `NLL + β · 𝔼[(ln K − H)·𝟙(σ high)]` | reports honest entropy on uncertain samples |
+This drops you into a bash shell inside the container, working directory set to `/app/mk_1`, with the repo mounted live (edits in WSL or VS Code are reflected immediately).
 
-The MaxEnt regime is derived in the companion document `ling539_maxent_extension.tex`. It is the predictive-output instantiation of the temperature law `τ⁽ᵏ⁾ = 1/ΔS⁽ᵏ⁾` developed in the HELIX/Evt2Vec contrastive-learning framework — same Boltzmann/Jaynes derivation, applied to the predictive softmax instead of the contrastive softmax.
+**Optional convenience alias** (add to `~/.bashrc`):
+
+```bash
+alias mk1='docker run -it --rm -v ~/INFO_539/grad-level-term-project-kaggle-competition-N-Herling-Mk1:/app -w /app/mk_1 info539-mk1 bash'
+```
+
+Then just `mk1` from anywhere drops you into the container ready to go.
 
 ---
 
-## Experiment 00 — results
+## 2. The model — Multinomial NB
 
-The floor: Multinomial NB with α=1 (Dirichlet-prior MAP), no tuning, no CV.
+**Experiment 00** is the floor of the bootstrap ladder: a Multinomial Naive Bayes classifier with raw-count bag-of-words features.
 
 ```
-F1_macro       : 0.8108
-H_epistemic    : 0.0679    (margin proxy)
+CountVectorizer(ngram_range, min_df)
+    ↓
+MultinomialNB(alpha)
+```
+
+Two reasons NB anchors the project:
+
+1. **Pedagogical floor.** Statistical NLP starts here. Every additional point of macro-F1 above NB has to be justified by added complexity in later experiments.
+
+2. **Implicit MaxEnt prior.** Multinomial NB with Laplace smoothing (`alpha`) is exactly the MAP estimator under a symmetric Dirichlet prior on per-class word probabilities. The Dirichlet is the maximum-entropy distribution on the simplex under fixed-mean constraints. The chain MaxEnt prior → Bayesian inference → classifier starts at NB, not at LR.
+
+**Run it:**
+
+```bash
+# inside the container, from /app/mk_1
+python -m experiments.00_nb_baseline.run
+```
+
+Loads `../data/train.csv`, splits 85/15 train/val (seed=42), fits NB with α=1, scores on val, refits on all training data, writes the Kaggle submission to `submissions/00_nb_baseline.csv`. Takes ~10 sec.
+
+**Baseline result** (α=1, no tuning):
+
+```
+F1_macro       : 0.8108        ← floor
+H_epistemic    : 0.0679
 ECE            : 0.1223
 AUROC_U        : 0.7313
-H_high_sigma   : 0.5961    (target: ln 3 = 1.0986)
+H_high_sigma   : 0.5961         (target: ln 3 = 1.0986)
 ```
 
-| Class | precision | recall | F1 |
-|:-:|---:|---:|---:|
-| 0 (not-review) | 0.9873 | 0.7860 | 0.8752 |
-| 1 (positive) | 0.7045 | 0.8095 | 0.7533 |
-| 2 (negative) | 0.7376 | 0.8832 | 0.8039 |
-
-**Confusion matrix** (rows = true, cols = pred):
-
-```
-       0     1     2
-0   3806   658   378     ← Label 0 leaks badly (~21% loss)
-1     35  2324   512     ← positives lost to negatives
-2     14   317  2502     ← negatives lost to positives
-```
-
-NB's failure mode is **structurally different** from what LR will produce: NB has real Label-0 confusion (658 not-a-reviews → predicted as positive), while LR will essentially solve Label 0 outright. This is exactly the diversity signal that justifies BMA in Experiment 06: NB and LR are wrong about *different things*.
+NB nearly solves Label 0 in precision (0.987) but loses ~21% of Label 0 examples to wrongly-predicted-as-review. The 1↔2 sentiment confusion is the dominant error source (512 positives→negative, 317 negatives→positive). LR will solve Label 0 outright, but NB's different failure pattern is exactly the diversity signal that justifies BMA in Experiment 06.
 
 ---
 
-## Repository structure (this iteration)
+## 3. Sweep results — three tuning regimes
+
+**Run the sweep:**
+
+```bash
+python -m experiments.00_nb_baseline.sweep      # ~5 min: 30 NB configs, full data
+python -m experiments.00_nb_baseline.analyze    # ~2 sec: table + plots
+```
+
+`sweep.py` draws 30 NB configurations from `alpha` ∈ log-uniform[10⁻³, 10¹] × `ngram_range` × `min_df`. Each config is fit once; **all three scoring objectives** (F1-tuned, RRM-tuned, MaxEnt-tuned) are computed post-hoc on the same fitted model. Same `random_state` across regimes — the only thing varying is the selection criterion.
+
+**Results table:**
+
+| metric | F1-tuned | RRM-tuned | MaxEnt-tuned |
+|---|---:|---:|---:|
+| α | 1.108 | 1.108 | **7.635** |
+| ngram_range | (1, 2) | (1, 2) | **(1, 1)** |
+| min_df | 5 | 5 | 5 |
+| F1_macro | **0.8812** | **0.8812** | 0.8493 |
+| H_epistemic | 0.0278 | 0.0278 | 0.0632 |
+| ECE | 0.0903 | 0.0903 | **0.0860** |
+| AUROC_U | **0.7756** | **0.7756** | 0.7535 |
+| H_high_sigma | 0.2600 | 0.2600 | **0.5661** |
+| MaxEnt loss | 1.5695 | 1.5695 | **1.0711** |
+
+### What this shows
+
+**F1-tuned and RRM-tuned converged to the exact same model.** On NB the L2 RRM penalty is dominated by the `(1−F1)` component because in-fold F1 differences (~0.08) swamp ECE differences (~0.01) and H_epistemic differences (~0.04). RRM-tuned is effectively F1-tuned at this layer. This isn't a failure — at Exp 03 with real posterior σ, `σ_fold` and `AUROC_U` enter the L2 norm with non-trivial values and the RRM ranking should diverge from F1.
+
+**MaxEnt-tuned picks a meaningfully different model.** α jumps 7× (1.1 → 7.6), ngrams shrink to unigrams. The model trades 3.2 points of F1 for:
+
+- **+118% predictive entropy on top-quartile uncertainty samples** (0.260 → 0.566 nats, target ln 3 = 1.099)
+- **−4.8% ECE** (better calibration)
+- **−32% MaxEnt loss** (its tuning objective)
+
+The total mean entropy `H_epistemic` doubles, but `H_high_sigma` more than doubles — the mechanism **selectively** smooths predictions on uncertain samples rather than uniformly inflating uncertainty.
+
+`AUROC_U` decreases slightly (0.776 → 0.754). In the proxy-σ regime this is the expected tradeoff: a flatter unigram model has less margin signal to discriminate which specific samples it gets wrong, even while its global calibration improves.
+
+### What this means for the framework
+
+The σ-keyed entropy mechanism — derived in `ling539_maxent_extension.tex` from the Boltzmann/Jaynes interpretation of softmax temperature — produces **measurable behavior change** in hyperparameter selection at the simplest model in the bootstrap ladder, even with margin-proxy σ. The mechanism transfers from contrastive softmax (HELIX) to predictive softmax independent of σ source quality.
+
+The strongest version of this argument is at Exp 03 with real posterior σ. NB is the prototype that established the mechanism does *something*; Exp 03 establishes whether the *principled* σ source moves the AUROC_U tradeoff in a different direction.
+
+---
+
+## 4. Next model — Logistic Regression baseline (Exp 01)
+
+The next rung on the ladder is **TF-IDF + multinomial logistic regression**, which adds three things over NB:
+
+1. **Discriminative training** — directly maximizes the conditional likelihood `p(y | x)` instead of the joint `p(x, y)` factored under conditional independence.
+2. **IDF weighting** — features are scaled by inverse document frequency, downweighting common words that NB treats equally.
+3. **Implicit Gaussian prior** — L2 regularization is a zero-mean Gaussian prior on the weight vector, the MaxEnt distribution under a fixed-variance constraint. (NB had a Dirichlet prior on word probabilities; LR has a Gaussian prior on weights — both MaxEnt under different constraints.)
+
+**Expected behavior** based on prior validation runs:
+
+- F1_macro ≈ 0.91 on validation (~10 pp above NB)
+- Label 0 essentially solved (recall > 98%)
+- 1↔2 sentiment errors reduced but not eliminated — the dominant remaining failure mode
+
+Same three-regime sweep design (`run.py`, `sweep.py`, `analyze.py`) carries over with `alpha` replaced by `C` (the inverse-regularization-strength parameter) and the search space adjusted accordingly. The MaxEnt-tuned regime is expected to pick a *smaller* C (stronger regularization → smoother posterior → higher entropy on uncertain samples), the mirror image of the higher-α NB result.
+
+After Exp 01, the next step is **Exp 03 (Bayesian LR with Laplace approximation)** — the same LR model with a posterior over weights computed via the Hessian at the MAP estimate. That's the first experiment with a *principled* σ_epistemic, and the first place where AUROC_U is expected to **improve** under MaxEnt-tuning rather than degrade. That's the prediction that distinguishes "the mechanism is real" from "the mechanism only helps under specific σ conditions."
+
+---
+
+## Repository structure
 
 ```
 mk_1/
@@ -115,44 +156,24 @@ mk_1/
 ├── shared/
 │   ├── preprocessing.py            load + clean + train/val split
 │   ├── evaluate.py                 RRM vector, ECE, AUROC_U, H_high_sigma
+│   ├── scorers.py                  F1 / RRM / MaxEnt scorer factories
 │   └── submit.py                   Kaggle CSV writer (ID-aligned)
 ├── experiments/
-│   ├── 00_nb_baseline/run.py       ✓ done
-│   ├── 01_lr_baseline/             planned
+│   ├── 00_nb_baseline/             ✓ done
+│   │   ├── run.py
+│   │   ├── sweep.py
+│   │   ├── analyze.py
+│   │   ├── results/                (gitignored)
+│   │   └── figures/                (gitignored)
+│   ├── 01_lr_baseline/             planned (next)
 │   ├── 02_svm_ngram/               planned
-│   ├── 03_bayesian_lr_laplace/     planned
+│   ├── 03_bayesian_lr_laplace/     planned (first principled σ)
 │   ├── 04_distilbert/              planned
 │   ├── 05_mc_dropout_bert/         planned
 │   ├── 06_ensemble_bma/            planned
-│   └── 07_maxent_calibrated/       planned
-├── models/                         (gitignored) saved .joblib pipelines
-└── submissions/                    (gitignored) Kaggle submission CSVs
+│   └── 07_maxent_calibrated/       planned (Exp 07 inference-time calibrator)
+├── models/                         (gitignored)
+└── submissions/                    (gitignored)
 ```
 
-Data lives at `<repo_root>/data/` (one level up from `mk_1/`), gitignored, never committed.
-
-## Running
-
-From the `mk_1/` directory:
-
-```bash
-python -m experiments.00_nb_baseline.run
-```
-
-This will:
-1. Load and clean `train.csv` from `../data/`
-2. Stratified 85/15 train/val split (seed=42)
-3. Fit NB on the train split, score on val, print the partial RRM vector
-4. Refit on all training data, predict on `test.csv`, write `submissions/00_nb_baseline.csv` for Kaggle
-5. Save the fitted pipeline to `models/`
-
----
-
-## What changes between iterations (mk_1 → mk_2 → ...)
-
-The bootstrap ladder is the experimental design for **mk_1**. If a future iteration is needed:
-
-- **mk_2** would refactor based on what the mk_1 results show — e.g. if Bayesian σ from Exp 03 turns out to be uninformative (low AUROC_U), mk_2 would investigate alternative posterior approximations or move to a non-diagonal Hessian.
-- **mk_3** would add architectural changes to the upstream model (e.g. char-level features fed into BERT, or a structured prediction head).
-
-Each `mk_N/` is self-contained. The blog post submitted with the project draws on the final iteration.
+Data lives at `<repo_root>/data/` — one level up from `mk_1/`, gitignored, never committed.

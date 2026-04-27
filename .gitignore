@@ -76,3 +76,13 @@ Thumbs.db
 .env
 *.pem
 .kaggle/
+
+# Windows file metadata streams (created when copying files from Windows to WSL)
+*Zone.Identifier
+*:Zone.Identifier
+data/glove.*
+data/glove.*
+glove.*
+# Experiment outputs (regenerable from sweep.py / analyze.py)
+*/experiments/*/results/
+*/experiments/*/figures/
