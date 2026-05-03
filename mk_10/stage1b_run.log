@@ -1,0 +1,134 @@
+>>> loading data ...
+    train=59,759  val=10,546
+
+>>> parsing corpora with spaCy (cached) ...
+    train: loaded 59,759 parsed docs from cache (parsed_train.pkl)
+    val: loaded 10,546 parsed docs from cache (parsed_val.pkl)
+
+>>> applying regex negation (held fixed) ...
+    regex prep: 3.0s
+
+>>> V1_control: triples=False, paths=False ...
+    fit: 40.4s  F1=0.9249  ECE=0.0101  n_feats=150,000  flips=427
+
+>>> V2_triples: triples=True, paths=False ...
+    ERROR: ValueError: DepAwareVectorizer: no parsed_train/parsed_val matches corpus of length 1. Pass parsed docs at construction.
+Traceback (most recent call last):
+  File "/app/mk_10/experiments/10b_dep_features/variants.py", line 253, in main
+    rec = evaluate_variant(name, parsed_train, parsed_val,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/experiments/10b_dep_features/variants.py", line 147, in evaluate_variant
+    n_features = pipe.named_steps["vec"].transform(X_va_text[:1]).shape[1]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/utils/_set_output.py", line 316, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/shared/dep_vectorizer.py", line 166, in transform
+    parsed = self._get_parsed_for(X)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/shared/dep_vectorizer.py", line 117, in _get_parsed_for
+    raise ValueError(
+ValueError: DepAwareVectorizer: no parsed_train/parsed_val matches corpus of length 1. Pass parsed docs at construction.
+
+>>> V3_sentiment_paths: triples=False, paths=True ...
+    ERROR: ModuleNotFoundError: No module named 'nltk'
+Traceback (most recent call last):
+  File "/app/mk_10/experiments/10b_dep_features/variants.py", line 253, in main
+    rec = evaluate_variant(name, parsed_train, parsed_val,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/experiments/10b_dep_features/variants.py", line 127, in evaluate_variant
+    pipe.fit(X_tr_bal, y_tr_bal)
+  File "/usr/local/lib/python3.11/site-packages/sklearn/base.py", line 1336, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/pipeline.py", line 613, in fit
+    Xt = self._fit(X, y, routed_params, raw_params=params)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/pipeline.py", line 547, in _fit
+    X, fitted_transformer = fit_transform_one_cached(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/joblib/memory.py", line 326, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/pipeline.py", line 1484, in _fit_transform_one
+    res = transformer.fit_transform(X, y, **params.get("fit_transform", {}))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/utils/_set_output.py", line 316, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/base.py", line 910, in fit_transform
+    return self.fit(X, y, **fit_params).transform(X)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/shared/dep_vectorizer.py", line 147, in fit
+    self.sent_words_ = get_sentiment_words(threshold=self.sentiment_threshold)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/shared/dep_features.py", line 69, in get_sentiment_words
+    lex = _get_vader_lexicon()
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/shared/dep_features.py", line 52, in _get_vader_lexicon
+    import nltk
+ModuleNotFoundError: No module named 'nltk'
+
+>>> V4_triples_and_paths: triples=True, paths=True ...
+    ERROR: ModuleNotFoundError: No module named 'nltk'
+Traceback (most recent call last):
+  File "/app/mk_10/experiments/10b_dep_features/variants.py", line 253, in main
+    rec = evaluate_variant(name, parsed_train, parsed_val,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/experiments/10b_dep_features/variants.py", line 127, in evaluate_variant
+    pipe.fit(X_tr_bal, y_tr_bal)
+  File "/usr/local/lib/python3.11/site-packages/sklearn/base.py", line 1336, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/pipeline.py", line 613, in fit
+    Xt = self._fit(X, y, routed_params, raw_params=params)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/pipeline.py", line 547, in _fit
+    X, fitted_transformer = fit_transform_one_cached(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/joblib/memory.py", line 326, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/pipeline.py", line 1484, in _fit_transform_one
+    res = transformer.fit_transform(X, y, **params.get("fit_transform", {}))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/utils/_set_output.py", line 316, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/base.py", line 910, in fit_transform
+    return self.fit(X, y, **fit_params).transform(X)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/shared/dep_vectorizer.py", line 147, in fit
+    self.sent_words_ = get_sentiment_words(threshold=self.sentiment_threshold)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/shared/dep_features.py", line 69, in get_sentiment_words
+    lex = _get_vader_lexicon()
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/app/mk_10/shared/dep_features.py", line 52, in _get_vader_lexicon
+    import nltk
+ModuleNotFoundError: No module named 'nltk'
+
+>>> wrote /app/mk_10/experiments/10b_dep_features/results/variants.json
+
+==============================================================================================================
+=== Stage 1b — Dependency feature variants ===
+==============================================================================================================
+metric                              V1_control
+----------------------------------------------
+f1_macro                                0.9249  
+ECE                                     0.0101  
+AUROC_U                                 0.8963  
+H_epistemic                             0.0574  
+H_high_sigma                            0.4945  
+n_features                              150000  
+sentiment_flips_1_2                        427  
+----------------------------------------------
+Class 0 F1                              0.9725  
+Class 1 F1                              0.8954  
+Class 2 F1                              0.9067  
+
+>>> wrote /app/mk_10/experiments/10b_dep_features/results/comparison_table.txt
+
+=== Decision ===
+
+  ==> no dep-feature combo cleared the +0.001 bar; Stage 2 sweep optional, low expected value

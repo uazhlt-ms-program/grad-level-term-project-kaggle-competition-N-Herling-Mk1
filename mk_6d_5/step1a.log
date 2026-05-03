@@ -1,0 +1,48 @@
+    [pseudo-label thresholds]
+      POS_MEAN=0.1  NEG_MEAN=-0.1
+      STRONG_POS=0.5  STRONG_NEG=-0.5
+      NR_FRAC=0.4  NEUT_BAND=0.05
+      REQUIRE_STRONG_WORD=False
+>>> Stage 1a: pseudo-label sentences from corpus + val + test
+
+>>> loading lexicon ...
+    lexicon: 54,875 words
+>>> loading bigram LM ...
+    bigram: 30,002 entries, V=30002
+
+>>> processing FULL training corpus ...
+    70,305 training docs
+    [train_full]   5000 docs,   44215 sentences, 9.3s
+    [train_full]  10000 docs,   87999 sentences, 18.7s
+    [train_full]  15000 docs,  132334 sentences, 28.3s
+    [train_full]  20000 docs,  176322 sentences, 38.0s
+    [train_full]  25000 docs,  220795 sentences, 48.1s
+    [train_full]  30000 docs,  264300 sentences, 57.2s
+    [train_full]  35000 docs,  309071 sentences, 66.8s
+    [train_full]  40000 docs,  352616 sentences, 75.9s
+    [train_full]  45000 docs,  396138 sentences, 85.0s
+    [train_full]  50000 docs,  440258 sentences, 94.1s
+    [train_full]  55000 docs,  484815 sentences, 103.4s
+    [train_full]  60000 docs,  528194 sentences, 112.4s
+    [train_full]  65000 docs,  572914 sentences, 121.4s
+    [train_full] DONE: 69,679 docs, 614,629 sentences in 129.9s
+>>> wrote /app/mk_6d_5/artifacts/sentences_train_full.pkl  (614,629 rows)
+    tag distribution: {'neut': 347056, 'neg': 141994, 'pos': 116271, 'nr': 9308}
+
+>>> processing VAL boundary docs ...
+    5,135 val boundary docs
+    [val_boundary]   5000 docs,   61462 sentences, 13.0s
+    [val_boundary] DONE: 5,135 docs, 63,019 sentences in 13.4s
+>>> wrote /app/mk_6d_5/artifacts/sentences_val.pkl  (63,019 rows)
+    tag distribution: {'neut': 34500, 'neg': 17396, 'pos': 11081, 'nr': 42}
+
+>>> processing TEST boundary docs ...
+    8,633 test boundary docs
+    [test_boundary]   5000 docs,   62398 sentences, 13.2s
+    [test_boundary] DONE: 8,633 docs, 107,772 sentences in 23.0s
+>>> wrote /app/mk_6d_5/artifacts/sentences_test.pkl  (107,772 rows)
+    tag distribution: {'neut': 62088, 'neg': 27942, 'pos': 17692, 'nr': 50}
+>>> wrote /app/mk_6d_5/artifacts/sentences_train_boundary.pkl  (63,019 rows) — used as BOUNDARY training data
+>>> wrote tag set: /app/mk_6d_5/artifacts/tag_set.txt
+
+Done. Stage 1b (train MEMM) reads from these parquet files.

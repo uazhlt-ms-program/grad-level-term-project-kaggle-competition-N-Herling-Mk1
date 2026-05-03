@@ -1,0 +1,39 @@
+>>> mk_6c: post-hoc ensembles from saved mk_6b probabilities
+
+>>> loading saved test probabilities from mk_6b/models/ ...
+    loaded full_data: shape=(17580, 3), range=[0.0000, 1.0000]
+    loaded mk2_full: shape=(17580, 3), range=[0.0000, 1.0000]
+    loaded mk7_full: shape=(17580, 3), range=[0.0000, 1.0000]
+    loaded mk9_53_full: shape=(17580, 3), range=[0.0000, 1.0000]
+
+>>> mk_6 alone label distribution (reference, Kaggle 0.93121):
+    {0: 8040, 1: 4850, 2: 4690}
+
+================================================================================
+=== Candidate 1: 4-way uniform mean ===
+================================================================================
+    weights: mk_2=0.25, mk_6=0.25, mk_7=0.25, mk_9_53=0.25
+>>> ensemble_4way_uniform: /app/mk_6c/submissions/mk_6c_ensemble_4way_uniform.csv
+    label distribution: {0: 8071, 1: 4879, 2: 4630}
+    Δ vs mk_6 alone:    {0: 31, 1: 29, 2: -60}
+
+================================================================================
+=== Candidate 2: 4-way mk_6-dominant ===
+================================================================================
+    weights: mk_2=0.15, mk_6=0.40, mk_7=0.15, mk_9_53=0.30
+>>> ensemble_4way_mk6_dom: /app/mk_6c/submissions/mk_6c_ensemble_4way_mk6_dom.csv
+    label distribution: {0: 8056, 1: 4882, 2: 4642}
+    Δ vs mk_6 alone:    {0: 16, 1: 32, 2: -48}
+
+================================================================================
+=== Agreement with current best (mk_6 + mk_9_53, Kaggle 0.93170) ===
+================================================================================
+  4way_uniform vs current best:  17,397 agree (99.0%), 183 differ
+  4way_mk6_dom vs current best:  17,473 agree (99.4%), 107 differ
+
+  Current best label distribution:
+    {0: 8041, 1: 4879, 2: 4660}
+
+>>> done. Two new submissions ready:
+   /app/mk_6c/submissions/mk_6c_ensemble_4way_uniform.csv
+   /app/mk_6c/submissions/mk_6c_ensemble_4way_mk6_dom.csv

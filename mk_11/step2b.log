@@ -1,0 +1,27 @@
+>>> Stage 11_2b: Option B — augment all 4 components with MEMM features
+
+    train: 70,305, test: 17,580
+>>> applying negation ...
+    3.8s
+    val_idx: 10,546
+
+=== mk_2 (augmented) ===
+    val F1: 0.9252
+
+=== mk_6 (augmented) ===
+    val F1: 0.9289
+
+=== mk_7 (augmented, NBSVM) ===
+    val F1: 0.9088
+
+=== mk_9_53 (augmented, TF-IDF + GloVe) ===
+  loading GloVe from /app/data/glove.6B.100d.txt ...
+  loaded 400,000 GloVe vectors
+    val F1: 0.9278
+
+>>> Component val F1s:
+    mk_2: 0.9252
+    mk_6: 0.9289
+    mk_7: 0.9088
+    mk_9_53: 0.9278
+>>> wrote /app/mk_11/results/option_b_summary.json

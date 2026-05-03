@@ -1,0 +1,196 @@
+>>> Stage 1: extract epistemic boundary cases from val
+
+>>> winning ensemble weights (mk_6d top-1):
+    mk_2=0.0462  mk_6=0.4919  mk_7=0.2000  mk_9_53=0.2619
+    sum = 1.000000
+
+>>> loading val probabilities + labels ...
+    val examples: 10,546
+
+>>> computing weighted ensemble predictions ...
+    ensemble val F1 = 0.9281
+
+>>> confusion matrix (rows = true, cols = predicted):
+           pred=0   pred=1   pred=2
+    true=0    4754       52       36
+    true=1     112     2554      205
+    true=2      60      200     2573
+
+>>> loading val text ...
+    val text loaded: 10,546 examples (split alignment verified)
+
+>>> building master diagnostic DataFrame ...
+
+>>> category distribution (each example may be in multiple categories):
+    is_high_margin_wrong                :   278  ( 2.64%)
+    is_low_margin_wrong                 :   155  ( 1.47%)
+    is_low_margin_correct               :   218  ( 2.07%)
+    is_class_1_2_disagreement           :   405  ( 3.84%)
+    is_class_0_other_disagreement       :   260  ( 2.47%)
+
+>>> error type × margin cross-tab:
+    total errors: 665 (6.31% of val)
+
+    margin bin    count   pred=0,true=1   pred=0,true=2   pred=1,true=0   pred=1,true=2   pred=2,true=0   pred=2,true=1
+    0-0.10           77              10               8               8              22               8              21
+    0.10-0.20        78              15               6               7              21               9              20
+    0.20-0.30        72              10               6               5              29               1              21
+    0.30-0.50       160              21              17              12              49               7              54
+    0.50+           278              56              23              20              79              11              89
+
+>>> writing CSVs ...
+    /app/mk_6d_1/results/all_predictions.csv  (10,546 rows, full diagnostic)
+    /app/mk_6d_1/results/boundary_high_margin_wrong.csv  (278 rows — confident-but-wrong, prime sarcasm zone)
+    /app/mk_6d_1/results/boundary_class_1_2_disagreement.csv  (405 rows — positive/negative confusion)
+    /app/mk_6d_1/results/boundary_low_margin_wrong.csv  (155 rows — uncertain-and-wrong)
+    /app/mk_6d_1/results/boundary_low_margin_correct.csv  (218 rows — uncertain-but-right, comparison set)
+
+====================================================================================================
+=== SAMPLE: top 30 'high_margin_wrong' cases (sorted by margin descending) ===
+=== These are HIGH-CONFIDENCE WRONG predictions — prime sarcasm hunting ground
+====================================================================================================
+
+  [val_idx= 9599]  margin=0.989  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.993, 0.004, 0.003)  len=18w
+    TEXT: OMG!!!! I love rent! I listen to the soundtrack like every possible second!!!!! BUY THIS CD!!!! Its AMAZING!!!!!!!!
+
+  [val_idx= 3205]  margin=0.988  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.993, 0.004, 0.003)  len=78w
+    TEXT: As someone who has been riding for a while but who feels like I am somehow "missing" some of the directions, this book has made a lot of sense. It is quite a te...
+
+  [val_idx= 7244]  margin=0.978  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.988, 0.010, 0.002)  len=28w
+    TEXT: I loved this album more than all of Jack Johnson albums. The combination of other kinds of musical instruments gives it an experimental touch. Very soothing and...
+
+  [val_idx= 5029]  margin=0.976  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.984, 0.008, 0.008)  len=1w
+    TEXT: Grea
+
+  [val_idx=10295]  margin=0.974  true=not_review  pred=positive    (1/4 components agree)
+    p=(0.000, 0.987, 0.013)  len=28w
+    TEXT: I LOVE THIS MOVIE. In fact it's my favorite movie of all time! If you love disney and love family movies than the is the movie for you!
+
+  [val_idx= 9156]  margin=0.972  true=positive    pred=negative    (1/4 components agree)
+    p=(0.001, 0.013, 0.985)  len=213w
+    TEXT: This was Laurel and Hardy's last silent film for Roach Studios. However, since the public had a real thirst for "talkies", this same short was re-made by the te...
+
+  [val_idx= 7423]  margin=0.972  true=not_review  pred=positive    (1/4 components agree)
+    p=(0.010, 0.982, 0.008)  len=42w
+    TEXT: This is an exceptional game that really captures the mood of a Pixar movie. It has humor for children with also some inside jokes adults will think is funny (ag...
+
+  [val_idx= 3681]  margin=0.966  true=not_review  pred=positive    (1/4 components agree)
+    p=(0.005, 0.980, 0.015)  len=74w
+    TEXT: We love Rango! This is a great story about the wild west from the kids point of view but very deep and maybe even disturbing with it's messages about corruption...
+
+  [val_idx= 7365]  margin=0.963  true=not_review  pred=positive    (1/4 components agree)
+    p=(0.002, 0.981, 0.018)  len=3w
+    TEXT: Classic fun movie.
+
+  [val_idx= 7085]  margin=0.955  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.973, 0.018, 0.009)  len=13w
+    TEXT: I have only one Word, "AMAZING", is part of my colection. buy now.
+
+  [val_idx= 9995]  margin=0.948  true=positive    pred=negative    (1/4 components agree)
+    p=(0.000, 0.026, 0.974)  len=136w
+    TEXT: Right, here we go, you have probably read in previous reviews on this film that it is awful, badly acted, avoid at all costs. Well i suppose in some ways this i...
+
+  [val_idx= 9112]  margin=0.943  true=positive    pred=negative    (1/4 components agree)
+    p=(0.000, 0.028, 0.972)  len=351w
+    TEXT: Why does this have such a low rating? I really don't get it... Is it because of the bad acting? The bad dialogue? Well, who cares about these things in cheesy l...
+
+  [val_idx= 1664]  margin=0.937  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.966, 0.029, 0.005)  len=23w
+    TEXT: I bought this for my daughter and I found myself singing right along after over 25 years. It's great. Truely an American classic.
+
+  [val_idx= 8792]  margin=0.935  true=positive    pred=negative    (1/4 components agree)
+    p=(0.004, 0.031, 0.966)  len=164w
+    TEXT: Actually I'll admit I'm a political junkie, so this resonated with me, but the erratic nature of Ms. Green (yes I know what they did to her), but the ending was...
+
+  [val_idx= 5795]  margin=0.935  true=negative    pred=positive    (1/4 components agree)
+    p=(0.000, 0.967, 0.032)  len=259w
+    TEXT: I went to see this 3 nights ago here in Cork, Ireland. It was the world premiere of it, in the tiny cinema in the Triskel Arts Centre as part of the Cork Film F...
+
+  [val_idx= 1551]  margin=0.932  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.963, 0.007, 0.031)  len=31w
+    TEXT: FYI - Lee Armstrong's review below reveals many key plot points. If you haven't read the book, DO NOT read that review unless you want to know too much. - Greg
+
+  [val_idx=  464]  margin=0.930  true=negative    pred=positive    (1/4 components agree)
+    p=(0.000, 0.965, 0.035)  len=50w
+    TEXT: When I first saw this film it was not an impressive one. Now that I have seen it again with some friends on DVD ( they had not viewed it on the silver screen ),...
+
+  [val_idx= 3126]  margin=0.927  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.952, 0.022, 0.025)  len=13w
+    TEXT: Package was at my door in just a couple days. Good quality packing
+
+  [val_idx=  959]  margin=0.923  true=negative    pred=not_review  (1/4 components agree)
+    p=(0.954, 0.014, 0.031)  len=411w
+    TEXT: This game was terrible. I think they worked too hard on the visuals and didn't do much with the gameplay, which is the most important part. I mean, the visuals ...
+
+  [val_idx= 7989]  margin=0.923  true=positive    pred=negative    (1/4 components agree)
+    p=(0.001, 0.038, 0.961)  len=169w
+    TEXT: Another day, another movie this guy has not seen, another 1 star review. Another review talking about how everyone involved is a "freak," nevermind what makes t...
+
+  [val_idx= 9297]  margin=0.922  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.957, 0.034, 0.009)  len=16w
+    TEXT: We have owned it for 4 months and the kids ask for it every week !
+
+  [val_idx=10096]  margin=0.922  true=negative    pred=positive    (1/4 components agree)
+    p=(0.003, 0.960, 0.037)  len=112w
+    TEXT: Although this isn't a "great film," there's something compelling and memorable about it. Like another commenter on the film, I saw this in childhood. It's been ...
+
+  [val_idx= 4482]  margin=0.921  true=not_review  pred=positive    (1/4 components agree)
+    p=(0.032, 0.954, 0.014)  len=356w
+    TEXT: the grateful dead bookend 1974 with shows at winterland, starting the year in february and ending the year with the run of shows in october which became the mov...
+
+  [val_idx=10110]  margin=0.920  true=negative    pred=positive    (1/4 components agree)
+    p=(0.000, 0.960, 0.040)  len=171w
+    TEXT: These days, Ridley Scott is one of the top directors and producers and can command huge sums to helm movies--especially since he has films like ALIEN, GLADIATOR...
+
+  [val_idx= 4329]  margin=0.918  true=negative    pred=not_review  (1/4 components agree)
+    p=(0.946, 0.027, 0.027)  len=38w
+    TEXT: Firstly, you need to have a large space in which to perform the dance. Steps are poorly taught and very very very high impact. My advice : play some music that ...
+
+  [val_idx=10456]  margin=0.918  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.951, 0.033, 0.016)  len=17w
+    TEXT: Love the Sherlock Holmes with Basil Rathbone! Even my granddaughter (8) loved the black & white version!
+
+  [val_idx= 8833]  margin=0.917  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.946, 0.024, 0.030)  len=20w
+    TEXT: I have the other Cinderella stories but this one is awesome because there is more singing, I love Lucy Hale
+
+  [val_idx=10292]  margin=0.915  true=positive    pred=negative    (1/4 components agree)
+    p=(0.000, 0.042, 0.957)  len=177w
+    TEXT: This is a film that you must see. To see Christian Slater try his hardest to take this role seriously, to see Tara Reid trying to look smart in black glasses, t...
+
+  [val_idx= 9903]  margin=0.910  true=positive    pred=negative    (1/4 components agree)
+    p=(0.008, 0.041, 0.951)  len=246w
+    TEXT: Basically an endearingly chintzy and moronic $1.50 version of the nifty early 80's subterranean creature feature favorite "The Boogens," this entertainingly sch...
+
+  [val_idx= 6928]  margin=0.909  true=positive    pred=not_review  (1/4 components agree)
+    p=(0.948, 0.039, 0.013)  len=28w
+    TEXT: Great for long trips in the car. Works on U.S. PSP's. Be sure to have a car charger for your PSP. You can get the Part 2 also.
+
+====================================================================================================
+=== Inspection guide ===
+====================================================================================================
+
+  Files to open in Excel/LibreOffice for manual review:
+    1. boundary_high_margin_wrong.csv   — start here for sarcasm
+    2. boundary_class_1_2_disagreement.csv — sentiment-flip examples
+    3. boundary_low_margin_wrong.csv    — model genuinely uncertain
+    4. boundary_low_margin_correct.csv  — comparison set (right answers, low confidence)
+
+  Useful columns to sort by:
+    ens_margin            — confidence
+    text_len_words        — short texts often more sarcastic
+    n_components_agree    — disagreement among components hints at sarcasm
+
+  What to look for to confirm sarcasm hypothesis:
+    1. Text contains positive surface words (great, love, best, perfect, amazing)
+    2. But true label is class 2 (negative)
+    3. And/or text contains negation patterns or counter-narrative phrases
+       ('but the X broke', 'except when', 'until I tried to')
+
+  Send back a summary: is sarcasm visible in 30%+ of high_margin_wrong cases?
+  If yes → Stage 2 has signal to extract.
+  If no  → revisit the boundary definition before building Stage 2.

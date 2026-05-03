@@ -1,0 +1,49 @@
+>>> Stage 1f: refit M3_RF and M5_GB on full val, write all 3 submissions
+
+>>> val:  (5135, 47)
+>>> test: (8633, 45)
+>>> features used: 40
+
+>>> ensemble weights: [0.04620221 0.49187558 0.20002256 0.26189965]
+
+>>> [BASELINE] wrote /app/mk_6d_4/submissions/mk_6d_4_baseline_no_rescue.csv
+    label distribution: {0: 8073, 1: 4857, 2: 4650}
+
+====================================================================================================
+=== M3_RF_multi_t0.65: refit on full val, apply to test
+====================================================================================================
+    n flipped: 77
+    label distribution: {0: 8043, 1: 4897, 2: 4640}
+    deltas vs baseline: {0: -30, 1: 40, 2: -10}
+    wrote /app/mk_6d_4/submissions/mk_6d_4_rescue_M3_RF.csv
+
+====================================================================================================
+=== M5_GB_multi_t0.65: refit on full val, apply to test
+====================================================================================================
+    fitting GBM (this takes ~60-90s on full val) ...
+    GBM fit: 19.1s
+    n flipped: 460
+    label distribution: {0: 8058, 1: 4960, 2: 4562}
+    deltas vs baseline: {0: -15, 1: 103, 2: -88}
+    wrote /app/mk_6d_4/submissions/mk_6d_4_rescue_M5_GB.csv
+
+====================================================================================================
+=== M3 vs M5 flip overlap on TEST ===
+====================================================================================================
+    cases M3 flipped only:                2
+    cases M5 flipped only:                385
+    cases BOTH flipped:                   75
+        of which same target class:        75
+    total cases either flipped:           462
+
+    Reading: M3 (RF, conservative) is the safe bet.
+           M5 (GBM, aggressive) is the high-variance bet.
+           Their flip overlap tells us if they're targeting the same cases.
+           High overlap = both find same signal. Low overlap = they disagree.
+
+====================================================================================================
+=== Three submissions ready ===
+====================================================================================================
+    mk_6d_4_baseline_no_rescue.csv    (sanity, should match 0.93309)
+    mk_6d_4_rescue_M3_RF.csv    (RF rescue, 77 flips)
+    mk_6d_4_rescue_M5_GB.csv    (GBM rescue, 460 flips)

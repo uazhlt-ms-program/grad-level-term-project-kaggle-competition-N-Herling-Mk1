@@ -1,0 +1,57 @@
+>>> Stage 11_2a: Option A — augment mk_6 with MEMM features
+
+>>> mk_6 config:
+      C                        = 27.19242327929672
+      ngram_range              = (1, 2)
+      min_df                   = 5
+      max_features             = 150000
+      sublinear_tf             = True
+      class_weight             = None
+      class0_undersample       = 1.0
+      class1_oversample        = 1.0
+      class2_oversample        = 1.3
+
+>>> loading data ...
+    train: 70,305, test: 17,580
+>>> applying negation preprocessing ...
+    negation: 3.7s
+>>> loading MEMM features ...
+    train memm: (69679, 17)
+    test memm:  (17580, 17)
+    M_train shape: (70305, 16)
+    M_test  shape: (17580, 16)
+
+>>> reproducing mk_6d val split (sklearn stratified, seed 42, test_size=0.15) ...
+    train: 59,759  val: 10,546
+    val_idx[0:5] = [47953, 51149, 28832, 34186, 21017]  (sklearn stratified order)
+
+================================================================================
+=== FULL FIT (mk_6 + MEMM) on all training data → test probs
+================================================================================
+    balanced training set: 75,971 examples
+>>> fitting TF-IDF vectorizer on balanced train ...
+    vec fit: 16.0s, shape=(75971, 150000)
+    augmented X shape: (75971, 150016)
+>>> fitting LR on augmented features ...
+    fit: 101.6s
+>>> predicting on test ...
+>>> saved test probas: shape=(17580, 3)
+
+================================================================================
+=== VAL FIT (mk_6 + MEMM) on 85% train → 15% val OOF probs
+================================================================================
+    train aug shape: (64575, 150016)
+>>> fitting val-side LR ...
+    fit: 96.7s
+>>> val F1 (mk6+MEMM alone, no ensemble): 0.9295
+
+{
+  "option": "A",
+  "description": "mk_6 augmented with cross-fitted MEMM features",
+  "n_features_text": 150000,
+  "n_features_memm": 16,
+  "n_features_total": 150016,
+  "val_f1_mk6_aug_alone": 0.9294802058026637
+}
+
+>>> stage 11_2a done. mk6_aug val + test probas saved.

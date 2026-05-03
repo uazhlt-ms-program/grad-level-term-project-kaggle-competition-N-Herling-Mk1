@@ -1,0 +1,119 @@
+>>> loading FULL training data (no val split) ...
+    full data: 70,305 examples
+    class distribution: {np.int64(0): np.int64(32277), np.int64(1): np.int64(19139), np.int64(2): np.int64(18889)}
+
+>>> loading winners: architectures=['mk_2', 'mk_5', 'mk_6', 'mk_7'], regimes=['f1_tuned', 'rrm_tuned']
+    loaded 8 (architecture, regime) winners
+
+>>> running 5-fold CV for each winner ...
+
+>>> mk_2 / f1_tuned ...
+      C=4.564607361960842
+      preprocess: 0.0s
+      fold 1/5: F1=0.9236  ECE=0.0282  (30.1s)
+      fold 2/5: F1=0.9231  ECE=0.0284  (23.7s)
+      fold 3/5: F1=0.9244  ECE=0.0287  (29.9s)
+      fold 4/5: F1=0.9206  ECE=0.0289  (26.5s)
+      fold 5/5: F1=0.9221  ECE=0.0268  (31.9s)
+      MEAN F1=0.9227  σ_fold=0.0015  ECE=0.0282  RRM(σ)=0.4221
+      vs single-val F1 (0.9200): +0.0027
+
+>>> mk_2 / rrm_tuned ...
+      C=13.939821771844683
+      preprocess: 0.0s
+      fold 1/5: F1=0.9212  ECE=0.0032  (32.3s)
+      fold 2/5: F1=0.9228  ECE=0.0041  (29.1s)
+      fold 3/5: F1=0.9227  ECE=0.0059  (30.2s)
+      fold 4/5: F1=0.9218  ECE=0.0030  (29.6s)
+      fold 5/5: F1=0.9208  ECE=0.0070  (35.0s)
+      MEAN F1=0.9219  σ_fold=0.0009  ECE=0.0046  RRM(σ)=0.5031
+      vs single-val F1 (0.9195): +0.0024
+
+>>> mk_5 / f1_tuned ...
+      C=16.942118660793128
+      preprocess: 2.8s
+      fold 1/5: F1=0.9217  ECE=0.0054  (28.5s)
+      fold 2/5: F1=0.9242  ECE=0.0047  (45.0s)
+      fold 3/5: F1=0.9234  ECE=0.0051  (41.7s)
+      fold 4/5: F1=0.9199  ECE=0.0046  (35.3s)
+      fold 5/5: F1=0.9218  ECE=0.0047  (37.2s)
+      MEAN F1=0.9222  σ_fold=0.0017  ECE=0.0049  RRM(σ)=0.5093
+      vs single-val F1 (0.9228): -0.0006
+
+>>> mk_5 / rrm_tuned ...
+      C=44.69044793171797
+      preprocess: 2.8s
+      fold 1/5: F1=0.9233  ECE=0.0114  (48.1s)
+      fold 2/5: F1=0.9252  ECE=0.0120  (39.2s)
+      fold 3/5: F1=0.9232  ECE=0.0122  (36.0s)
+      fold 4/5: F1=0.9202  ECE=0.0147  (44.1s)
+      fold 5/5: F1=0.9199  ECE=0.0131  (35.8s)
+      MEAN F1=0.9224  σ_fold=0.0023  ECE=0.0127  RRM(σ)=0.5711
+      vs single-val F1 (0.9224): -0.0000
+
+>>> mk_6 / f1_tuned ...
+      C=27.19242327929672
+      preprocess: 3.0s
+      fold 1/5: F1=0.9245  ECE=0.0123  (34.9s)
+      fold 2/5: F1=0.9248  ECE=0.0105  (31.4s)
+      fold 3/5: F1=0.9257  ECE=0.0032  (34.7s)
+      fold 4/5: F1=0.9209  ECE=0.0080  (39.2s)
+      fold 5/5: F1=0.9240  ECE=0.0078  (31.1s)
+      MEAN F1=0.9240  σ_fold=0.0018  ECE=0.0084  RRM(σ)=0.5552
+      vs single-val F1 (0.9249): -0.0009
+
+>>> mk_6 / rrm_tuned ...
+      C=27.19242327929672
+      preprocess: 2.8s
+      fold 1/5: F1=0.9245  ECE=0.0123  (34.3s)
+      fold 2/5: F1=0.9248  ECE=0.0105  (27.6s)
+      fold 3/5: F1=0.9257  ECE=0.0032  (34.7s)
+      fold 4/5: F1=0.9209  ECE=0.0080  (37.3s)
+      fold 5/5: F1=0.9240  ECE=0.0078  (31.3s)
+      MEAN F1=0.9240  σ_fold=0.0018  ECE=0.0084  RRM(σ)=0.5552
+      vs single-val F1 (0.9249): -0.0009
+
+>>> mk_7 / f1_tuned ...
+      C=30.564144691662435
+      preprocess: 2.8s
+      fold 1/5: F1=0.9255  ECE=0.0122  (97.3s)
+      fold 2/5: F1=0.9288  ECE=0.0078  (75.8s)
+      fold 3/5: F1=0.9283  ECE=0.0111  (131.0s)
+      fold 4/5: F1=0.9219  ECE=0.0146  (131.8s)
+      fold 5/5: F1=0.9253  ECE=0.0085  (117.8s)
+      MEAN F1=0.9260  σ_fold=0.0028  ECE=0.0108  RRM(σ)=0.5825
+      vs single-val F1 (0.9272): -0.0013
+
+>>> mk_7 / rrm_tuned ...
+      C=41.95322327999909
+      preprocess: 3.0s
+      fold 1/5: F1=0.9253  ECE=0.0171  (100.7s)
+      fold 2/5: F1=0.9288  ECE=0.0204  (95.0s)
+      fold 3/5: F1=0.9285  ECE=0.0161  (114.7s)
+      fold 4/5: F1=0.9220  ECE=0.0188  (149.3s)
+      fold 5/5: F1=0.9252  ECE=0.0174  (121.7s)
+      MEAN F1=0.9260  σ_fold=0.0028  ECE=0.0180  RRM(σ)=0.6220
+      vs single-val F1 (0.9248): +0.0012
+
+>>> total crossval time: 2178.2s (36.3 min)
+>>> wrote /app/mk_8/experiments/08_crossval/results/crossval_records.json
+>>> wrote /app/mk_8/experiments/08_crossval/results/winners_with_sigma.json
+>>> wrote /app/mk_8/experiments/08_crossval/results/full_diagnostics.csv
+
+====================================================================================================
+=== K-fold cross-validation summary ===
+====================================================================================================
+architecture    regime  single_val_F1  kfold_mean_F1  sigma_fold  kfold_ECE  kfold_AUROC_U  RRM_with_sigma
+        mk_2  f1_tuned         0.9200         0.9227      0.0015     0.0282         0.8979          0.4221
+        mk_2 rrm_tuned         0.9195         0.9219      0.0009     0.0046         0.8994          0.5031
+        mk_5  f1_tuned         0.9228         0.9222      0.0017     0.0049         0.8969          0.5093
+        mk_5 rrm_tuned         0.9224         0.9224      0.0023     0.0127         0.8982          0.5711
+        mk_6  f1_tuned         0.9249         0.9240      0.0018     0.0084         0.9003          0.5552
+        mk_6 rrm_tuned         0.9249         0.9240      0.0018     0.0084         0.9003          0.5552
+        mk_7  f1_tuned         0.9272         0.9260      0.0028     0.0108         0.9002          0.5825
+        mk_7 rrm_tuned         0.9248         0.9260      0.0028     0.0180         0.8960          0.6220
+
+Reading the σ_fold column:
+  Low (≤ 0.003):  generalizes well across folds; trust val→Kaggle gap
+  Mid (0.003-0.006): moderate fold sensitivity; gap may shift
+  High (> 0.006): val-fold-sensitive; trust the single val F1 less

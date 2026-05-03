@@ -1,0 +1,95 @@
+>>> mk_12 stage C: cross-fitted ensemble inference (5 folds × 4 components)
+
+>>> loading data ...
+    train: 70,305, test: 17,580
+>>> applying negation preprocessing (for mk_6, mk_7, mk_9_53) ...
+    3.6s
+
+>>> splitting train into 5 folds (KFold, random_state=42) ...
+    fold sizes: [14061, 14061, 14061, 14061, 14061]
+
+================================================================================
+=== FOLD 1/5: train on 56,244, ignore 14,061
+================================================================================
+      [fold-0] mk_2 fit ...
+      [fold-0] mk_2 done 31.1s
+      [fold-0] mk_6 fit ...
+      [fold-0] mk_6 done 36.3s
+      [fold-0] mk_7 fit (NBSVM) ...
+      [fold-0] mk_7 done 33.1s
+      [fold-0] mk_9_53 fit (TF-IDF + GloVe) ...
+  loading GloVe from /app/data/glove.6B.100d.txt ...
+  loaded 400,000 GloVe vectors
+      [fold-0] mk_9_53 done 113.4s
+    fold 1 total: 214.2s elapsed
+
+================================================================================
+=== FOLD 2/5: train on 56,244, ignore 14,061
+================================================================================
+      [fold-1] mk_2 fit ...
+      [fold-1] mk_2 done 31.6s
+      [fold-1] mk_6 fit ...
+      [fold-1] mk_6 done 41.5s
+      [fold-1] mk_7 fit (NBSVM) ...
+      [fold-1] mk_7 done 29.1s
+      [fold-1] mk_9_53 fit (TF-IDF + GloVe) ...
+      [fold-1] mk_9_53 done 114.5s
+    fold 2 total: 431.2s elapsed
+
+================================================================================
+=== FOLD 3/5: train on 56,244, ignore 14,061
+================================================================================
+      [fold-2] mk_2 fit ...
+      [fold-2] mk_2 done 26.9s
+      [fold-2] mk_6 fit ...
+      [fold-2] mk_6 done 30.2s
+      [fold-2] mk_7 fit (NBSVM) ...
+      [fold-2] mk_7 done 49.9s
+      [fold-2] mk_9_53 fit (TF-IDF + GloVe) ...
+      [fold-2] mk_9_53 done 111.5s
+    fold 3 total: 650.0s elapsed
+
+================================================================================
+=== FOLD 4/5: train on 56,244, ignore 14,061
+================================================================================
+      [fold-3] mk_2 fit ...
+      [fold-3] mk_2 done 33.9s
+      [fold-3] mk_6 fit ...
+      [fold-3] mk_6 done 41.2s
+      [fold-3] mk_7 fit (NBSVM) ...
+      [fold-3] mk_7 done 36.4s
+      [fold-3] mk_9_53 fit (TF-IDF + GloVe) ...
+      [fold-3] mk_9_53 done 122.6s
+    fold 4 total: 884.4s elapsed
+
+================================================================================
+=== FOLD 5/5: train on 56,244, ignore 14,061
+================================================================================
+      [fold-4] mk_2 fit ...
+      [fold-4] mk_2 done 36.6s
+      [fold-4] mk_6 fit ...
+      [fold-4] mk_6 done 46.8s
+      [fold-4] mk_7 fit (NBSVM) ...
+      [fold-4] mk_7 done 56.2s
+      [fold-4] mk_9_53 fit (TF-IDF + GloVe) ...
+      [fold-4] mk_9_53 done 126.6s
+    fold 5 total: 1150.9s elapsed
+
+>>> averaging across 5 folds ...
+    saved mk_2_crossfit_test_proba.npy  shape=(17580, 3)
+    saved mk_6_crossfit_test_proba.npy  shape=(17580, 3)
+    saved mk_7_crossfit_test_proba.npy  shape=(17580, 3)
+    saved mk_9_53_crossfit_test_proba.npy  shape=(17580, 3)
+
+>>> mk_6d locked weights:
+    mk_2      : 0.0462
+    mk_6      : 0.4919
+    mk_7      : 0.2000
+    mk_9_53   : 0.2619
+
+>>> wrote /app/mk_12/submissions/mk_12_crossfit_inference.csv
+    label distribution: {0: 8083, 1: 4860, 2: 4637}
+    predictions changed vs mk_6d_weight_swept: 129 of 17,580 (0.73%)
+>>> wrote /app/mk_12/results/crossfit_summary.json
+
+>>> total elapsed: 1151.0s

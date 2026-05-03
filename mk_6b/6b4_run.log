@@ -1,0 +1,27 @@
+>>> Push 4: ensemble mk_6 + mk_9-config-53 (stacked TF-IDF + GloVe)
+
+>>> loading data ...
+    full train: 70,305  test: 17,580
+
+>>> loading mk_6 test probabilities from 6b1: /app/mk_6b/models/mk_6b_full_data_test_proba.npy
+
+>>> fitting mk_9-config-53 (StackedTfidfGlove) on full data ...
+    [first call to load_glove will load 400K GloVe vectors ~5 sec]
+  loading GloVe from /app/data/glove.6B.100d.txt ...
+  loaded 400,000 GloVe vectors
+    mk_9-53 fit: 141.1s
+
+>>> predicting test probabilities from mk_9-53 ...
+    predict: 3.8s
+
+    agreement diagnostic on test (17,580 examples):
+      mk_6 and mk_9-53 agree:    17,069  (97.1%)
+      mk_6 and mk_9-53 disagree:    511  (2.9%)
+
+    Higher disagreement → more potential ensemble lift
+>>> ensemble submission: /app/mk_6b/submissions/mk_6b_ensemble_stacked.csv
+>>> standalone mk_9-53 submission: mk_6b_mk9_53_standalone.csv
+
+Quick sanity:
+    rows: 17580
+    label distribution: {0: 8041, 1: 4879, 2: 4660}

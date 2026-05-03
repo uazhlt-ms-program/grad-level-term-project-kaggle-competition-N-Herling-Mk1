@@ -1,0 +1,32 @@
+>>> mk_12 stage B: blend mk_6d-swept and mk_6c-uniform ensembles
+
+>>> loading test probabilities ...
+>>> mk_6d swept weights (0.93309 Kaggle):
+    mk_2      : 0.0462
+    mk_6      : 0.4919
+    mk_7      : 0.2000
+    mk_9_53   : 0.2619
+>>> mk_6c uniform weights (0.93201 Kaggle):
+    mk_2      : 0.2500
+    mk_6      : 0.2500
+    mk_7      : 0.2500
+    mk_9_53   : 0.2500
+
+>>> blend diagnostics:
+    blend   != swept:    50 (0.28%)
+    blend   != uniform:  64 (0.36%)
+    swept   != uniform:  114 (0.65%)
+
+>>> change vs mk_6d_weight_swept:
+    0 -> 1: 7
+    0 -> 2: 3
+    1 -> 0: 1
+    1 -> 2: 10
+    2 -> 0: 6
+    2 -> 1: 23
+
+>>> wrote /app/mk_12/submissions/mk_12_blend.csv
+    blend label distribution: {0: 8070, 1: 4876, 2: 4634}
+    swept label distribution: {0: 8073, 1: 4857, 2: 4650}
+    deltas:                   {0: -3, 1: 19, 2: -16}
+>>> wrote /app/mk_12/results/blend_summary.json

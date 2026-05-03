@@ -1,0 +1,125 @@
+>>> Stage 2: sub-sentiment rescue — 4-variant comparison
+
+>>> ensemble weights: mk_2=0.0462 mk_6=0.4919 mk_7=0.2000 mk_9_53=0.2619
+>>> val examples: 10,546
+>>> baseline ensemble val F1: 0.9281
+>>> val text loaded; 10,546 examples
+>>> loaded boundary flags from /app/mk_6d_1/results
+
+>>> fitting mk_6 span-scorer on FULL training data ...
+    mk_6 span-scorer fit: 40.9s
+
+==========================================================================================
+=== Variant: V1_class_1_2_conservative
+=== scope=class_1_2, splitter=split_conservative
+==========================================================================================
+    boundary set size: 4,996 val examples (label-free criterion)
+    of which actual errors: 399 (8.0%)
+    boundary cases attempted:   4,996
+    flipped:                    100
+      correctly flipped:        63  (good — was wrong, now right)
+      wrongly flipped:          37  (bad  — was right, now wrong)
+      neutral flipped:          0  (was wrong, still wrong, different class)
+    val F1 before:              0.9281
+    val F1 after:               0.9312
+    lift:                       +0.0030
+    elapsed:                    5.6s
+    pattern breakdown: {'A_ironic_positive': 30, 'B_mixed_trailing_to_1': 6, 'C_surface_pos_masking_neg': 61, 'B_mixed_trailing_to_2': 3}
+
+==========================================================================================
+=== Variant: V2_class_1_2_aggressive
+=== scope=class_1_2, splitter=split_aggressive
+==========================================================================================
+    boundary set size: 4,996 val examples (label-free criterion)
+    of which actual errors: 399 (8.0%)
+    boundary cases attempted:   4,996
+    flipped:                    123
+      correctly flipped:        66  (good — was wrong, now right)
+      wrongly flipped:          56  (bad  — was right, now wrong)
+      neutral flipped:          1  (was wrong, still wrong, different class)
+    val F1 before:              0.9281
+    val F1 after:               0.9293
+    lift:                       +0.0011
+    elapsed:                    5.9s
+    pattern breakdown: {'A_ironic_positive': 38, 'C_surface_pos_masking_neg': 79, 'B_mixed_trailing_to_1': 4, 'B_mixed_trailing_to_2': 2}
+
+==========================================================================================
+=== Variant: V3_combined_conservative
+=== scope=class_1_2_plus_low_margin, splitter=split_conservative
+==========================================================================================
+    boundary set size: 5,135 val examples (label-free criterion)
+    of which actual errors: 470 (9.2%)
+    boundary cases attempted:   5,135
+    flipped:                    104
+      correctly flipped:        66  (good — was wrong, now right)
+      wrongly flipped:          38  (bad  — was right, now wrong)
+      neutral flipped:          0  (was wrong, still wrong, different class)
+    val F1 before:              0.9281
+    val F1 after:               0.9314
+    lift:                       +0.0032
+    elapsed:                    5.8s
+    pattern breakdown: {'A_ironic_positive': 30, 'B_mixed_trailing_to_1': 7, 'C_surface_pos_masking_neg': 61, 'B_mixed_trailing_to_2': 6}
+
+==========================================================================================
+=== Variant: V4_combined_aggressive
+=== scope=class_1_2_plus_low_margin, splitter=split_aggressive
+==========================================================================================
+    boundary set size: 5,135 val examples (label-free criterion)
+    of which actual errors: 470 (9.2%)
+    boundary cases attempted:   5,135
+    flipped:                    124
+      correctly flipped:        67  (good — was wrong, now right)
+      wrongly flipped:          56  (bad  — was right, now wrong)
+      neutral flipped:          1  (was wrong, still wrong, different class)
+    val F1 before:              0.9281
+    val F1 after:               0.9294
+    lift:                       +0.0012
+    elapsed:                    6.1s
+    pattern breakdown: {'A_ironic_positive': 38, 'C_surface_pos_masking_neg': 79, 'B_mixed_trailing_to_1': 4, 'B_mixed_trailing_to_2': 3}
+
+==========================================================================================
+=== VARIANT COMPARISON SUMMARY ===
+==========================================================================================
+             variant_name  n_boundary  n_flipped  n_correctly_flipped  n_wrongly_flipped  f1_before  f1_after  f1_lift
+V1_class_1_2_conservative        4996        100                   63                 37   0.928145  0.931186 0.003042
+  V2_class_1_2_aggressive        4996        123                   66                 56   0.928145  0.929294 0.001150
+ V3_combined_conservative        5135        104                   66                 38   0.928145  0.931389 0.003244
+   V4_combined_aggressive        5135        124                   67                 56   0.928145  0.929391 0.001247
+
+>>> wrote /app/mk_6d_2/results/variant_comparison.csv
+>>> wrote per-variant diagnostics to /app/mk_6d_2/results
+
+==========================================================================================
+=== WINNER: V3_combined_conservative ===
+==========================================================================================
+    f1_lift:  +0.0032
+    n_flipped: 104
+    n correctly flipped: 66
+    n wrongly flipped: 38
+
+==========================================================================================
+=== Applying winner 'V3_combined_conservative' to TEST
+==========================================================================================
+    test boundary set size: 8,633 of 17,580
+    rescue applied in 9.4s
+    n flipped on test: 157
+
+>>> Test predictions:
+    /app/mk_6d_2/submissions/mk_6d_2_baseline_no_rescue.csv (sanity check; should match mk_6d Kaggle 0.93309)
+    /app/mk_6d_2/submissions/mk_6d_2_rescue_V3_combined_conservative.csv (rescued; submit this to Kaggle)
+
+    baseline label distribution:  {0: 8073, 1: 4857, 2: 4650}
+    rescued label distribution:   {0: 8071, 1: 4804, 2: 4705}
+    deltas: {0: -2, 1: -53, 2: 55}
+
+==========================================================================================
+=== Final summary ===
+==========================================================================================
+  Current Kaggle best (mk_6d_weight_swept):  0.93309
+  val F1 baseline (no rescue):                0.9281
+  val F1 with winning rescue (V3_combined_conservative): 0.9314
+  val lift:                                  +0.0032
+
+  Realistic Kaggle prediction:
+    Optimism factor ~50%: predicted Kaggle = 0.93309 + ~+0.0016 = 0.9347
+    Optimism factor ~30%: predicted Kaggle = 0.93309 + ~+0.0023 = 0.9354

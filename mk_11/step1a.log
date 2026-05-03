@@ -1,0 +1,104 @@
+>>> Stage 11_1a: cross-fitted MEMM training (5 folds + 1 full)
+
+>>> loading pseudo-labeled sentences from mk_6d_5 ...
+    loaded 614,629 sentences from 69,679 docs
+    tag distribution: {'neut': 347056, 'neg': 141994, 'pos': 116271, 'nr': 9308}
+    unique docs: 69,679
+
+>>> generating 5-fold split over docs (random_state=42) ...
+    fold sizes: [13936, 13936, 13936, 13936, 13935]
+>>> wrote /app/mk_11/artifacts/fold_assignments.npy
+
+================================================================================
+=== Training MEMM-fold-0  (held out fold 0)
+================================================================================
+    [fold-0] 55,743 docs, 491,788 sentences
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:406: ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=300).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+    [fold-0] LR fit: 16.3s
+    saved /app/mk_11/artifacts/memm_fold_0.pkl
+================================================================================
+=== Training MEMM-fold-1  (held out fold 1)
+================================================================================
+    [fold-1] 55,743 docs, 491,226 sentences
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:406: ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=300).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+    [fold-1] LR fit: 16.0s
+    saved /app/mk_11/artifacts/memm_fold_1.pkl
+================================================================================
+=== Training MEMM-fold-2  (held out fold 2)
+================================================================================
+    [fold-2] 55,743 docs, 492,905 sentences
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:406: ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=300).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+    [fold-2] LR fit: 15.5s
+    saved /app/mk_11/artifacts/memm_fold_2.pkl
+================================================================================
+=== Training MEMM-fold-3  (held out fold 3)
+================================================================================
+    [fold-3] 55,743 docs, 489,926 sentences
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:406: ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=300).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+    [fold-3] LR fit: 15.3s
+    saved /app/mk_11/artifacts/memm_fold_3.pkl
+================================================================================
+=== Training MEMM-fold-4  (held out fold 4)
+================================================================================
+    [fold-4] 55,744 docs, 492,671 sentences
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:406: ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=300).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+    [fold-4] LR fit: 15.3s
+    saved /app/mk_11/artifacts/memm_fold_4.pkl
+
+================================================================================
+=== Training MEMM-test-full (all training docs) for test inference
+================================================================================
+    [test-full] 69,679 docs, 614,629 sentences
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:406: ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=300).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+    [test-full] LR fit: 19.2s
+    saved /app/mk_11/artifacts/memm_test_full.pkl
+
+>>> stage 11_1a done. Run 11_1b to extract OOF features.

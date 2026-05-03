@@ -69,8 +69,6 @@ nosetests.xml
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
 
 # Secrets
 .env
@@ -86,3 +84,16 @@ glove.*
 # Experiment outputs (regenerable from sweep.py / analyze.py)
 */experiments/*/results/
 */experiments/*/figures/
+
+# === Phase 1 additions ===
+# Per-mk artifact / result / cache directories (large data, regenerable)
+*/artifacts/
+*/cache/
+*/results/
+*/figures/
+# Numpy / cached array formats
+*.npy
+*.npz
+# Backup files
+.gitignore.bak
+*.bak

@@ -1,0 +1,83 @@
+>>> Stage 1c: score sentences in boundary cases for sarcasm signal
+
+>>> loading lexicon ...
+    lexicon size: 54,875
+>>> loading bigram LM ...
+    bigram vocab: 30,002, V=30002, β=1.0
+
+>>> sanity test on known sarcastic vs normal sentences:
+    [normal positive                    ] sarcasm=  0.000  contra=0  pol_var=0.308  surp=4.65  strong+=1 strong-=0
+        sentence: 'This is a really great movie with wonderful acting.'
+    [normal negative                    ] sarcasm=  0.000  contra=0  pol_var=0.379  surp=7.57  strong+=0 strong-=3
+        sentence: 'Bad acting, poor plot, terrible ending.'
+    [sarcastic positive (true=neg)      ] sarcasm=  0.000  contra=0  pol_var=0.078  surp=4.93  strong+=0 strong-=0
+        sentence: 'This is the best movie I've seen since I got the scope at the proctologists this...'
+    [ironic-positive (true=pos)         ] sarcasm=  6.729  contra=2  pol_var=0.878  surp=7.66  strong+=2 strong-=2
+        sentence: 'endearingly chintzy and moronic $1.50 version of the favorite'
+    [mixed sentiment                    ] sarcasm=  0.000  contra=0  pol_var=0.762  surp=7.12  strong+=0 strong-=2
+        sentence: 'great cinematography but terrible story and boring direction'
+
+>>> processing val boundary cases ...
+    val: 5,135 cases
+        [  256/5135 ] 453 doc/s  ETA 11s
+        [  512/5135 ] 427 doc/s  ETA 11s
+        [  768/5135 ] 412 doc/s  ETA 11s
+        [ 1024/5135 ] 415 doc/s  ETA 10s
+        [ 1280/5135 ] 418 doc/s  ETA 9s
+        [ 1536/5135 ] 424 doc/s  ETA 8s
+        [ 1792/5135 ] 425 doc/s  ETA 8s
+        [ 2048/5135 ] 426 doc/s  ETA 7s
+        [ 2304/5135 ] 423 doc/s  ETA 7s
+        [ 2560/5135 ] 418 doc/s  ETA 6s
+        [ 2816/5135 ] 418 doc/s  ETA 6s
+        [ 3072/5135 ] 420 doc/s  ETA 5s
+        [ 3328/5135 ] 420 doc/s  ETA 4s
+        [ 3584/5135 ] 422 doc/s  ETA 4s
+        [ 3840/5135 ] 421 doc/s  ETA 3s
+        [ 4096/5135 ] 423 doc/s  ETA 2s
+        [ 4352/5135 ] 422 doc/s  ETA 2s
+        [ 4608/5135 ] 424 doc/s  ETA 1s
+        [ 4864/5135 ] 425 doc/s  ETA 1s
+        [ 5120/5135 ] 425 doc/s  ETA 0s
+        [ 5135/5135 ] 425 doc/s  ETA 0s
+>>> wrote /app/mk_6d_4/results/boundary_val_features_v2.csv  shape=(5135, 47)
+
+>>> val: mean of new sarcasm features by ens_correct status:
+    max_sentence_sarcasm_score           correct=0.580  wrong=0.693  diff=+0.113
+    mean_sentence_sarcasm_score          correct=0.060  wrong=0.094  diff=+0.034
+    n_contradiction_sentences            correct=0.377  wrong=0.455  diff=+0.078
+    max_polarity_var_in_doc              correct=0.385  wrong=0.308  diff=-0.077
+    frac_strong_pos_words                correct=0.016  wrong=0.013  diff=-0.002
+    frac_strong_neg_words                correct=0.023  wrong=0.016  diff=-0.007
+
+>>> processing test boundary cases ...
+    test: 8,633 cases
+        [  431/8633 ] 428 doc/s  ETA 19s
+        [  862/8633 ] 429 doc/s  ETA 18s
+        [ 1293/8633 ] 428 doc/s  ETA 17s
+        [ 1724/8633 ] 427 doc/s  ETA 16s
+        [ 2155/8633 ] 422 doc/s  ETA 15s
+        [ 2586/8633 ] 421 doc/s  ETA 14s
+        [ 3017/8633 ] 417 doc/s  ETA 13s
+        [ 3448/8633 ] 420 doc/s  ETA 12s
+        [ 3879/8633 ] 422 doc/s  ETA 11s
+        [ 4310/8633 ] 424 doc/s  ETA 10s
+        [ 4741/8633 ] 426 doc/s  ETA 9s
+        [ 5172/8633 ] 425 doc/s  ETA 8s
+        [ 5603/8633 ] 421 doc/s  ETA 7s
+        [ 6034/8633 ] 420 doc/s  ETA 6s
+        [ 6465/8633 ] 420 doc/s  ETA 5s
+        [ 6896/8633 ] 419 doc/s  ETA 4s
+        [ 7327/8633 ] 419 doc/s  ETA 3s
+        [ 7758/8633 ] 419 doc/s  ETA 2s
+        [ 8189/8633 ] 418 doc/s  ETA 1s
+        [ 8620/8633 ] 417 doc/s  ETA 0s
+        [ 8633/8633 ] 417 doc/s  ETA 0s
+>>> wrote /app/mk_6d_4/results/boundary_test_features_v2.csv  shape=(8633, 45)
+
+>>> done. New feature columns added:
+    max_sentence_sarcasm_score, mean_sentence_sarcasm_score,
+    n_sarcastic_sentences, n_contradiction_sentences,
+    max_polarity_var_in_doc, max_mean_surprise_in_doc,
+    dominant_polarity_sum, frac_strong_pos_words, frac_strong_neg_words,
+    n_scored_sentences

@@ -1,0 +1,47 @@
+>>> loading FULL training data (no val split) ...
+    full data: 70,305 examples
+    class distribution: {np.int64(0): np.int64(32277), np.int64(1): np.int64(19139), np.int64(2): np.int64(18889)}
+
+>>> loading winners: architectures=['mk_5'], regimes=['f1_tuned', 'rrm_tuned']
+    loaded 2 (architecture, regime) winners
+
+>>> running 5-fold CV for each winner ...
+
+>>> mk_5 / f1_tuned ...
+      C=16.942118660793128
+      preprocess: 2.8s
+      fold 1/5: F1=0.9217  ECE=0.0054  (26.9s)
+      fold 2/5: F1=0.9242  ECE=0.0047  (41.1s)
+      fold 3/5: F1=0.9234  ECE=0.0051  (39.5s)
+      fold 4/5: F1=0.9199  ECE=0.0046  (33.9s)
+      fold 5/5: F1=0.9218  ECE=0.0047  (37.1s)
+      MEAN F1=0.9222  σ_fold=0.0017  ECE=0.0049  RRM(σ)=0.5093
+      vs single-val F1 (0.9228): -0.0006
+
+>>> mk_5 / rrm_tuned ...
+      C=44.69044793171797
+      preprocess: 4.4s
+      fold 1/5: F1=0.9233  ECE=0.0114  (45.1s)
+      fold 2/5: F1=0.9252  ECE=0.0120  (36.0s)
+      fold 3/5: F1=0.9232  ECE=0.0122  (34.8s)
+      fold 4/5: F1=0.9202  ECE=0.0147  (37.6s)
+      fold 5/5: F1=0.9199  ECE=0.0131  (35.5s)
+      MEAN F1=0.9224  σ_fold=0.0023  ECE=0.0127  RRM(σ)=0.5711
+      vs single-val F1 (0.9224): -0.0000
+
+>>> total crossval time: 374.7s (6.2 min)
+>>> wrote /app/mk_8/experiments/08_crossval/results/crossval_records.json
+>>> wrote /app/mk_8/experiments/08_crossval/results/winners_with_sigma.json
+>>> wrote /app/mk_8/experiments/08_crossval/results/full_diagnostics.csv
+
+====================================================================================================
+=== K-fold cross-validation summary ===
+====================================================================================================
+architecture    regime  single_val_F1  kfold_mean_F1  sigma_fold  kfold_ECE  kfold_AUROC_U  RRM_with_sigma
+        mk_5  f1_tuned         0.9228         0.9222      0.0017     0.0049         0.8969          0.5093
+        mk_5 rrm_tuned         0.9224         0.9224      0.0023     0.0127         0.8982          0.5711
+
+Reading the σ_fold column:
+  Low (≤ 0.003):  generalizes well across folds; trust val→Kaggle gap
+  Mid (0.003-0.006): moderate fold sensitivity; gap may shift
+  High (> 0.006): val-fold-sensitive; trust the single val F1 less

@@ -1,0 +1,257 @@
+>>> Hyperband weight sweep
+>>> Random sampling on Dirichlet(1,1,1,1) over 4-simplex
+>>> Successive halving across 4 stages
+
+>>> loading val probabilities ...
+    val examples available: 10,546
+
+>>> individual val F1 (sanity):
+    mk2      val F1 = 0.9197
+    mk6      val F1 = 0.9249
+    mk7      val F1 = 0.8978
+    mk9_53   val F1 = 0.9207
+
+>>> Reference (mk_6c_4way_mk6_dom = (0.15, 0.40, 0.15, 0.30)):
+    full val F1 = 0.9260
+
+>>> sampling 5,000 random weight tuples from Dirichlet(1,1,1,1) ...
+    sample shape: (5000, 4)
+    sample row sums: min=1.000000, max=1.000000
+
+==========================================================================================
+=== Stage 0: 5,000 tuples × 1000 val examples → keep top 1,500
+==========================================================================================
+    subsample idx[0:5] = [4895 9182 3443 5026 5979] ...
+    subsample size: 1,000 examples
+
+    [  250/5000 ]  current best F1 = 0.9403  (1711 eval/s, ETA 2.8s)
+    [  500/5000 ]  current best F1 = 0.9403  (1710 eval/s, ETA 2.6s)
+    [  750/5000 ]  current best F1 = 0.9412  (1699 eval/s, ETA 2.5s)
+    [ 1000/5000 ]  current best F1 = 0.9412  (1709 eval/s, ETA 2.3s)
+    [ 1250/5000 ]  current best F1 = 0.9412  (1711 eval/s, ETA 2.2s)
+    [ 1500/5000 ]  current best F1 = 0.9412  (1713 eval/s, ETA 2.0s)
+    [ 1750/5000 ]  current best F1 = 0.9412  (1709 eval/s, ETA 1.9s)
+    [ 2000/5000 ]  current best F1 = 0.9412  (1710 eval/s, ETA 1.8s)
+    [ 2250/5000 ]  current best F1 = 0.9412  (1712 eval/s, ETA 1.6s)
+    [ 2500/5000 ]  current best F1 = 0.9412  (1700 eval/s, ETA 1.5s)
+    [ 2750/5000 ]  current best F1 = 0.9412  (1703 eval/s, ETA 1.3s)
+    [ 3000/5000 ]  current best F1 = 0.9412  (1705 eval/s, ETA 1.2s)
+    [ 3250/5000 ]  current best F1 = 0.9412  (1702 eval/s, ETA 1.0s)
+    [ 3500/5000 ]  current best F1 = 0.9412  (1700 eval/s, ETA 0.9s)
+    [ 3750/5000 ]  current best F1 = 0.9412  (1694 eval/s, ETA 0.7s)
+    [ 4000/5000 ]  current best F1 = 0.9412  (1680 eval/s, ETA 0.6s)
+    [ 4250/5000 ]  current best F1 = 0.9412  (1679 eval/s, ETA 0.4s)
+    [ 4500/5000 ]  current best F1 = 0.9412  (1679 eval/s, ETA 0.3s)
+    [ 4750/5000 ]  current best F1 = 0.9412  (1680 eval/s, ETA 0.1s)
+    [ 5000/5000 ]  current best F1 = 0.9412  (1681 eval/s, ETA 0.0s)
+
+    Stage took 3.0s (1681 eval/s)
+
+    Top-5 this stage:
+      rank    mk_2    mk_6    mk_7  mk_9_53        F1
+         1   0.002   0.262   0.023    0.713    0.9412
+         2   0.013   0.237   0.071    0.680    0.9412
+         3   0.075   0.181   0.060    0.684    0.9403
+         4   0.073   0.185   0.035    0.706    0.9403
+         5   0.037   0.218   0.028    0.717    0.9403
+
+    Weight distribution in top-100 survivors:
+             dim     min     q25   median     mean     q75     max     std
+            mk_2   0.001   0.039    0.093    0.099   0.152   0.271   0.069
+            mk_6   0.030   0.193    0.237    0.287   0.423   0.609   0.148
+            mk_7   0.000   0.028    0.063    0.135   0.152   0.540   0.166
+         mk_9_53   0.001   0.262    0.627    0.479   0.681   0.772   0.271
+
+    Promoting top 1,500 to next stage
+
+==========================================================================================
+=== Stage 1: 1,500 tuples × 3000 val examples → keep top 400
+==========================================================================================
+    subsample idx[0:5] = [2238 2109 9894 8621 7513] ...
+    subsample size: 3,000 examples
+
+    [   75/1500 ]  current best F1 = 0.9375  (1207 eval/s, ETA 1.2s)
+    [  150/1500 ]  current best F1 = 0.9375  (1335 eval/s, ETA 1.0s)
+    [  225/1500 ]  current best F1 = 0.9375  (1366 eval/s, ETA 0.9s)
+    [  300/1500 ]  current best F1 = 0.9375  (1391 eval/s, ETA 0.9s)
+    [  375/1500 ]  current best F1 = 0.9378  (1419 eval/s, ETA 0.8s)
+    [  450/1500 ]  current best F1 = 0.9378  (1419 eval/s, ETA 0.7s)
+    [  525/1500 ]  current best F1 = 0.9378  (1433 eval/s, ETA 0.7s)
+    [  600/1500 ]  current best F1 = 0.9378  (1438 eval/s, ETA 0.6s)
+    [  675/1500 ]  current best F1 = 0.9378  (1439 eval/s, ETA 0.6s)
+    [  750/1500 ]  current best F1 = 0.9378  (1444 eval/s, ETA 0.5s)
+    [  825/1500 ]  current best F1 = 0.9378  (1438 eval/s, ETA 0.5s)
+    [  900/1500 ]  current best F1 = 0.9378  (1442 eval/s, ETA 0.4s)
+    [  975/1500 ]  current best F1 = 0.9378  (1441 eval/s, ETA 0.4s)
+    [ 1050/1500 ]  current best F1 = 0.9378  (1439 eval/s, ETA 0.3s)
+    [ 1125/1500 ]  current best F1 = 0.9378  (1443 eval/s, ETA 0.3s)
+    [ 1200/1500 ]  current best F1 = 0.9378  (1446 eval/s, ETA 0.2s)
+    [ 1275/1500 ]  current best F1 = 0.9378  (1450 eval/s, ETA 0.2s)
+    [ 1350/1500 ]  current best F1 = 0.9378  (1450 eval/s, ETA 0.1s)
+    [ 1425/1500 ]  current best F1 = 0.9378  (1450 eval/s, ETA 0.1s)
+    [ 1500/1500 ]  current best F1 = 0.9378  (1454 eval/s, ETA 0.0s)
+
+    Stage took 1.0s (1454 eval/s)
+
+    Top-5 this stage:
+      rank    mk_2    mk_6    mk_7  mk_9_53        F1
+         1   0.059   0.411   0.207    0.323    0.9378
+         2   0.415   0.239   0.326    0.019    0.9377
+         3   0.069   0.402   0.318    0.211    0.9375
+         4   0.017   0.356   0.327    0.300    0.9375
+         5   0.054   0.481   0.140    0.325    0.9375
+
+    Weight distribution in top-100 survivors:
+             dim     min     q25   median     mean     q75     max     std
+            mk_2   0.001   0.054    0.083    0.104   0.118   0.415   0.092
+            mk_6   0.239   0.380    0.434    0.431   0.486   0.578   0.075
+            mk_7   0.031   0.170    0.255    0.240   0.305   0.389   0.084
+         mk_9_53   0.000   0.175    0.232    0.226   0.296   0.349   0.085
+
+    Promoting top 400 to next stage
+
+==========================================================================================
+=== Stage 2: 400 tuples × 7000 val examples → keep top 100
+==========================================================================================
+    subsample idx[0:5] = [9300 4020  215 8845 1819] ...
+    subsample size: 7,000 examples
+
+    [   20/400  ]  current best F1 = 0.9298  (1128 eval/s, ETA 0.3s)
+    [   40/400  ]  current best F1 = 0.9298  (1134 eval/s, ETA 0.3s)
+    [   60/400  ]  current best F1 = 0.9298  (1148 eval/s, ETA 0.3s)
+    [   80/400  ]  current best F1 = 0.9298  (1165 eval/s, ETA 0.3s)
+    [  100/400  ]  current best F1 = 0.9298  (1176 eval/s, ETA 0.3s)
+    [  120/400  ]  current best F1 = 0.9300  (1180 eval/s, ETA 0.2s)
+    [  140/400  ]  current best F1 = 0.9300  (1177 eval/s, ETA 0.2s)
+    [  160/400  ]  current best F1 = 0.9300  (1168 eval/s, ETA 0.2s)
+    [  180/400  ]  current best F1 = 0.9300  (1170 eval/s, ETA 0.2s)
+    [  200/400  ]  current best F1 = 0.9300  (1171 eval/s, ETA 0.2s)
+    [  220/400  ]  current best F1 = 0.9300  (1175 eval/s, ETA 0.2s)
+    [  240/400  ]  current best F1 = 0.9300  (1170 eval/s, ETA 0.1s)
+    [  260/400  ]  current best F1 = 0.9300  (1172 eval/s, ETA 0.1s)
+    [  280/400  ]  current best F1 = 0.9300  (1175 eval/s, ETA 0.1s)
+    [  300/400  ]  current best F1 = 0.9300  (892 eval/s, ETA 0.1s)
+    [  320/400  ]  current best F1 = 0.9300  (907 eval/s, ETA 0.1s)
+    [  340/400  ]  current best F1 = 0.9300  (920 eval/s, ETA 0.1s)
+    [  360/400  ]  current best F1 = 0.9300  (932 eval/s, ETA 0.0s)
+    [  380/400  ]  current best F1 = 0.9300  (942 eval/s, ETA 0.0s)
+    [  400/400  ]  current best F1 = 0.9300  (944 eval/s, ETA 0.0s)
+
+    Stage took 0.4s (944 eval/s)
+
+    Top-5 this stage:
+      rank    mk_2    mk_6    mk_7  mk_9_53        F1
+         1   0.046   0.492   0.200    0.262    0.9300
+         2   0.074   0.472   0.198    0.257    0.9300
+         3   0.057   0.477   0.204    0.262    0.9298
+         4   0.059   0.411   0.207    0.323    0.9298
+         5   0.069   0.469   0.211    0.251    0.9297
+
+    Weight distribution in top-100 survivors:
+             dim     min     q25   median     mean     q75     max     std
+            mk_2   0.002   0.044    0.075    0.072   0.098   0.210   0.039
+            mk_6   0.345   0.402    0.450    0.460   0.496   0.630   0.073
+            mk_7   0.012   0.144    0.196    0.186   0.234   0.342   0.075
+         mk_9_53   0.188   0.253    0.281    0.282   0.312   0.381   0.044
+
+    Promoting top 100 to next stage
+
+==========================================================================================
+=== Stage 3: 100 tuples × 10546 val examples → keep top 1
+==========================================================================================
+    subsample idx[0:5] = [7501 4956 5226 3363 9459] ...
+    subsample size: 10,546 examples
+
+    [    5/100  ]  current best F1 = 0.9281  (909 eval/s, ETA 0.1s)
+    [   10/100  ]  current best F1 = 0.9281  (968 eval/s, ETA 0.1s)
+    [   15/100  ]  current best F1 = 0.9281  (987 eval/s, ETA 0.1s)
+    [   20/100  ]  current best F1 = 0.9281  (997 eval/s, ETA 0.1s)
+    [   25/100  ]  current best F1 = 0.9281  (1006 eval/s, ETA 0.1s)
+    [   30/100  ]  current best F1 = 0.9281  (1009 eval/s, ETA 0.1s)
+    [   35/100  ]  current best F1 = 0.9281  (1012 eval/s, ETA 0.1s)
+    [   40/100  ]  current best F1 = 0.9281  (1012 eval/s, ETA 0.1s)
+    [   45/100  ]  current best F1 = 0.9281  (992 eval/s, ETA 0.1s)
+    [   50/100  ]  current best F1 = 0.9281  (994 eval/s, ETA 0.1s)
+    [   55/100  ]  current best F1 = 0.9281  (1000 eval/s, ETA 0.0s)
+    [   60/100  ]  current best F1 = 0.9281  (1004 eval/s, ETA 0.0s)
+    [   65/100  ]  current best F1 = 0.9281  (971 eval/s, ETA 0.0s)
+    [   70/100  ]  current best F1 = 0.9281  (975 eval/s, ETA 0.0s)
+    [   75/100  ]  current best F1 = 0.9281  (969 eval/s, ETA 0.0s)
+    [   80/100  ]  current best F1 = 0.9281  (943 eval/s, ETA 0.0s)
+    [   85/100  ]  current best F1 = 0.9281  (945 eval/s, ETA 0.0s)
+    [   90/100  ]  current best F1 = 0.9281  (947 eval/s, ETA 0.0s)
+    [   95/100  ]  current best F1 = 0.9281  (951 eval/s, ETA 0.0s)
+    [  100/100  ]  current best F1 = 0.9281  (955 eval/s, ETA 0.0s)
+
+    Stage took 0.1s (955 eval/s)
+
+    Top-5 this stage:
+      rank    mk_2    mk_6    mk_7  mk_9_53        F1
+         1   0.046   0.492   0.200    0.262    0.9281
+         2   0.015   0.558   0.108    0.319    0.9281
+         3   0.074   0.472   0.198    0.257    0.9281
+         4   0.031   0.575   0.088    0.307    0.9281
+         5   0.057   0.477   0.204    0.262    0.9280
+
+    Weight distribution in top-100 survivors:
+             dim     min     q25   median     mean     q75     max     std
+            mk_2   0.002   0.044    0.075    0.072   0.098   0.210   0.039
+            mk_6   0.345   0.402    0.450    0.460   0.496   0.630   0.073
+            mk_7   0.012   0.144    0.196    0.186   0.234   0.342   0.075
+         mk_9_53   0.188   0.253    0.281    0.282   0.312   0.381   0.044
+
+==========================================================================================
+=== FINAL: top-20 by full-val F1 ===
+==========================================================================================
+  total elapsed: 4.5s
+
+  Reference (mk_6c_4way_mk6_dom): [0.15, 0.4, 0.15, 0.3] → full val F1 = 0.9260
+
+  Top-20 sweep results:
+    rank    mk_2    mk_6    mk_7  mk_9_53        F1    Δ vs ref
+       1   0.046   0.492   0.200    0.262    0.9281     +0.0021  ←
+       2   0.015   0.558   0.108    0.319    0.9281     +0.0021
+       3   0.074   0.472   0.198    0.257    0.9281     +0.0021
+       4   0.031   0.575   0.088    0.307    0.9281     +0.0021
+       5   0.057   0.477   0.204    0.262    0.9280     +0.0020
+       6   0.003   0.578   0.102    0.317    0.9280     +0.0020
+       7   0.013   0.523   0.233    0.231    0.9280     +0.0020
+       8   0.014   0.564   0.098    0.323    0.9279     +0.0019
+       9   0.069   0.469   0.211    0.251    0.9279     +0.0019
+      10   0.078   0.488   0.200    0.235    0.9279     +0.0019
+      11   0.100   0.351   0.342    0.207    0.9279     +0.0019
+      12   0.002   0.498   0.265    0.235    0.9278     +0.0018
+      13   0.094   0.390   0.328    0.188    0.9278     +0.0018
+      14   0.051   0.491   0.169    0.289    0.9278     +0.0018
+      15   0.078   0.495   0.149    0.278    0.9278     +0.0018
+      16   0.088   0.513   0.160    0.238    0.9278     +0.0018
+      17   0.108   0.491   0.173    0.227    0.9278     +0.0018
+      18   0.091   0.514   0.165    0.230    0.9278     +0.0018
+      19   0.034   0.443   0.319    0.204    0.9277     +0.0017
+      20   0.023   0.595   0.112    0.271    0.9277     +0.0017
+
+>>> wrote 100 survivors to /app/mk_6d/experiments/6d1_weight_sweep/results/sweep_results.csv
+>>> wrote per-stage top-5 to /app/mk_6d/experiments/6d1_weight_sweep/results/stage_winners.csv
+
+==========================================================================================
+=== SWEEP WINNER ===
+==========================================================================================
+  weights:  mk_2=0.0462, mk_6=0.4919, mk_7=0.2000, mk_9_53=0.2619
+  full val F1: 0.9281
+  Δ vs reference: +0.0021
+
+>>> applying winning weights to test ...
+
+>>> Kaggle submission: /app/mk_6d/submissions/mk_6d_weight_swept.csv
+    rows: 17,580
+    label distribution: {0: 8073, 1: 4857, 2: 4650}
+
+==========================================================================================
+=== Summary ===
+==========================================================================================
+  Current Kaggle best (mk_6c_4way_mk6_dom): 0.93219
+  Sweep winner full val F1:                  0.9281
+  Reference val F1:                          0.9260
+  Sweep lift on val:                         +0.0021
+
+  Submit: mk_6d_weight_swept.csv

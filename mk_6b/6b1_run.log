@@ -1,0 +1,42 @@
+>>> Push 1: refit mk_6 F1-tuned winner on FULL training data
+>>> mk_6 winner config:
+      C                        = 27.19242327929672
+      ngram_range              = (1, 2)
+      min_df                   = 5
+      max_features             = 150000
+      sublinear_tf             = True
+      class_weight             = None
+      class0_undersample       = 1.0
+      class1_oversample        = 1.0
+      class2_oversample        = 1.3
+
+>>> loading data ...
+    full train: 70,305  test: 17,580
+
+>>> applying regex negation ...
+    negation prep: 3.8s
+
+>>> applying class balance to FULL train ...
+    undersample class 0: 1.0
+    oversample class 1:  1.0
+    oversample class 2:  1.3
+    balanced training set: 75,971 examples
+      class 0: 32,277
+      class 1: 19,139
+      class 2: 24,555
+
+>>> fitting on FULL balanced training data ...
+    fit: 39.0s
+>>> saved model: /app/mk_6b/models/mk_6b_full_data.joblib
+>>> predicting on test set ...
+    predict: 2.1s
+>>> saved test probabilities: /app/mk_6b/models/mk_6b_full_data_test_proba.npy
+>>> submission: /app/mk_6b/submissions/mk_6b_full_data.csv
+
+Quick sanity:
+    rows: 17580
+    label distribution: {0: 8040, 1: 4850, 2: 4690}
+
+Compare to current Kaggle leader (mk_6 trained on 85%):
+    expected: similar label distribution, slightly different decisions
+    Kaggle prediction: +0.001 to +0.002 over 0.93121

@@ -1,0 +1,8 @@
+>>> Applying Option A winner to test
+    components: ['mk_2', 'mk_6', 'mk_7', 'mk_9_53']
+    weights:    ['0.0021', '0.5371', '0.2570', '0.2038']
+    val F1:     0.9340
+
+>>> wrote /app/mk_11/submissions/mk_11_option_a_submission.csv
+    rows: 17,580
+    label distribution: {0: 8112, 1: 4782, 2: 4686}

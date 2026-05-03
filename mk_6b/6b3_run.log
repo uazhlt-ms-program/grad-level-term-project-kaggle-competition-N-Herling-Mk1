@@ -1,0 +1,27 @@
+>>> Push 3: ensemble mk_2 + mk_6 + mk_7 on FULL training data
+
+>>> loading data ...
+    full train: 70,305  test: 17,580
+
+>>> fitting mk_2 (vanilla TF-IDF + LR) on full data ...
+    mk_2 fit: 42.3s
+
+>>> fitting mk_6 (TF-IDF + balance + negation) on full data ...
+    mk_6 fit: 43.0s
+
+>>> fitting mk_7 (NBSVM) on full data ...
+    mk_7 fit: 39.4s
+
+>>> predicting test probabilities from each component ...
+    agreement diagnostic on test (17,580 examples):
+      all 3 agree:           15,920  (90.6%)
+      exactly 2 agree:        1,637  (9.3%)
+      all 3 disagree:            23
+
+    higher disagreement → more potential ensemble lift
+>>> ensemble submission: /app/mk_6b/submissions/mk_6b_ensemble_2_6_7.csv
+>>> individual: mk_6b_mk2_full.csv, mk_6b_mk6_full_via_ensemble.csv, mk_6b_mk7_full.csv
+
+Quick sanity:
+    rows: 17580
+    label distribution: {0: 8098, 1: 4862, 2: 4620}

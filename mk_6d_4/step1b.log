@@ -1,0 +1,43 @@
+>>> Stage 1b: build bigram language model from full training corpus
+
+>>> loaded 70,305 training docs
+
+>>> Pass 1/2: counting unigram frequencies ...
+    [ 10000/70305 ] vocab=73,060  0.3s
+    [ 20000/70305 ] vocab=115,080  0.7s
+    [ 30000/70305 ] vocab=155,416  1.1s
+    [ 40000/70305 ] vocab=188,352  1.4s
+    [ 50000/70305 ] vocab=222,501  1.8s
+    [ 60000/70305 ] vocab=254,425  2.1s
+    [ 70000/70305 ] vocab=285,727  2.5s
+    Pass 1 done: 2.5s, raw vocab=286,419
+>>> vocab truncated to top 30,000 words
+
+>>> Pass 2/2: counting bigrams ...
+    [ 10000/70305 ] uniq prev_ids=27,658  0.6s
+    [ 20000/70305 ] uniq prev_ids=29,522  1.2s
+    [ 30000/70305 ] uniq prev_ids=29,871  1.8s
+    [ 40000/70305 ] uniq prev_ids=29,959  2.3s
+    [ 50000/70305 ] uniq prev_ids=29,985  3.0s
+    [ 60000/70305 ] uniq prev_ids=29,997  3.6s
+    [ 70000/70305 ] uniq prev_ids=30,001  4.2s
+    Pass 2 done: 4.3s
+
+>>> building bigram log-probability matrix (Laplace-smoothed) ...
+>>> saved bigram LM: /app/mk_6d_4/artifacts/bigram_lm.npz
+    matrix shape: (30002, 30002)
+    nonzero bigrams: 1,928,091
+    sparsity: 0.2142%
+
+>>> sanity check — bigram surprises (lower = more expected):
+    surprise('very' → 'good') =  3.275  (count=2120)
+    surprise('very' → 'bad') =  5.142  (count=327)
+    surprise('endearingly' → 'chintzy') =  8.923  (count=3)
+    surprise('endearingly' → 'sweet') = 10.310  (count=0)
+    surprise('absolutely' → 'terrible') =  6.391  (count=54)
+    surprise('the' → 'movie') =  3.583  (count=16965)
+    surprise('nice' → 'and') =  5.257  (count=174)
+    surprise('good' → 'and') =  3.956  (count=1078)
+    surprise('really' → 'horrible') =  8.198  (count=13)
+
+>>> wrote stats: /app/mk_6d_4/artifacts/bigram_stats.txt

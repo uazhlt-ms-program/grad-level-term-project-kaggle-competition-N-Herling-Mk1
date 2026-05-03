@@ -1,0 +1,153 @@
+>>> Stage 1d: train rescue classifier — multiple variants, 5-fold CV
+
+>>> loaded /app/mk_6d_4/results/boundary_val_features_v2.csv  shape=(5135, 47)
+>>> features available: 40 of 40
+
+====================================================================================================
+=== Variant: M1_LR_multi_t0.55  (target=multi, threshold=0.55)
+====================================================================================================
+    feature dim: 40, features: 40
+    FAILED on M1_LR_multi_t0.55: LogisticRegression.__init__() got an unexpected keyword argument 'multi_class'
+
+====================================================================================================
+=== Variant: M1_LR_multi_t0.65  (target=multi, threshold=0.65)
+====================================================================================================
+    feature dim: 40, features: 40
+    FAILED on M1_LR_multi_t0.65: LogisticRegression.__init__() got an unexpected keyword argument 'multi_class'
+
+====================================================================================================
+=== Variant: M2_LR_binary_t0.55  (target=binary, threshold=0.55)
+====================================================================================================
+    feature dim: 40, features: 40
+    5-fold CV done in 0.1s
+    flipped:                    1,100
+      correctly flipped:        330
+      wrongly flipped:          754
+      neutral flipped:          16
+    hit rate:                   30.0%
+    val F1 before:              0.7455
+    val F1 after:               0.6852
+    lift:                       -0.0604
+
+====================================================================================================
+=== Variant: M2_LR_binary_t0.70  (target=binary, threshold=0.7)
+====================================================================================================
+    feature dim: 40, features: 40
+    5-fold CV done in 0.1s
+    flipped:                    806
+      correctly flipped:        273
+      wrongly flipped:          517
+      neutral flipped:          16
+    hit rate:                   33.9%
+    val F1 before:              0.7455
+    val F1 after:               0.7060
+    lift:                       -0.0396
+
+====================================================================================================
+=== Variant: M3_RF_multi_t0.55  (target=multi, threshold=0.55)
+====================================================================================================
+    feature dim: 40, features: 40
+    5-fold CV done in 1.8s
+    flipped:                    167
+      correctly flipped:        153
+      wrongly flipped:          13
+      neutral flipped:          1
+    hit rate:                   91.6%
+    val F1 before:              0.7455
+    val F1 after:               0.8053
+    lift:                       +0.0598
+
+====================================================================================================
+=== Variant: M3_RF_multi_t0.65  (target=multi, threshold=0.65)
+====================================================================================================
+    feature dim: 40, features: 40
+    5-fold CV done in 1.8s
+    flipped:                    88
+      correctly flipped:        84
+      wrongly flipped:          3
+      neutral flipped:          1
+    hit rate:                   95.5%
+    val F1 before:              0.7455
+    val F1 after:               0.7807
+    lift:                       +0.0352
+
+====================================================================================================
+=== Variant: M4_RF_binary_t0.55  (target=binary, threshold=0.55)
+====================================================================================================
+    feature dim: 40, features: 40
+    5-fold CV done in 1.6s
+    flipped:                    982
+      correctly flipped:        371
+      wrongly flipped:          594
+      neutral flipped:          17
+    hit rate:                   37.8%
+    val F1 before:              0.7455
+    val F1 after:               0.7170
+    lift:                       -0.0285
+
+====================================================================================================
+=== Variant: M4_RF_binary_t0.70  (target=binary, threshold=0.7)
+====================================================================================================
+    feature dim: 40, features: 40
+    5-fold CV done in 1.6s
+    flipped:                    623
+      correctly flipped:        294
+      wrongly flipped:          314
+      neutral flipped:          15
+    hit rate:                   47.2%
+    val F1 before:              0.7455
+    val F1 after:               0.7427
+    lift:                       -0.0028
+
+====================================================================================================
+=== Variant: M5_GB_multi_t0.55  (target=multi, threshold=0.55)
+====================================================================================================
+    feature dim: 40, features: 40
+    5-fold CV done in 75.4s
+    flipped:                    416
+      correctly flipped:        367
+      wrongly flipped:          46
+      neutral flipped:          3
+    hit rate:                   88.2%
+    val F1 before:              0.7455
+    val F1 after:               0.9047
+    lift:                       +0.1592
+
+====================================================================================================
+=== Variant: M5_GB_multi_t0.65  (target=multi, threshold=0.65)
+====================================================================================================
+    feature dim: 40, features: 40
+    5-fold CV done in 75.9s
+    flipped:                    391
+      correctly flipped:        354
+      wrongly flipped:          34
+      neutral flipped:          3
+    hit rate:                   90.5%
+    val F1 before:              0.7455
+    val F1 after:               0.9124
+    lift:                       +0.1669
+
+====================================================================================================
+=== VARIANT COMPARISON SUMMARY ===
+====================================================================================================
+      variant_name target_mode  threshold  n_flipped  n_correctly_flipped  n_wrongly_flipped  hit_rate   f1_lift
+ M5_GB_multi_t0.65       multi       0.65        391                  354                 34  0.905371  0.166924
+ M5_GB_multi_t0.55       multi       0.55        416                  367                 46  0.882212  0.159209
+ M3_RF_multi_t0.55       multi       0.55        167                  153                 13  0.916168  0.059799
+ M3_RF_multi_t0.65       multi       0.65         88                   84                  3  0.954545  0.035201
+M4_RF_binary_t0.70      binary       0.70        623                  294                314  0.471910 -0.002810
+M4_RF_binary_t0.55      binary       0.55        982                  371                594  0.377800 -0.028487
+M2_LR_binary_t0.70      binary       0.70        806                  273                517  0.338710 -0.039554
+M2_LR_binary_t0.55      binary       0.55       1100                  330                754  0.300000 -0.060351
+
+====================================================================================================
+=== WINNER: M5_GB_multi_t0.65 ===
+====================================================================================================
+    val F1 lift:         +0.1669
+    flips on val:        391
+    hit rate:            90.5%
+
+>>> refitting winning variant on full val (no CV) for test inference ...
+>>> saved rescue model artifact: /app/mk_6d_4/artifacts/rescue_model.pkl
+
+>>> Stage 1d done. Run stage 1e to apply to test.

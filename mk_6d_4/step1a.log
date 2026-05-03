@@ -1,0 +1,96 @@
+>>> Stage 1a: build NB log-ratio lexicon from full training corpus
+
+>>> loading training data ...
+    docs: 70,305
+    class distribution: {0: 32277, 1: 19139, 2: 18889}
+
+>>> tokenizing and counting word frequencies per class ...
+    [ 10000/70305 ] 0.5s elapsed
+    [ 20000/70305 ] 1.0s elapsed
+    [ 30000/70305 ] 1.5s elapsed
+    [ 40000/70305 ] 2.1s elapsed
+    [ 50000/70305 ] 2.6s elapsed
+    [ 60000/70305 ] 3.2s elapsed
+    [ 70000/70305 ] 3.8s elapsed
+    tokenization done: 3.8s
+    raw vocab size: 286,419
+    vocab after MIN_DF=3: 54,876
+
+>>> computing per-word polarity scores ...
+>>> wrote lexicon: /app/mk_6d_4/artifacts/lexicon.csv (54,876 words)
+
+>>> Top 30 most POSITIVE words (highest polarity):
+    engrossed                 polarity=+3.421  (df_c1=30, df_c2=0, df_c0=40)
+    fido                      polarity=+3.031  (df_c1=20, df_c2=0, df_c0=1)
+    conroy                    polarity=+2.877  (df_c1=17, df_c2=0, df_c0=4)
+    tapestry                  polarity=+2.877  (df_c1=17, df_c2=0, df_c0=12)
+    rififi                    polarity=+2.820  (df_c1=16, df_c2=0, df_c0=0)
+    godmother                 polarity=+2.820  (df_c1=16, df_c2=0, df_c0=4)
+    ponyo                     polarity=+2.820  (df_c1=16, df_c2=0, df_c0=0)
+    gunga                     polarity=+2.820  (df_c1=16, df_c2=0, df_c0=0)
+    grandfather's             polarity=+2.759  (df_c1=15, df_c2=0, df_c0=4)
+    thaw                      polarity=+2.759  (df_c1=15, df_c2=0, df_c0=0)
+    paymer                    polarity=+2.695  (df_c1=14, df_c2=0, df_c0=0)
+    krell                     polarity=+2.695  (df_c1=14, df_c2=0, df_c0=0)
+    ukraine                   polarity=+2.695  (df_c1=14, df_c2=0, df_c0=2)
+    kinnear                   polarity=+2.695  (df_c1=29, df_c2=1, df_c0=0)
+    elia                      polarity=+2.695  (df_c1=14, df_c2=0, df_c0=0)
+    biko                      polarity=+2.695  (df_c1=14, df_c2=0, df_c0=0)
+    fricker                   polarity=+2.695  (df_c1=14, df_c2=0, df_c0=0)
+    afi                       polarity=+2.695  (df_c1=14, df_c2=0, df_c0=0)
+    dassin                    polarity=+2.695  (df_c1=14, df_c2=0, df_c0=0)
+    fanfare                   polarity=+2.626  (df_c1=13, df_c2=0, df_c0=4)
+    superlative               polarity=+2.626  (df_c1=41, df_c2=2, df_c0=2)
+    raines                    polarity=+2.626  (df_c1=27, df_c2=1, df_c0=1)
+    kei                       polarity=+2.626  (df_c1=13, df_c2=0, df_c0=0)
+    anarchy                   polarity=+2.626  (df_c1=13, df_c2=0, df_c0=2)
+    deathtrap                 polarity=+2.626  (df_c1=13, df_c2=0, df_c0=0)
+    captivates                polarity=+2.626  (df_c1=13, df_c2=0, df_c0=3)
+    florinda                  polarity=+2.626  (df_c1=13, df_c2=0, df_c0=0)
+    moonstruck                polarity=+2.626  (df_c1=13, df_c2=0, df_c0=1)
+    undervalued               polarity=+2.626  (df_c1=13, df_c2=0, df_c0=0)
+    roebuck                   polarity=+2.626  (df_c1=13, df_c2=0, df_c0=1)
+
+>>> Top 30 most NEGATIVE words (lowest polarity):
+    boll                      polarity=-3.935  (df_c1=1, df_c2=100, df_c0=0)
+    forwarding                polarity=-3.651  (df_c1=0, df_c2=37, df_c0=2)
+    bloodrayne                polarity=-3.540  (df_c1=0, df_c2=33, df_c0=0)
+    uwe                       polarity=-3.520  (df_c1=2, df_c2=99, df_c0=0)
+    manos                     polarity=-3.479  (df_c1=0, df_c2=31, df_c0=0)
+    boll's                    polarity=-3.414  (df_c1=0, df_c2=29, df_c0=0)
+    hobgoblins                polarity=-3.271  (df_c1=0, df_c2=25, df_c0=0)
+    revolting                 polarity=-3.149  (df_c1=1, df_c2=45, df_c0=7)
+    loken                     polarity=-3.104  (df_c1=0, df_c2=21, df_c0=1)
+    snooze                    polarity=-3.104  (df_c1=0, df_c2=21, df_c0=0)
+    paycheck                  polarity=-3.089  (df_c1=2, df_c2=64, df_c0=0)
+    odious                    polarity=-3.058  (df_c1=0, df_c2=20, df_c0=0)
+    kristanna                 polarity=-2.904  (df_c1=0, df_c2=17, df_c0=0)
+    toolbox                   polarity=-2.904  (df_c1=0, df_c2=17, df_c0=1)
+    mache                     polarity=-2.904  (df_c1=0, df_c2=17, df_c0=0)
+    lamest                    polarity=-2.875  (df_c1=1, df_c2=34, df_c0=1)
+    unwatchable               polarity=-2.859  (df_c1=8, df_c2=154, df_c0=0)
+    crapfest                  polarity=-2.846  (df_c1=0, df_c2=16, df_c0=0)
+    ajay                      polarity=-2.846  (df_c1=0, df_c2=16, df_c0=0)
+    pos                       polarity=-2.846  (df_c1=0, df_c2=16, df_c0=3)
+    interminable              polarity=-2.817  (df_c1=1, df_c2=32, df_c0=2)
+    stinker                   polarity=-2.806  (df_c1=8, df_c2=146, df_c0=1)
+    carnosaur                 polarity=-2.786  (df_c1=0, df_c2=15, df_c0=0)
+    caligula                  polarity=-2.786  (df_c1=0, df_c2=15, df_c0=1)
+    bloodline                 polarity=-2.786  (df_c1=0, df_c2=15, df_c0=5)
+    uncreative                polarity=-2.786  (df_c1=0, df_c2=15, df_c0=1)
+    turd                      polarity=-2.748  (df_c1=4, df_c2=76, df_c0=2)
+    waste                     polarity=-2.743  (df_c1=124, df_c2=1916, df_c0=209)
+    dullest                   polarity=-2.721  (df_c1=0, df_c2=14, df_c0=1)
+    awfulness                 polarity=-2.721  (df_c1=2, df_c2=44, df_c0=0)
+
+>>> lexicon stats:
+    vocab_size: 54876
+    polarity_min: -3.935121040792704
+    polarity_max: 3.420839499973756
+    polarity_mean: 0.07292156871997027
+    polarity_std: 0.768261471368687
+    n_strong_pos: 6577
+    n_strong_neg: 4736
+    n_neutral: 20289
+
+>>> wrote stats: /app/mk_6d_4/artifacts/lexicon_stats.txt

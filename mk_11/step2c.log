@@ -1,0 +1,10 @@
+>>> Stage 11_2c: Option C — pure LR on MEMM features (5th component)
+
+>>> fitting LR on val-side ...
+    mk_MEMM val F1 alone: 0.7252
+
+{
+  "option": "C",
+  "description": "5th component: pure LR on 16 standardized MEMM features",
+  "val_f1_alone": 0.7251824534512649
+}

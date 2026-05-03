@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology Compliance — CRUCIBLE | INFO 539 Term Project</title>
+<meta name="author" content="N. Herling">
+<meta name="description" content="Methodology compliance check for the CRUCIBLE term project against INFO 539 course rules.">
+
+<link rel="icon" type="image/x-icon" href="media/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="media/img/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="media/img/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="media/img/apple-touch-icon.png">
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="source-banner">
+  <span class="left">// CRUCIBLE · METHODOLOGY COMPLIANCE</span>
+  <span>Spring 2026 · N. Herling</span>
+</div>
+
+<div class="top-rule"></div>
+
+<div class="compliance-wrap">
+
+<a class="back-btn" href="architecture_summary.html"><span class="arrow">←</span> back to architecture summary</a>
+
+<h1 class="title"><span class="num">§</span>Methodology Compliance Check</h1>
+<div class="title-sub">CRUCIBLE · INFO 539 Term Project · pre-submission self-audit</div>
+
+<div class="intro">
+  <p>This page documents a pre-submission verification that CRUCIBLE's code,
+  methodology, and dependencies comply with INFO 539's stated requirements.
+  The audit was performed against five sources: the GitHub Classroom template
+  README, the D2L assignment rubric (4 PDF pages), the parsertongue.org
+  rubric pages (final + draft), the public competition site at
+  uazhlt-ms-program.github.io, and the lecture-slide deck (sessions 06–26).</p>
+</div>
+
+<h2><span class="sn">§ 1</span>Rules Ground-Truth (consolidated)</h2>
+
+<p>The full rule corpus across all five sources distills to <strong>three</strong>
+explicit constraints. There are no others.</p>
+
+<table>
+  <tr><th>#</th><th>Rule</th><th>Source</th><th>Severity</th></tr>
+  <tr>
+    <td><strong>R1</strong></td>
+    <td>At least one submitted model must use ≥1 classification algorithm
+        covered in the course.</td>
+    <td><code>README.md</code> (Classroom template),
+        Session 20 slide,
+        parsertongue final rubric</td>
+    <td><strong>HARD</strong></td>
+  </tr>
+  <tr>
+    <td><strong>R2</strong></td>
+    <td>Code must be installable / runnable on Linux or macOS by another person.</td>
+    <td><code>README.md</code> (Classroom template)</td>
+    <td><strong>HARD</strong></td>
+  </tr>
+  <tr>
+    <td><strong>R3</strong></td>
+    <td>Source code in the repo must be complete, runnable, and reproduce the
+        Kaggle submissions.</td>
+    <td>D2L rubric "Code minimum" PASS criterion</td>
+    <td><strong>HARD</strong></td>
+  </tr>
+</table>
+
+<p>The PA-specific rule <em>"do not use any third-party libraries beyond what's
+in the autograded image"</em> applies only to PA2/PA3/PA4 — it does not apply
+to the competition. The competition <code>README.md</code> explicitly states the
+opposite: <em>"You are free to add dependencies."</em></p>
+
+<p>There are <strong>no rules</strong> about:</p>
+<ul>
+  <li>which sklearn submodules may be used,</li>
+  <li>whether pretrained word vectors (GloVe, word2vec, etc.) may be used,</li>
+  <li>whether ensemble or stacking techniques may be used,</li>
+  <li>how many submissions may be made,</li>
+  <li>whether semi-supervised / pseudo-labeling techniques may be used.</li>
+</ul>
+
+<h2><span class="sn">§ 2</span>Compliance verdict per rule</h2>
+
+<h3>R1 — Use of class-covered techniques <span class="verdict pass">PASS · over-fulfilled</span></h3>
+
+<p>Coverage map across the 20 <code>mk_*</code> variants:</p>
+
+<table>
+  <tr><th>Technique</th><th>Covered in slides</th><th>Used in repo?</th><th>Variants</th></tr>
+  <tr><td>Naive Bayes</td>             <td>S6, S7, S8, S9, S10, S11, S17, S20, S21</td>            <td>✓</td><td>mk_1</td></tr>
+  <tr><td>Logistic Regression</td>     <td>S9, S10, S11, S12, S13, S15, S17, S20, S23, S24, S26</td><td>✓</td><td>mk_2, mk_4, mk_5, mk_6, mk_6b, mk_7, mk_8, mk_9, mk_10, mk_11, mk_12 (and more)</td></tr>
+  <tr><td>TF-IDF</td>                   <td>S7, S14, S16, S17</td>                                  <td>✓</td><td>mk_2, mk_4 – mk_12 (almost everywhere)</td></tr>
+  <tr><td>Bag-of-words / CountVectorizer</td><td>S6, S7, S8, S10, S14, S17, S20</td>               <td>✓</td><td>mk_1</td></tr>
+  <tr><td>n-grams (uni/bi)</td>         <td>S7, S14, S17, S20, S21, S22, S23</td>                   <td>✓</td><td>mk_2 onward (<code>ngram_range=(1,2)</code>)</td></tr>
+  <tr><td>MEMM</td>                     <td>S22, S23, S24, S25, S26</td>                            <td>✓</td><td>mk_8, mk_10, mk_11, mk_6d_5</td></tr>
+  <tr><td>MaxEnt</td>                   <td>S20, S23, S24</td>                                       <td>✓</td><td>every "maxent_tuned" regime</td></tr>
+  <tr><td>K-fold cross-validation</td>  <td>S9, S10</td>                                              <td>✓</td><td>mk_8, mk_11, mk_12, mk_6d_4, mk_6d_5</td></tr>
+  <tr><td>Word embeddings (GloVe)</td>  <td>S17, S18, S19</td>                                        <td>✓</td><td>mk_3, mk_4, mk_6b, mk_9</td></tr>
+  <tr><td>Dependency parsing features</td><td>S24, S26</td>                                           <td>✓</td><td>mk_10</td></tr>
+  <tr><td>Ensemble / stacking</td>      <td>S14, S15, S25, S26</td>                                    <td>✓</td><td>mk_4, mk_5, mk_6b, mk_6d_*, mk_7, mk_8, mk_9, mk_11, mk_12</td></tr>
+</table>
+
+<p><strong>11 of 11 class-covered technique families appear in the repo. R1
+requires only 1.</strong></p>
+
+<h3>R2 — Linux / macOS installability <span class="verdict pass">PASS</span></h3>
+
+<ul>
+  <li><code>Dockerfile</code> builds on <code>uazhlt/python-playground:latest</code>
+      (the course's own image — environment parity preserved).</li>
+  <li><code>requirements.txt</code> declares 7 packages, all from PyPI, all with
+      version floors (<code>&gt;=</code>), no Windows-only dependencies.</li>
+  <li>No hardcoded Windows paths in any source file.</li>
+  <li>All file references are either relative or use <code>Path</code> from
+      <code>pathlib</code>.</li>
+  <li>The GloVe path is parameterized as
+      <code>/app/data/glove.6B.100d.txt</code> — Docker container path, not a
+      host path.</li>
+</ul>
+
+<h3>R3 — Reproducibility from repo <span class="verdict pass">PASS</span></h3>
+
+<ul>
+  <li>535 <code>.py</code> files across 20 <code>mk_*</code> directories.</li>
+  <li>Each <code>mk_*/</code> has its own <code>README.md</code> documenting purpose.</li>
+  <li><code>submissions/</code> directories with <code>.gitkeep</code> placeholders
+      (correctly empty in the audit zip — populated at runtime).</li>
+  <li>All <code>experiments/*/</code> modules are wired through proper
+      <code>__init__.py</code> files for <code>python -m</code> invocation.</li>
+  <li>27 <code>step*.log</code> files committed across <code>mk_6d</code>,
+      <code>mk_6d_4</code>, <code>mk_6d_5</code>, <code>mk_11</code>,
+      <code>mk_12</code> — direct evidence of reproducibility (each log shows
+      actual run timing, output, messages).</li>
+</ul>
+
+<h2><span class="sn">§ 3</span>Library audit <span class="verdict pass">CLEAN</span></h2>
+
+<p>Defense-in-depth check (no rules require this):</p>
+
+<table>
+  <tr><th>Imported</th><th>Listed in <code>requirements.txt</code>?</th><th>Risk</th></tr>
+  <tr>
+    <td><code>numpy</code>, <code>scipy</code>, <code>sklearn</code>,
+        <code>pandas</code>, <code>joblib</code>, <code>matplotlib</code></td>
+    <td>✓</td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td>stdlib (<code>re</code>, <code>os</code>, <code>pathlib</code>,
+        <code>pickle</code>, <code>json</code>, <code>argparse</code>,
+        <code>collections</code>, <code>itertools</code>,
+        <code>dataclasses</code>, <code>functools</code>, <code>hashlib</code>,
+        <code>subprocess</code>, <code>sys</code>, <code>time</code>,
+        <code>typing</code>, <code>warnings</code>, <code>__future__</code>)</td>
+    <td>n/a</td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><strong>No</strong> <code>spacy</code>, <code>nltk</code>,
+        <code>gensim</code>, <code>transformers</code>, <code>torch</code>,
+        <code>tensorflow</code>, <code>keras</code>,
+        <code>huggingface_hub</code>, <code>sentence_transformers</code>,
+        <code>fasttext</code>, <code>flair</code></td>
+    <td>n/a</td>
+    <td>None</td>
+  </tr>
+</table>
+
+<p>Strictly classical-ML stack. Identical dependency footprint to PA2/PA3/PA4
+plus <code>pandas</code>/<code>matplotlib</code>/<code>joblib</code> for
+orchestration. Nothing the instructor can object to.</p>
+
+<h2><span class="sn">§ 4</span>Data-handling audit <span class="verdict pass">CLEAN</span></h2>
+
+<ul>
+  <li>All <code>.fit()</code> calls use training-derived variables only — zero
+      matches for <code>y_test</code> patterns.</li>
+  <li>GloVe references resolve to <strong>only</strong>
+      <code>glove.6B.100d.txt</code> (the public Stanford pretrained file; not
+      anything trained on test data).</li>
+  <li>One <code>test.csv</code> access in
+      <code>mk_11/experiments/11_1b_extract_features_full/extract_features.py</code>
+      for "test-time pseudo-labeling." Verified legitimate: the pseudo-labeling
+      uses a sentiment lexicon and bigram LM <strong>built only on training
+      data</strong>, applied to test text <em>features</em>. Labels never enter
+      training. Standard semi-supervised practice and within bounds.</li>
+</ul>
+
+<h2><span class="sn">§ 5</span>Things explicitly NOT a problem</h2>
+
+<ul>
+  <li><strong>GloVe usage</strong> — pretrained embeddings are explicitly
+      mentioned in slides 17–19 as a class topic. Using them is encouraged,
+      not restricted.</li>
+  <li><strong>Repo size</strong> — there is no rule about model artifact size,
+      only that the repo be installable. It is.</li>
+  <li><strong>Number of <code>mk_*</code> variants</strong> — having 20
+      architectural variants is not a rule violation. The rubric explicitly
+      states: <em>"You are permitted to propose more than one classification
+      model or approach."</em></li>
+  <li><strong><code>uazhlt/python-playground:latest</code> base image</strong>
+      — the course's own image, environment parity preserved.</li>
+</ul>
+
+<h2><span class="sn">§ 6</span>Bottom line <span class="verdict pass">FULLY COMPLIANT</span></h2>
+
+<p>The single hard requirement (use ≥ 1 class-covered algorithm) is
+over-satisfied 11×. Stack is identical to PA2/PA3/PA4 plus standard
+orchestration libraries. No license-restricted libraries, no leakage patterns,
+no third-party model downloads, no training on test data. The
+Dockerfile + <code>requirements.txt</code> path satisfies reproducibility.</p>
+
+<a class="back-btn" href="architecture_summary.html" style="margin-top:24px;"><span class="arrow">←</span> back to architecture summary</a>
+
+</div>
+
+<div class="footer">
+  <span>// CRUCIBLE · methodology compliance check · pre-submission</span>
+  <span>N. Herling · Spring 2026</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+>>> Stage 1c: run Viterbi with each MEMM, extract tag sequence features
+
+>>> loading MEMMs ...
+    MEMM-FULL:     vocab feature dim = 42
+    MEMM-BOUNDARY: vocab feature dim = 40
+
+>>> loading val sentences ...
+    5,135 docs, 63,019 sentences
+
+>>> Processing val: 5,135 docs
+    [  201/5135 ] 140.3 doc/s, ETA 35s
+    [  401/5135 ] 133.2 doc/s, ETA 36s
+    [  601/5135 ] 128.4 doc/s, ETA 35s
+    [  801/5135 ] 125.2 doc/s, ETA 35s
+    [ 1001/5135 ] 127.2 doc/s, ETA 33s
+    [ 1201/5135 ] 125.6 doc/s, ETA 31s
+    [ 1401/5135 ] 125.3 doc/s, ETA 30s
+    [ 1601/5135 ] 125.1 doc/s, ETA 28s
+    [ 1801/5135 ] 123.1 doc/s, ETA 27s
+    [ 2001/5135 ] 122.6 doc/s, ETA 26s
+    [ 2201/5135 ] 122.2 doc/s, ETA 24s
+    [ 2401/5135 ] 122.1 doc/s, ETA 22s
+    [ 2601/5135 ] 121.4 doc/s, ETA 21s
+    [ 2801/5135 ] 121.7 doc/s, ETA 19s
+    [ 3001/5135 ] 121.3 doc/s, ETA 18s
+    [ 3201/5135 ] 121.9 doc/s, ETA 16s
+    [ 3401/5135 ] 122.1 doc/s, ETA 14s
+    [ 3601/5135 ] 122.4 doc/s, ETA 13s
+    [ 3801/5135 ] 121.7 doc/s, ETA 11s
+    [ 4001/5135 ] 121.4 doc/s, ETA 9s
+    [ 4201/5135 ] 121.7 doc/s, ETA 8s
+    [ 4401/5135 ] 122.1 doc/s, ETA 6s
+    [ 4601/5135 ] 122.7 doc/s, ETA 4s
+    [ 4801/5135 ] 122.8 doc/s, ETA 3s
+    [ 5001/5135 ] 122.5 doc/s, ETA 1s
+    [ 5135/5135 ] 122.7 doc/s, ETA 0s
+>>> joining with boundary_val_features_v2.csv (5,135 rows)
+>>> wrote /app/mk_6d_5/results/memm_features_val.csv  shape=(5135, 79)
+
+>>> loading test sentences ...
+    8,633 docs, 107,772 sentences
+
+>>> Processing test: 8,633 docs
+    [  201/8633 ] 112.5 doc/s, ETA 75s
+    [  401/8633 ] 117.7 doc/s, ETA 70s
+    [  601/8633 ] 121.5 doc/s, ETA 66s
+    [  801/8633 ] 124.9 doc/s, ETA 63s
+    [ 1001/8633 ] 124.9 doc/s, ETA 61s
+    [ 1201/8633 ] 126.7 doc/s, ETA 59s
+    [ 1401/8633 ] 127.7 doc/s, ETA 57s
+    [ 1601/8633 ] 127.3 doc/s, ETA 55s
+    [ 1801/8633 ] 128.3 doc/s, ETA 53s
+    [ 2001/8633 ] 128.2 doc/s, ETA 52s
+    [ 2201/8633 ] 126.1 doc/s, ETA 51s
+    [ 2401/8633 ] 126.2 doc/s, ETA 49s
+    [ 2601/8633 ] 125.6 doc/s, ETA 48s
+    [ 2801/8633 ] 126.6 doc/s, ETA 46s
+    [ 3001/8633 ] 126.3 doc/s, ETA 45s
+    [ 3201/8633 ] 126.7 doc/s, ETA 43s
+    [ 3401/8633 ] 126.7 doc/s, ETA 41s
+    [ 3601/8633 ] 126.6 doc/s, ETA 40s
+    [ 3801/8633 ] 126.6 doc/s, ETA 38s
+    [ 4001/8633 ] 127.5 doc/s, ETA 36s
+    [ 4201/8633 ] 127.2 doc/s, ETA 35s
+    [ 4401/8633 ] 127.5 doc/s, ETA 33s
+    [ 4601/8633 ] 127.7 doc/s, ETA 32s
+    [ 4801/8633 ] 127.0 doc/s, ETA 30s
+    [ 5001/8633 ] 126.6 doc/s, ETA 29s
+    [ 5201/8633 ] 126.4 doc/s, ETA 27s
+    [ 5401/8633 ] 125.6 doc/s, ETA 26s
+    [ 5601/8633 ] 125.7 doc/s, ETA 24s
+    [ 5801/8633 ] 125.5 doc/s, ETA 23s
+    [ 6001/8633 ] 125.2 doc/s, ETA 21s
+    [ 6201/8633 ] 123.9 doc/s, ETA 20s
+    [ 6401/8633 ] 123.7 doc/s, ETA 18s
+    [ 6601/8633 ] 123.6 doc/s, ETA 16s
+    [ 6801/8633 ] 123.9 doc/s, ETA 15s
+    [ 7001/8633 ] 124.2 doc/s, ETA 13s
+    [ 7201/8633 ] 124.5 doc/s, ETA 12s
+    [ 7401/8633 ] 124.9 doc/s, ETA 10s
+    [ 7601/8633 ] 124.8 doc/s, ETA 8s
+    [ 7801/8633 ] 124.6 doc/s, ETA 7s
+    [ 8001/8633 ] 124.6 doc/s, ETA 5s
+    [ 8201/8633 ] 124.6 doc/s, ETA 3s
+    [ 8401/8633 ] 124.3 doc/s, ETA 2s
+    [ 8601/8633 ] 124.4 doc/s, ETA 0s
+    [ 8633/8633 ] 124.5 doc/s, ETA 0s
+>>> wrote /app/mk_6d_5/results/memm_features_test.csv  shape=(8633, 77)
+
+>>> done. Stage 1d (LR rescue) reads from these CSVs.

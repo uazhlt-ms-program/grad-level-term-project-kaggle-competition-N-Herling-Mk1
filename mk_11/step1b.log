@@ -1,0 +1,69 @@
+>>> Stage 11_1b: extract OOF MEMM features for train + test docs
+
+>>> loading 5 fold MEMMs + memm_test_full ...
+    fold_assignments shape: (70305,)
+>>> loading pseudo-labeled training sentences ...
+    69,679 docs, 614,629 sentences
+
+>>> extracting OOF MEMM features for training docs ...
+    [  5001/69679 ] 345 doc/s, ETA 188s
+    [ 10001/69679 ] 339 doc/s, ETA 176s
+    [ 15001/69679 ] 337 doc/s, ETA 162s
+    [ 20001/69679 ] 339 doc/s, ETA 147s
+    [ 25001/69679 ] 339 doc/s, ETA 132s
+    [ 30001/69679 ] 342 doc/s, ETA 116s
+    [ 35001/69679 ] 343 doc/s, ETA 101s
+    [ 40001/69679 ] 344 doc/s, ETA 86s
+    [ 45001/69679 ] 345 doc/s, ETA 72s
+    [ 50001/69679 ] 346 doc/s, ETA 57s
+    [ 55001/69679 ] 346 doc/s, ETA 42s
+    [ 60001/69679 ] 346 doc/s, ETA 28s
+    [ 65001/69679 ] 345 doc/s, ETA 14s
+    [ 69679/69679 ] 346 doc/s, ETA 0s
+>>> wrote /app/mk_11/artifacts/memm_features_train.csv  shape=(69679, 17)
+
+>>> processing test docs ...
+    17,580 test docs
+>>> pseudo-labeling test sentences ...
+    [ 1001/17580] 605 doc/s
+    [ 2001/17580] 613 doc/s
+    [ 3001/17580] 608 doc/s
+    [ 4001/17580] 606 doc/s
+    [ 5001/17580] 593 doc/s
+    [ 6001/17580] 592 doc/s
+    [ 7001/17580] 594 doc/s
+    [ 8001/17580] 594 doc/s
+    [ 9001/17580] 596 doc/s
+    [10001/17580] 588 doc/s
+    [11001/17580] 586 doc/s
+    [12001/17580] 587 doc/s
+    [13001/17580] 586 doc/s
+    [14001/17580] 586 doc/s
+    [15001/17580] 588 doc/s
+    [16001/17580] 588 doc/s
+    [17001/17580] 586 doc/s
+    [17580/17580] 585 doc/s
+    test sentences: 156,148
+
+>>> Viterbi-decoding test docs with memm_test_full ...
+    [ 1001/17293] 354 doc/s, ETA 46s
+    [ 2001/17293] 351 doc/s, ETA 44s
+    [ 3001/17293] 342 doc/s, ETA 42s
+    [ 4001/17293] 341 doc/s, ETA 39s
+    [ 5001/17293] 339 doc/s, ETA 36s
+    [ 6001/17293] 337 doc/s, ETA 33s
+    [ 7001/17293] 338 doc/s, ETA 30s
+    [ 8001/17293] 339 doc/s, ETA 27s
+    [ 9001/17293] 340 doc/s, ETA 24s
+    [10001/17293] 339 doc/s, ETA 22s
+    [11001/17293] 339 doc/s, ETA 19s
+    [12001/17293] 339 doc/s, ETA 16s
+    [13001/17293] 338 doc/s, ETA 13s
+    [14001/17293] 337 doc/s, ETA 10s
+    [15001/17293] 338 doc/s, ETA 7s
+    [16001/17293] 337 doc/s, ETA 4s
+    [17001/17293] 336 doc/s, ETA 1s
+    [17293/17293] 336 doc/s, ETA 0s
+>>> wrote /app/mk_11/artifacts/memm_features_test.csv  shape=(17580, 17)
+
+>>> stage 11_1b done. Run stage 11_2a (Option A) next.

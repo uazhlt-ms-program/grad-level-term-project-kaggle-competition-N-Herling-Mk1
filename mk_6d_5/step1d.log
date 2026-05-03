@@ -1,0 +1,104 @@
+>>> Stage 1d: train logistic regression rescue (6 variants)
+
+>>> loaded 5,135 val boundary rows, 79 cols
+
+====================================================================================================
+=== Variant A1_FULL_t0.55: feature_set=FULL, threshold=0.55
+====================================================================================================
+    feature dim: 56, features used: 56
+    n flipped:            407
+    correctly flipped:    375
+    wrongly flipped:      28
+    neutral flipped:      4
+    hit rate:             92.1%
+    f1 before:            0.7455
+    f1 after:             0.9021
+    LIFT:                 +0.1566
+
+====================================================================================================
+=== Variant A2_FULL_t0.65: feature_set=FULL, threshold=0.65
+====================================================================================================
+    feature dim: 56, features used: 56
+    n flipped:            379
+    correctly flipped:    354
+    wrongly flipped:      21
+    neutral flipped:      4
+    hit rate:             93.4%
+    f1 before:            0.7455
+    f1 after:             0.9003
+    LIFT:                 +0.1548
+
+====================================================================================================
+=== Variant A3_FULL_t0.75: feature_set=FULL, threshold=0.75
+====================================================================================================
+    feature dim: 56, features used: 56
+    n flipped:            345
+    correctly flipped:    326
+    wrongly flipped:      17
+    neutral flipped:      2
+    hit rate:             94.5%
+    f1 before:            0.7455
+    f1 after:             0.8865
+    LIFT:                 +0.1409
+
+====================================================================================================
+=== Variant B1_BOUNDARY_t0.55: feature_set=BOUNDARY, threshold=0.55
+====================================================================================================
+    feature dim: 56, features used: 56
+    n flipped:            410
+    correctly flipped:    377
+    wrongly flipped:      29
+    neutral flipped:      4
+    hit rate:             92.0%
+    f1 before:            0.7455
+    f1 after:             0.9011
+    LIFT:                 +0.1556
+
+====================================================================================================
+=== Variant B2_BOUNDARY_t0.65: feature_set=BOUNDARY, threshold=0.65
+====================================================================================================
+    feature dim: 56, features used: 56
+    n flipped:            377
+    correctly flipped:    354
+    wrongly flipped:      20
+    neutral flipped:      3
+    hit rate:             93.9%
+    f1 before:            0.7455
+    f1 after:             0.9039
+    LIFT:                 +0.1584
+
+====================================================================================================
+=== Variant B3_BOUNDARY_t0.75: feature_set=BOUNDARY, threshold=0.75
+====================================================================================================
+    feature dim: 56, features used: 56
+    n flipped:            348
+    correctly flipped:    329
+    wrongly flipped:      17
+    neutral flipped:      2
+    hit rate:             94.5%
+    f1 before:            0.7455
+    f1 after:             0.8899
+    LIFT:                 +0.1444
+
+====================================================================================================
+=== VARIANT COMPARISON SUMMARY ===
+====================================================================================================
+     variant_name memm_source  threshold  n_flipped  n_correctly_flipped  n_wrongly_flipped  hit_rate  f1_lift
+B2_BOUNDARY_t0.65    BOUNDARY       0.65        377                  354                 20  0.938992 0.158443
+    A1_FULL_t0.55        FULL       0.55        407                  375                 28  0.921376 0.156644
+B1_BOUNDARY_t0.55    BOUNDARY       0.55        410                  377                 29  0.919512 0.155559
+    A2_FULL_t0.65        FULL       0.65        379                  354                 21  0.934037 0.154802
+B3_BOUNDARY_t0.75    BOUNDARY       0.75        348                  329                 17  0.945402 0.144380
+    A3_FULL_t0.75        FULL       0.75        345                  326                 17  0.944928 0.140948
+
+====================================================================================================
+=== WINNER: B2_BOUNDARY_t0.65 ===
+====================================================================================================
+    memm source:  BOUNDARY
+    threshold:    0.65
+    n_flipped:    377
+    hit rate:     93.9%
+    f1 lift:      +0.1584
+
+>>> refitting winner on full val for test inference ...
+>>> saved /app/mk_6d_5/artifacts/lr_rescue_winner.pkl

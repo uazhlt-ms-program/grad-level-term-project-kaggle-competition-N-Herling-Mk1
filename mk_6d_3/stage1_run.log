@@ -1,0 +1,121 @@
+>>> Stage 1: build complete boundary-case dataset (val + test)
+
+>>> ensemble weights: mk_2=0.0462 mk_6=0.4919 mk_7=0.2000 mk_9_53=0.2619
+
+>>> fitting mk_6 span-scorer on FULL training data ...
+    mk_6 span-scorer fit: 40.4s
+
+>>> Building boundary dataset for val set ...
+    total val examples: 10,546
+    val boundary cases: 5,135 (48.7%)
+        from class_1_2 criterion:  4,996
+        from low_margin criterion: 373
+        intersection:              234
+    of which actual errors: 470 (9.2%)
+    extracting features for 5,135 cases ...
+        [  256/5135 ] 741 cases/s, ETA 7s
+        [  512/5135 ] 752 cases/s, ETA 6s
+        [  768/5135 ] 765 cases/s, ETA 6s
+        [ 1024/5135 ] 766 cases/s, ETA 5s
+        [ 1280/5135 ] 768 cases/s, ETA 5s
+        [ 1536/5135 ] 776 cases/s, ETA 5s
+        [ 1792/5135 ] 772 cases/s, ETA 4s
+        [ 2048/5135 ] 776 cases/s, ETA 4s
+        [ 2304/5135 ] 777 cases/s, ETA 4s
+        [ 2560/5135 ] 779 cases/s, ETA 3s
+        [ 2816/5135 ] 783 cases/s, ETA 3s
+        [ 3072/5135 ] 784 cases/s, ETA 3s
+        [ 3328/5135 ] 787 cases/s, ETA 2s
+        [ 3584/5135 ] 783 cases/s, ETA 2s
+        [ 3840/5135 ] 784 cases/s, ETA 2s
+        [ 4096/5135 ] 784 cases/s, ETA 1s
+        [ 4352/5135 ] 787 cases/s, ETA 1s
+        [ 4608/5135 ] 784 cases/s, ETA 1s
+        [ 4864/5135 ] 785 cases/s, ETA 0s
+        [ 5120/5135 ] 787 cases/s, ETA 0s
+        [ 5135/5135 ] 787 cases/s, ETA 0s
+    val boundary feature dataset shape: (5135, 37)
+
+>>> Building boundary dataset for test set ...
+    total test examples: 17,580
+    test boundary cases: 8,633 (49.1%)
+        from class_1_2 criterion:  8,398
+        from low_margin criterion: 621
+        intersection:              386
+    extracting features for 8,633 cases ...
+        [  431/8633 ] 776 cases/s, ETA 11s
+        [  862/8633 ] 806 cases/s, ETA 10s
+        [ 1293/8633 ] 768 cases/s, ETA 10s
+        [ 1724/8633 ] 758 cases/s, ETA 9s
+        [ 2155/8633 ] 739 cases/s, ETA 9s
+        [ 2586/8633 ] 740 cases/s, ETA 8s
+        [ 3017/8633 ] 752 cases/s, ETA 7s
+        [ 3448/8633 ] 758 cases/s, ETA 7s
+        [ 3879/8633 ] 763 cases/s, ETA 6s
+        [ 4310/8633 ] 772 cases/s, ETA 6s
+        [ 4741/8633 ] 778 cases/s, ETA 5s
+        [ 5172/8633 ] 782 cases/s, ETA 4s
+        [ 5603/8633 ] 784 cases/s, ETA 4s
+        [ 6034/8633 ] 788 cases/s, ETA 3s
+        [ 6465/8633 ] 789 cases/s, ETA 3s
+        [ 6896/8633 ] 790 cases/s, ETA 2s
+        [ 7327/8633 ] 791 cases/s, ETA 2s
+        [ 7758/8633 ] 792 cases/s, ETA 1s
+        [ 8189/8633 ] 794 cases/s, ETA 1s
+        [ 8620/8633 ] 794 cases/s, ETA 0s
+        [ 8633/8633 ] 794 cases/s, ETA 0s
+    test boundary feature dataset shape: (8633, 34)
+
+>>> wrote /app/mk_6d_3/results/boundary_val_features.csv  (5,135 rows, 37 cols)
+>>> wrote /app/mk_6d_3/results/boundary_test_features.csv (8,633 rows, 35 cols)
+
+====================================================================================================
+=== Feature distribution: val vs test ===
+====================================================================================================
+
+feature                      val_mean     val_std   test_mean    test_std   mean_drift
+------------------------------------------------------------------------------------------
+ens_p0                         0.0222      0.0768      0.0217      0.0782      -0.0006
+ens_p1                         0.4740      0.4012      0.4876      0.4016      +0.0137
+ens_p2                         0.5038      0.4042      0.4907      0.4038      -0.0131
+ens_margin                     0.7571      0.2583      0.7565      0.2573      -0.0006
+n_components_agree             1.0000      0.0000      1.0000      0.0000      +0.0000
+text_len_words               216.9566    179.4311    219.9930    184.1642      +3.0365
+n_spans                       12.0376      9.2753     12.2705      9.5730      +0.2329
+mean_span_len_words           18.3376      8.1531     18.3884      8.9091      +0.0508
+span_p1_mean                   0.2204      0.1762      0.2249      0.1724      +0.0046
+span_p1_max                    0.6839      0.3218      0.7025      0.3059      +0.0186
+span_p1_std                    0.2277      0.1217      0.2333      0.1172      +0.0056
+span_p2_mean                   0.2915      0.2020      0.2766      0.1933      -0.0149
+span_p2_max                    0.7644      0.2908      0.7542      0.2938      -0.0102
+span_p2_std                    0.2593      0.1155      0.2540      0.1148      -0.0053
+n_strong_pos_spans             1.3126      1.6188      1.3531      1.6212      +0.0405
+n_strong_neg_spans             2.0467      2.3251      1.9064      2.1934      -0.1403
+first_span_p_top               0.8239      0.1676      0.8190      0.1698      -0.0049
+last_span_p_top                0.8374      0.1633      0.8409      0.1613      +0.0034
+
+>>> wrote feature distribution summary: /app/mk_6d_3/results/boundary_summary.csv
+
+>>> ens_pred_class distribution in boundary sets:
+    val:  {'negative': 2610, 'positive': 2457, 'not_review': 68}
+    test: {'positive': 4273, 'negative': 4239, 'not_review': 121}
+
+>>> val: true vs predicted class on boundary cases
+ens_pred_class  negative  not_review  positive
+true_class                                    
+negative            2392          14       187
+not_review            20          29        26
+positive             198          25      2244
+
+====================================================================================================
+=== DONE ===
+====================================================================================================
+
+Inspect:
+   /app/mk_6d_3/results/boundary_val_features.csv     (5,135 rows)
+   /app/mk_6d_3/results/boundary_test_features.csv    (8,633 rows)
+   /app/mk_6d_3/results/boundary_summary.csv (feature drift val→test)
+
+Both feature CSVs have identical column structure (val also has true labels).
+Use boundary_val_features.csv as training data for any rescue classifier;
+apply that classifier to boundary_test_features.csv at inference time.

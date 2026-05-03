@@ -1,0 +1,49 @@
+>>> Push 2: threshold tuning at F1 regime
+>>> Methodology: 70/15/15 split — train / calibrate / threshold-tune
+
+>>> loading data ...
+    train: 70,305  test: 17,580
+    train portion:  49,213
+    calib portion:  10,545
+    tune portion:   10,547
+
+>>> applying regex negation to all splits ...
+>>> applying class balance to train portion ...
+    balanced training set: 53,188 examples
+
+>>> fitting pipeline on train portion ...
+    fit: 31.9s
+
+>>> predicting probabilities on calib, tune, test ...
+    baseline F1 (no calib, no thresh):
+      calib slice:  0.9221
+      tune slice:   0.9195
+
+>>> fitting isotonic calibration on calib slice ...
+    after calibration (no thresh):
+      tune slice:   0.9193  (Δ -0.0003)
+
+>>> grid-searching per-class thresholds on tune slice ...
+    grid search: 1331 threshold combinations on 10,547 val examples
+    baseline (tau=0,0,0): F1 = 0.9193
+    best thresholds: tau = (-0.060000000000000005, 0.0, -0.1), F1 = 0.9215
+
+>>> writing two test submissions:
+    /app/mk_6b/submissions/mk_6b_calibrated_only.csv
+    /app/mk_6b/submissions/mk_6b_threshold_tuned.csv
+
+================================================================================
+=== Summary ===
+================================================================================
+  Baseline (uncalibrated argmax) tune-slice F1: 0.9195
+  Calibrated (argmax)            tune-slice F1: 0.9193
+  Calibrated + thresholds        tune-slice F1: 0.9215
+  Best thresholds: (-0.060000000000000005, 0.0, -0.1)
+
+  Two submissions to test on Kaggle:
+    mk_6b_calibrated_only.csv  (calibration only)
+    mk_6b_threshold_tuned.csv  (calibration + per-class thresholds)
+
+  Note: this run uses 70% of train (smaller than mk_6's 85%) — expect
+        slightly lower Kaggle than mk_6b_full_data.csv on raw F1.
+        Threshold submission should overcome this gap if thresholds work.

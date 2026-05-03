@@ -1,0 +1,25 @@
+>>> Step 1: refit each component on 85% train, predict on 15% val
+
+    train: 59,759  val: 10,546
+
+>>> saved val labels: /app/mk_6d/experiments/6d1_weight_sweep/val_data/val_labels.npy
+
+>>> fitting mk_2 ...
+    mk_2 done: 34.4s, shape=(10546, 3)
+>>> fitting mk_6 ...
+    mk_6 done: 32.1s, shape=(10546, 3)
+>>> fitting mk_7 ...
+    mk_7 done: 50.6s, shape=(10546, 3)
+>>> fitting mk_9-config-53 ...
+  loading GloVe from /app/data/glove.6B.100d.txt ...
+  loaded 400,000 GloVe vectors
+    mk_9-53 done: 100.2s, shape=(10546, 3)
+
+>>> individual val F1 (sanity check):
+    mk_2     val F1 = 0.9197
+    mk_6     val F1 = 0.9249
+    mk_7     val F1 = 0.8978
+    mk_9-53  val F1 = 0.9207
+
+>>> all probas saved to /app/mk_6d/experiments/6d1_weight_sweep/val_data
+>>> ready to run sweep_weights.py

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRUCIBLE — Architecture &amp; Score Summary | INFO 539 Term Project</title>
+<meta name="author" content="N. Herling">
+<meta name="description" content="CRUCIBLE: an eight-stage architecture-evolution record for the INFO 539 term project. Final macro-F1 0.93309 on Kaggle ling-539-competition-2026.">
+
+<link rel="icon" type="image/x-icon" href="media/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="media/img/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="media/img/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="media/img/apple-touch-icon.png">
+
+<meta property="og:type"        content="article">
+<meta property="og:title"       content="CRUCIBLE — INFO 539 Term Project">
+<meta property="og:description" content="Architecture-evolution record. 8 stages, Kaggle macro-F1 0.93309.">
+<meta property="og:image"       content="https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/media/img/crucible_og.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url"         content="https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/architecture_summary.html">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="CRUCIBLE — INFO 539 Term Project">
+<meta name="twitter:description" content="Architecture-evolution record. 8 stages, Kaggle macro-F1 0.93309.">
+<meta name="twitter:image"       content="https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/media/img/crucible_og.png">
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="source-banner">
+  <span class="left">// CRUCIBLE · INFO 539 · Statistical NLP</span>
+  <span>v 0.93309 · Spring 2026 · N. Herling</span>
+</div>
+
+<div class="top-rule"></div>
+
+<h1 class="title"><span class="num">§ 0</span>CRUCIBLE — Architecture &amp; Score Summary</h1>
+<div class="title-sub">Kaggle: ling-539-competition-2026 · 3-class document classification · macro-F1</div>
+
+<div class="intro">
+  <p>This page documents the architecture-evolution record for the
+  <strong>INFO 539 term project</strong> — a 3-class document classification task
+  (Pang &amp; Lee 2004 corpus + a "not a review" label, evaluated by macro-F1).
+  The goal was to traverse a principled progression of NLP classifiers covered
+  in the course (Naive Bayes, Logistic Regression with TF-IDF and n-gram
+  features, NBSVM, GloVe word embeddings, MEMM with Viterbi decoding,
+  k-fold cross-validation, and ensemble methods), land on the highest-scoring
+  configuration, then stress-test that configuration with epistemic and
+  architectural follow-on experiments to determine whether further gains were
+  available.</p>
+
+  <p>Eight stages were traversed: <em>mass exploration</em> &rarr;
+  <em>architecture selection</em> &rarr; <em>single-architecture ceiling test</em>
+  &rarr; <em>cross-architecture ensembling</em> &rarr;
+  <em>ensemble weight optimization (champion: Kaggle 0.93309)</em> &rarr;
+  <em>boundary-targeted rescue</em> (negative result) &rarr;
+  <em>architectural integration of MEMM features</em> (negative result) &rarr;
+  <em>champion validation</em>. Methodology compliance with course
+  expectations was verified before submission &mdash;
+  <a href="compliance.html">read the full compliance argument</a>.</p>
+</div>
+
+<div class="hero">
+
+  <div class="hero-left">
+    <div class="logo-wrap">
+      <img src="media/img/crucible_logo.png" alt="CRUCIBLE">
+    </div>
+
+    <div class="acronym">
+      <div class="acro-label">// acronym</div>
+      <table>
+        <tr><td class="letter">C</td><td class="dash">—</td><td class="word">Cross-architecture survey</td></tr>
+        <tr><td class="letter">R</td><td class="dash">—</td><td class="word">Refinement on best-in-class</td></tr>
+        <tr><td class="letter">U</td><td class="dash">—</td><td class="word">Uncertainty quantification</td></tr>
+        <tr><td class="letter">C</td><td class="dash">—</td><td class="word">Calibrated</td></tr>
+        <tr><td class="letter">I</td><td class="dash">—</td><td class="word">Information-theoretic</td></tr>
+        <tr><td class="letter">B</td><td class="dash">—</td><td class="word">Bayes-rule-derived</td></tr>
+        <tr><td class="letter">L</td><td class="dash">—</td><td class="word">Log-count-reweighted</td></tr>
+        <tr><td class="letter">E</td><td class="dash">—</td><td class="word">Epistemic ensemble</td></tr>
+      </table>
+    </div>
+
+    <div class="blurb">
+      <p>The right panel begins as the <strong>architecture map</strong>.
+      Click any stage node to swap its full discussion in place; click
+      <strong>← back to map</strong> to return.</p>
+
+      <p>The submission of record is <code>mk_6d_weight_swept</code>, a
+      hyperband-tuned weighted ensemble of four diverse components. It scored
+      <span class="score-best">0.93309</span> on the Kaggle public leaderboard.</p>
+    </div>
+
+    <div class="howto">
+      <div class="howto-label">// how to use this page</div>
+      <ol>
+        <li>Click any <strong>node</strong> in the architecture map.</li>
+        <li>The map view <strong>swaps</strong> to that stage's full discussion.</li>
+        <li>Use <strong>← back to map</strong> at the top of the panel to return.</li>
+        <li>The URL updates with a <code>#stageN</code> hash — copy or share to deep-link directly.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="panel">
+
+    <div class="view active" id="view-tree">
+      <div class="panel-label">// architecture map</div>
+      <div class="panel-title">Eight-stage exploration arc</div>
+
+      <div class="mermaid">
+flowchart TD
+    S1["<b>Stage 1</b><br/>Mass Exploration<br/>mk_1 — mk_5<br/><i>Kaggle ~0.913</i>"]:::baseline
+    S2["<b>Stage 2</b><br/>Architecture Selection<br/>mk_6 + mk_7<br/><i>Kaggle 0.93121</i>"]:::baseline
+    S3["<b>Stage 3</b><br/>Single-arch Ceiling<br/>mk_8, mk_9, mk_10<br/><i>~0.929 plateau</i>"]:::neutral
+    S4["<b>Stage 4</b><br/>Cross-arch Ensembling<br/>mk_6b, mk_6c<br/><i>Kaggle 0.93201</i>"]:::positive
+    S5["★ <b>Stage 5</b> ★<br/>Weight Optimization<br/>mk_6d<br/><b>Kaggle 0.93309</b>"]:::champion
+    S6["<b>Stage 6</b><br/>Boundary Rescue<br/>mk_6d_1 ... mk_6d_5<br/><i>0.93062 / 0.92640</i>"]:::negative
+    S7["<b>Stage 7</b><br/>MEMM Integration<br/>mk_11<br/><i>0.92606 / 0.92767</i>"]:::negative
+    S8["<b>Stage 8</b><br/>Champion Validation<br/>mk_12<br/><i>0.93284 confirms</i>"]:::neutral
+
+    S1 --> S2
+    S2 --> S3
+    S2 --> S4
+    S3 -. methodology .-> S4
+    S4 --> S5
+    S5 -. failed transfer .-> S6
+    S5 -. failed transfer .-> S7
+    S5 --> S8
+    S6 -. lessons .-> S8
+    S7 -. lessons .-> S8
+
+    classDef baseline fill:#e8eef5,stroke:#1a3a5c,stroke-width:2px,color:#1a3a5c;
+    classDef positive fill:#e6f4ec,stroke:#1a6e3a,stroke-width:2px,color:#0a4a25;
+    classDef negative fill:#fbeeee,stroke:#a02020,stroke-width:2px,color:#7a1818;
+    classDef neutral  fill:#f5f5f5,stroke:#666,stroke-width:1px,color:#444;
+    classDef champion fill:#fff4d4,stroke:#a07810,stroke-width:3px,color:#5a4408;
+      </div>
+
+      <div class="legend">
+        <strong>Legend:</strong>
+        <span style="color:#1a3a5c;">■</span> baseline ·
+        <span style="color:#1a6e3a;">■</span> positive ·
+        <span style="color:#7a1818;">■</span> negative ·
+        <span style="color:#444;">■</span> diagnostic ·
+        <span style="color:#a07810;">★</span> champion ·
+        solid = forward · dashed = informed-by
+      </div>
+    </div>
+
+    <div class="view" id="view-stage1">
+      <a class="back-btn" href="#" onclick="event.preventDefault();showView('tree')"><span class="arrow">←</span> back to map</a>
+      <div class="detail">
+        <div class="meta">// stage 1 of 8 · mass exploration</div>
+        <h3>Stage 1 — Mass Exploration (mk_1 — mk_5)</h3>
+        <p>Tested several architectures and feature engineering approaches in
+        parallel. Established that vanilla TF-IDF + LR is competitive; Naive
+        Bayes alone is not; GloVe alone underperforms; extending n-grams beyond
+        bigrams gives marginal gains. Negation preprocessing (mk_5) improved
+        results enough to carry forward into Stage 2.</p>
+
+        <table>
+          <tr><th>Mark</th><th>Architecture</th><th>Kaggle</th><th>In final ensemble?</th></tr>
+          <tr><td>mk_1</td><td>Multinomial Naive Bayes baseline (CountVectorizer)</td><td>~0.880–0.890</td><td>no</td></tr>
+          <tr><td>mk_2</td><td>Vanilla TF-IDF (1,2) + LR, <code>class_weight=balanced</code>, C=4.56</td><td>~0.913–0.920</td><td><strong>yes</strong> — ensemble weight 0.046</td></tr>
+          <tr><td>mk_3</td><td>Mean-pooled GloVe 100d + LR (no TF-IDF)</td><td>~0.85–0.87</td><td>no — dominated by mk_2</td></tr>
+          <tr><td>mk_4</td><td>TF-IDF (1,3) + LR — extended n-grams</td><td>~0.91</td><td>no — marginal over mk_2</td></tr>
+          <tr><td>mk_5</td><td>Negation-prefix preprocessing experiment</td><td>~0.91–0.92</td><td>negation logic carried into mk_6</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="view" id="view-stage2">
+      <a class="back-btn" href="#" onclick="event.preventDefault();showView('tree')"><span class="arrow">←</span> back to map</a>
+      <div class="detail">
+        <div class="meta">// stage 2 of 8 · architecture selection &amp; tuning</div>
+        <h3>Stage 2 — Architecture Selection (mk_6, mk_7)</h3>
+        <p>mk_6 emerged as the dominant single-architecture model after combining
+        the techniques from Stage 1. mk_7 added an independent
+        generative-discriminative perspective via NBSVM
+        (Wang &amp; Manning 2012). Both are course-canonical and diverse enough
+        to ensemble well later.</p>
+
+        <table>
+          <tr><th>Mark</th><th>Description</th><th>Key hyperparameters</th><th>Kaggle</th></tr>
+          <tr>
+            <td>mk_6</td>
+            <td>"Kitchen sink" — sentiment tokenizer + negation + class balance</td>
+            <td>
+              TfidfVectorizer(1,2) with custom <code>SENTIMENT_TOKEN_PATTERN</code><br>
+              negation preprocessing (<code>_NEG</code> suffix through punctuation boundary)<br>
+              class 2 oversample 1.3×<br>
+              C=27.19, min_df=5, max_features=150K, sublinear_tf=True
+            </td>
+            <td><span class="score-best">0.92758 → 0.93121</span><br>(best Round-1 single-arch)</td>
+          </tr>
+          <tr>
+            <td>mk_7</td>
+            <td>NBSVM (Wang &amp; Manning 2012)</td>
+            <td>
+              TfidfVectorizer(1,2) + sentiment tokenizer<br>
+              NB log-ratio feature scaling<br>
+              alpha=1.0, beta=0.25<br>
+              C=30.56, negation preprocessing
+            </td>
+            <td><span class="score">~0.918</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="view" id="view-stage3">
+      <a class="back-btn" href="#" onclick="event.preventDefault();showView('tree')"><span class="arrow">←</span> back to map</a>
+      <div class="detail">
+        <div class="meta">// stage 3 of 8 · single-architecture ceiling test</div>
+        <h3>Stage 3 — Single-Architecture Validation / Ceiling Test (mk_8, mk_9, mk_10)</h3>
+        <p>Stress-tested mk_6 with k-fold CV (mk_8) to confirm stability. Swept
+        hyperparameters within architecture (mk_9). Tested whether dependency-parse
+        features could push past the BoW+LR ceiling (mk_10). All three confirmed:
+        <strong>the single-architecture BoW+LR ceiling is ~0.929–0.935 on this
+        dataset.</strong> Wang &amp; Manning 2012's finding about BoW+LR for
+        sentiment classification was reproduced.</p>
+
+        <table>
+          <tr><th>Mark</th><th>Test</th><th>Outcome</th></tr>
+          <tr>
+            <td>mk_8</td>
+            <td>5-fold CV stability test on mk_6</td>
+            <td>0.929 val F1 ± 0.003 across folds — stable</td>
+          </tr>
+          <tr>
+            <td>mk_9</td>
+            <td>Within-architecture hyperparameter sweep (50+ configs)</td>
+            <td>
+              Best variant: <strong>mk_9_53</strong> — TF-IDF + GloVe stack<br>
+              <code>StackedTfidfGlove</code> transformer (TF-IDF hstack with mean-pooled GloVe 100d)<br>
+              C=33.13, ngram_range=(1,2), min_df=2, max_features=150K, sublinear_tf=False<br>
+              Kaggle ~0.926 — carried into ensembles as 4th component.
+            </td>
+          </tr>
+          <tr>
+            <td>mk_10</td>
+            <td>Dependency parse features added to TF-IDF</td>
+            <td>No improvement; structural features don't break the BoW+LR ceiling.</td>
+          </tr>
+        </table>
+
+        <p style="margin-top:14px;"><strong>Conclusion:</strong> single-architecture
+        BoW+LR ceiling is ~0.929–0.935. Further gains require ensembling.</p>
+      </div>
+    </div>
+
+    <div class="view" id="view-stage4">
+      <a class="back-btn" href="#" onclick="event.preventDefault();showView('tree')"><span class="arrow">←</span> back to map</a>
+      <div class="detail">
+        <div class="meta">// stage 4 of 8 · cross-architecture ensembling</div>
+        <h3>Stage 4 — Cross-Architecture Ensembles (mk_6b, mk_6c)</h3>
+        <p>Mean-rule ensembling on diverse components broke the single-architecture
+        ceiling. mk_6b refit all components on full data and saved their test
+        probabilities — those probability files became the building blocks for
+        every later ensemble.</p>
+
+        <table>
+          <tr><th>Mark</th><th>Ensemble description</th><th>Kaggle</th></tr>
+          <tr>
+            <td>mk_6b</td>
+            <td>Refit (mk_2 + mk_6 + mk_7) ensemble, mean-rule averaging<br>
+                <code>p = (p_mk2 + p_mk6 + p_mk7) / 3</code></td>
+            <td><span class="score-best">0.93170</span></td>
+          </tr>
+          <tr>
+            <td>mk_6c</td>
+            <td>4-way uniform: <code>(mk_2 + mk_6 + mk_7 + mk_9_53) / 4</code><br>
+                Improved on mk_6b by adding GloVe-stack diversity.</td>
+            <td><span class="score-best">0.93201</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="view" id="view-stage5">
+      <a class="back-btn" href="#" onclick="event.preventDefault();showView('tree')"><span class="arrow">←</span> back to map</a>
+      <div class="detail">
+        <div class="meta">// stage 5 of 8 · ★ champion ★</div>
+        <h3>Stage 5 — Ensemble Weight Optimization (mk_6d)</h3>
+
+        <div class="callout champion">
+          <strong>This is where the final champion was built.</strong>
+          Hyperband-style random Dirichlet sweep on the 4-simplex with
+          successive halving subsamples.
+        </div>
+
+        <h4>Sweep schedule</h4>
+<pre>Stage 0: 5,000 random Dirichlet(1,1,1,1) tuples × 1,000  val examples → keep top 1,500
+Stage 1: 1,500 tuples                       × 3,000  val examples → keep top   400
+Stage 2:   400 tuples                       × 7,000  val examples → keep top   100
+Stage 3:   100 tuples                       × 10,546 val (full)   → pick top 1</pre>
+
+        <h4>Winning weights (locked)</h4>
+        <table>
+          <tr><th>Component</th><th>Weight</th></tr>
+          <tr><td>mk_2</td>    <td><code>0.0462</code></td></tr>
+          <tr><td>mk_6</td>    <td><code>0.4919</code> &nbsp;<em>(dominant)</em></td></tr>
+          <tr><td>mk_7</td>    <td><code>0.2000</code></td></tr>
+          <tr><td>mk_9_53</td> <td><code>0.2619</code></td></tr>
+        </table>
+
+        <div class="callout champion">
+          <strong><code>mk_6d_weight_swept.csv</code> &nbsp;—&nbsp;
+          Kaggle <span class="score-best">0.93309</span> &nbsp;★</strong><br>
+          This remained the final submission of record. Three subsequent
+          stages of exploration failed to exceed it.
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-stage6">
+      <a class="back-btn" href="#" onclick="event.preventDefault();showView('tree')"><span class="arrow">←</span> back to map</a>
+      <div class="detail">
+        <div class="meta">// stage 6 of 8 · epistemic boundary exploration</div>
+        <h3>Stage 6 — Epistemic Exploration (mk_6d_1 through mk_6d_5)</h3>
+        <p>After locking mk_6d, attempted to identify and rescue the hardest
+        cases — documents where the ensemble was choosing between class 1
+        (positive) and class 2 (negative) with low margin. Three independent
+        rescue methods were tried; <strong>all showed strong val signal but
+        failed to transfer to Kaggle test.</strong> This is the core
+        methodological finding of the project.</p>
+
+        <table>
+          <tr><th>Mark</th><th>Approach</th><th>Val F1 lift</th><th>Kaggle result</th></tr>
+          <tr>
+            <td>mk_6d_1</td>
+            <td>Boundary-case identification (label-free criterion)</td>
+            <td>— (methodology only)</td>
+            <td>5,135 val + 8,633 test boundary cases isolated</td>
+          </tr>
+          <tr>
+            <td>mk_6d_2</td>
+            <td>Hand-coded sub-sentiment rescue rules</td>
+            <td>+0.003</td>
+            <td><span class="score-worse">0.93062</span> &nbsp;<span class="delta-neg">(−0.00247)</span></td>
+          </tr>
+          <tr>
+            <td>mk_6d_3</td>
+            <td>Boundary feature dataset (28 features × val + test)</td>
+            <td>— (methodology only)</td>
+            <td>Documented val/test feature drift</td>
+          </tr>
+          <tr>
+            <td>mk_6d_4</td>
+            <td>Trained classifier rescue (RF, GBM — <em>not in syllabus</em>)</td>
+            <td>+0.06 to +0.17 (5-fold CV)</td>
+            <td>Predicted catastrophic transfer; not submitted as primary</td>
+          </tr>
+          <tr>
+            <td>mk_6d_5</td>
+            <td>MEMM + LR rescue stack (PA3 architecture, course-canonical)</td>
+            <td>+0.158 (boundary subset)</td>
+            <td><span class="score-worse">0.92640</span> &nbsp;<span class="delta-neg">(−0.00669)</span></td>
+          </tr>
+        </table>
+
+        <div class="callout bad">
+          <strong>Diagnostic finding.</strong> Val boundary cases are not
+          exchangeable with test boundary cases at the feature-distribution
+          level. K-fold CV on val cannot detect this because all folds share
+          val-specific noise. Boundary-targeted rescue is fundamentally limited
+          by the size and representativeness of available labeled boundary
+          cases on this dataset.
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-stage7">
+      <a class="back-btn" href="#" onclick="event.preventDefault();showView('tree')"><span class="arrow">←</span> back to map</a>
+      <div class="detail">
+        <div class="meta">// stage 7 of 8 · architectural pivot (mk_11)</div>
+        <h3>Stage 7 — Architectural Integration of MEMM Features (mk_11)</h3>
+        <p>Hypothesis: maybe boundary-targeting was the wrong architecture. Try
+        integrating MEMM features into <em>component training itself</em>,
+        before ensembling. Cross-fitted MEMM tag-sequence features on full
+        training data; no leakage; honest k-fold validation. Three options
+        tested — <strong>all failed to transfer.</strong></p>
+
+        <table>
+          <tr><th>Variant</th><th>What's augmented</th><th>Val F1</th><th>Kaggle result</th></tr>
+          <tr>
+            <td>Option A</td>
+            <td>mk_6 only — 16 cross-fitted MEMM features hstacked onto TF-IDF</td>
+            <td>0.9340</td>
+            <td><span class="score-worse">0.92606</span> &nbsp;<span class="delta-neg">(−0.00703)</span></td>
+          </tr>
+          <tr>
+            <td>Option B</td>
+            <td>All four components (mk_2, mk_6, mk_7, mk_9_53) augmented</td>
+            <td>0.9325</td>
+            <td>not submitted (predicted ~0.927)</td>
+          </tr>
+          <tr>
+            <td>Option C</td>
+            <td>4 augmented + 5th standalone <code>mk_MEMM_LR</code> component</td>
+            <td>0.9323</td>
+            <td>not submitted (predicted ~0.927)</td>
+          </tr>
+          <tr>
+            <td>Option 4 (locked-weights test)</td>
+            <td>mk_6d's exact weights, mk_6's test probas replaced with augmented version</td>
+            <td>—</td>
+            <td><span class="score-worse">0.92767</span> &nbsp;<span class="delta-neg">(−0.00542)</span></td>
+          </tr>
+        </table>
+
+        <div class="callout bad">
+          <strong>Conclusion.</strong> The failure is not architectural
+          (boundary vs. full pipeline). MEMM tag-sequence features, while
+          informative on val (<code>mk_MEMM</code> standalone reached 0.7252
+          val F1 with only 16 features), do not transfer cleanly to Kaggle
+          test on this dataset.
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-stage8">
+      <a class="back-btn" href="#" onclick="event.preventDefault();showView('tree')"><span class="arrow">←</span> back to map</a>
+      <div class="detail">
+        <div class="meta">// stage 8 of 8 · post-champion optimization</div>
+        <h3>Stage 8 — Post-Champion Optimization (mk_12)</h3>
+        <p>Final exploration phase using non-MEMM strategies that <em>don't</em>
+        optimize against val. Confirmed mk_6d's weights are at a robust optimum.</p>
+
+        <table>
+          <tr><th>Stage</th><th>Approach</th><th>Result</th></tr>
+          <tr>
+            <td>A — Threshold tuning</td>
+            <td>Per-class threshold offsets via grid search on val</td>
+            <td>NOT submitted — refinement bug + extreme offset (−0.21) flagged as overfit</td>
+          </tr>
+          <tr>
+            <td>B — Blend</td>
+            <td>50/50 average of mk_6d-swept &amp; mk_6c-uniform probabilities</td>
+            <td><span class="score">0.93243</span> &nbsp;<span class="delta-neg">(−0.00066)</span></td>
+          </tr>
+          <tr>
+            <td>C — Cross-fitted inference</td>
+            <td>Each component retrained 5× on 80% folds, test probas averaged</td>
+            <td><span class="score-best">0.93284</span> &nbsp;<span class="delta-neg">(−0.00025)</span> &mdash; current public-score #2</td>
+          </tr>
+          <tr>
+            <td>E — Corner-penalty re-sweep</td>
+            <td>Hyperband sweep with soft penalty on weights below 0.05 (λ=0.5)</td>
+            <td><strong>Rediscovered mk_6d's exact winning weights to 4 decimal places.</strong>
+                0 predictions changed.</td>
+          </tr>
+        </table>
+
+        <div class="callout good">
+          <strong>Strongest possible validation.</strong> Two independent
+          hyperband runs with different objectives converged on identical
+          optimal weights (0.0462 / 0.4919 / 0.2000 / 0.2619). mk_6d's weights
+          are a robust optimum, not an artifact of seeding.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <span>// CRUCIBLE · INFO 539 Term Project · Spring 2026</span>
+  <span>N. Herling · University of Arizona</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script src="js/swap.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+>>> Stage 1e: apply winning LR rescue to test, write submission
+
+>>> winner: B2_BOUNDARY_t0.65
+    MEMM source: BOUNDARY
+    threshold:   0.65
+    val f1 lift: +0.1584
+    val n_flipped: 377
+    val hit rate: 93.9%
+>>> loaded test features: (8633, 77)
+>>> n flipped on test: 378 of 8,633 boundary cases (4.4%)
+>>> wrote /app/mk_6d_5/submissions/mk_6d_5_baseline.csv  (sanity)
+>>> wrote /app/mk_6d_5/submissions/mk_6d_5_rescue.csv  (submit this)
+
+    baseline label distribution:  {0: 8073, 1: 4857, 2: 4650}
+    rescued label distribution:   {0: 8062, 1: 4926, 2: 4592}
+    deltas:                       {0: -11, 1: 69, 2: -58}
+
+==========================================================================================
+  Current Kaggle best: 0.93309
+  Val F1 lift:         +0.1584
+  Hit rate on val:     93.9%
+  Submit:              mk_6d_5_rescue.csv

@@ -1,0 +1,69 @@
+>>> Stage 1b: train two MEMMs (FULL and BOUNDARY)
+
+==========================================================================================
+=== Training MEMM-FULL
+==========================================================================================
+    docs:      69,679
+    sentences: 614,629
+    tag distribution: {'neut': 347056, 'neg': 141994, 'pos': 116271, 'nr': 9308}
+>>> building feature dicts (with teacher-forced prev_tag) ...
+    feature dict construction: 16.6s
+>>> vectorizing ...
+    vectorize: 3.2s, shape=(614629, 42)
+>>> training MaxEnt (LR) classifier ...
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:1184: FutureWarning: 'n_jobs' has no effect since 1.8 and will be removed in 1.10. You provided 'n_jobs=-1', please leave it unspecified.
+  warnings.warn(msg, category=FutureWarning)
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+    train: 75.7s
+    in-sample accuracy: 0.8721
+
+    classification report:
+              precision    recall  f1-score   support
+
+         neg       0.88      0.84      0.86    141994
+        neut       0.87      0.91      0.89    347056
+          nr       0.77      0.42      0.55      9308
+         pos       0.86      0.82      0.84    116271
+
+    accuracy                           0.87    614629
+   macro avg       0.85      0.75      0.78    614629
+weighted avg       0.87      0.87      0.87    614629
+
+>>> saved /app/mk_6d_5/artifacts/memm_full.pkl
+
+==========================================================================================
+=== Training MEMM-BOUNDARY
+==========================================================================================
+    docs:      5,135
+    sentences: 63,019
+    tag distribution: {'neut': 34500, 'neg': 17396, 'pos': 11081, 'nr': 42}
+>>> building feature dicts (with teacher-forced prev_tag) ...
+    feature dict construction: 1.7s
+>>> vectorizing ...
+    vectorize: 0.3s, shape=(63019, 40)
+>>> training MaxEnt (LR) classifier ...
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:1184: FutureWarning: 'n_jobs' has no effect since 1.8 and will be removed in 1.10. You provided 'n_jobs=-1', please leave it unspecified.
+  warnings.warn(msg, category=FutureWarning)
+/usr/local/lib/python3.11/site-packages/sklearn/linear_model/_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+    train: 3.1s
+    in-sample accuracy: 0.8815
+
+    classification report:
+              precision    recall  f1-score   support
+
+         neg       0.89      0.87      0.88     17396
+        neut       0.88      0.91      0.89     34500
+          nr       0.00      0.00      0.00        42
+         pos       0.87      0.82      0.85     11081
+
+    accuracy                           0.88     63019
+   macro avg       0.66      0.65      0.65     63019
+weighted avg       0.88      0.88      0.88     63019
+
+>>> saved /app/mk_6d_5/artifacts/memm_boundary.pkl
+
+        model  n_docs  n_sents  in_sample_acc
+    MEMM-FULL   69679   614629       0.872149
+MEMM-BOUNDARY    5135    63019       0.881464

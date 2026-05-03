@@ -1,0 +1,162 @@
+>>> NLTK not found; installing (one-time, ~10 sec) ...
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 25.2 -> 26.1
+[notice] To update, run: pip install --upgrade pip
+    NLTK installed
+>>> loading data ...
+    train=59,759  val=10,546
+
+>>> initializing corpus cache (pre-normalization on demand) ...
+
+>>> sampling 60 configs (seed=42) ...
+
+>>> sweep dimension counts:
+    vectorization           : {'glove_mean': 11, 'tfidf': 17, 'stacked_tfidf_glove': 17, 'glove_tfidf_weighted': 15}
+    stemming                : {False: 48, True: 12}
+    lemmatization           : {True: 19, False: 41}
+    remove_stopwords        : {True: 25, False: 35}
+    negation_applied        : {False: 32, True: 28}
+    class_weight            : {'balanced': 31, None: 29}
+
+>>> evaluating configs ...
+  loading GloVe from /app/data/glove.6B.100d.txt ...
+  loaded 400,000 GloVe vectors
+  [ 1/60] glove_mean   C= 12.41  mindf=1  maxf=100K  subTF=F  neg=F  norm=.LW  u0=0.55  o1=1.3  o2=1.3  cw=bal   F1=0.8087  RRM=0.2703  MaxEnt=0.5992  (18.1s)
+  [ 2/60] glove_mean   C= 35.69  mindf=5  maxf=150K  subTF=T  neg=F  norm=...  u0=0.70  o1=1.0  o2=1.0  cw=none  F1=0.7742  RRM=0.3301  MaxEnt=0.6561  (14.9s)
+  [ 3/60] tfidf        C=  9.17  mindf=1  maxf=200K  subTF=F  neg=T  norm=S..  u0=1.00  o1=1.3  o2=1.0  cw=bal   F1=0.9209  RRM=0.1156  MaxEnt=0.4324  (89.0s)
+  [ 4/60] tfidf        C=  0.61  mindf=3  maxf=100K  subTF=F  neg=F  norm=.LW  u0=0.40  o1=1.3  o2=1.0  cw=bal   F1=0.9074  RRM=0.2312  MaxEnt=0.4068  (34.9s)
+  [ 5/60] tfidf        C=  1.20  mindf=2  maxf=100K  subTF=F  neg=T  norm=..W  u0=0.85  o1=1.0  o2=1.3  cw=bal   F1=0.9148  RRM=0.1814  MaxEnt=0.3956  (67.2s)
+  [ 6/60] stacked      C=  2.11  mindf=5  maxf=200K  subTF=T  neg=F  norm=...  u0=0.40  o1=1.0  o2=1.3  cw=none  F1=0.9054  RRM=0.1614  MaxEnt=0.4276  (168.6s)
+  [ 7/60] tfidf        C=  0.52  mindf=5  maxf=200K  subTF=F  neg=F  norm=S..  u0=0.70  o1=1.3  o2=1.0  cw=bal   F1=0.9086  RRM=0.2313  MaxEnt=0.4085  (29.7s)
+  [ 8/60] glove_tfidf  C=  0.85  mindf=2  maxf=200K  subTF=F  neg=T  norm=..W  u0=0.40  o1=1.3  o2=1.0  cw=bal   F1=0.7801  RRM=0.3233  MaxEnt=0.6568  (6.6s)
+  [ 9/60] glove_tfidf  C=  2.03  mindf=3  maxf=100K  subTF=T  neg=T  norm=S.W  u0=0.40  o1=1.0  o2=1.0  cw=none  F1=0.7231  RRM=0.4016  MaxEnt=0.7617  (11.0s)
+  [10/60] tfidf        C=  1.83  mindf=5  maxf=100K  subTF=T  neg=F  norm=.L.  u0=1.00  o1=1.3  o2=1.3  cw=bal   F1=0.9208  RRM=0.1516  MaxEnt=0.3937  (36.4s)
+  [11/60] glove_mean   C=  1.08  mindf=2  maxf=100K  subTF=T  neg=T  norm=S.W  u0=0.55  o1=1.3  o2=1.3  cw=none  F1=0.7591  RRM=0.3433  MaxEnt=0.6813  (3.5s)
+  [12/60] glove_mean   C= 12.35  mindf=2  maxf=150K  subTF=T  neg=T  norm=...  u0=0.85  o1=1.0  o2=1.3  cw=bal   F1=0.8051  RRM=0.2773  MaxEnt=0.6030  (11.4s)
+  [13/60] tfidf        C= 41.95  mindf=2  maxf=200K  subTF=T  neg=F  norm=..W  u0=0.70  o1=1.0  o2=1.3  cw=bal   F1=0.9195  RRM=0.0996  MaxEnt=0.4945  (34.5s)
+  [14/60] glove_tfidf  C=  1.75  mindf=1  maxf=100K  subTF=T  neg=F  norm=.L.  u0=1.00  o1=1.0  o2=1.3  cw=none  F1=0.7678  RRM=0.3300  MaxEnt=0.6351  (7.7s)
+  [15/60] glove_tfidf  C= 25.83  mindf=1  maxf=200K  subTF=T  neg=F  norm=...  u0=0.55  o1=1.0  o2=1.0  cw=bal   F1=0.7758  RRM=0.3194  MaxEnt=0.6629  (6.4s)
+  [16/60] glove_tfidf  C=  3.39  mindf=5  maxf=100K  subTF=T  neg=T  norm=S..  u0=1.00  o1=1.0  o2=1.3  cw=none  F1=0.7220  RRM=0.3967  MaxEnt=0.6915  (7.0s)
+  [17/60] glove_tfidf  C= 35.42  mindf=5  maxf=150K  subTF=T  neg=T  norm=...  u0=0.55  o1=1.3  o2=1.0  cw=none  F1=0.7727  RRM=0.3214  MaxEnt=0.6811  (6.6s)
+  [18/60] glove_mean   C=  0.73  mindf=2  maxf=150K  subTF=F  neg=T  norm=.LW  u0=0.70  o1=1.3  o2=1.0  cw=bal   F1=0.8103  RRM=0.2762  MaxEnt=0.5978  (9.4s)
+  [19/60] tfidf        C=  5.50  mindf=5  maxf=150K  subTF=T  neg=T  norm=...  u0=0.85  o1=1.3  o2=1.0  cw=bal   F1=0.9228  RRM=0.1227  MaxEnt=0.4135  (36.0s)
+  [20/60] glove_tfidf  C= 11.05  mindf=1  maxf=100K  subTF=T  neg=F  norm=..W  u0=0.55  o1=1.3  o2=1.3  cw=bal   F1=0.7774  RRM=0.3188  MaxEnt=0.6695  (5.9s)
+  [21/60] stacked      C=  0.59  mindf=1  maxf=150K  subTF=F  neg=T  norm=...  u0=0.85  o1=1.3  o2=1.0  cw=bal   F1=0.9044  RRM=0.1871  MaxEnt=0.4212  (89.4s)
+  [22/60] stacked      C=  5.36  mindf=5  maxf=100K  subTF=F  neg=F  norm=...  u0=1.00  o1=1.0  o2=1.3  cw=none  F1=0.9195  RRM=0.1172  MaxEnt=0.4351  (139.7s)
+  [23/60] stacked      C= 15.71  mindf=5  maxf=200K  subTF=T  neg=F  norm=..W  u0=1.00  o1=1.3  o2=1.0  cw=none  F1=0.9198  RRM=0.1047  MaxEnt=0.4617  (119.8s)
+  [24/60] glove_tfidf  C=  0.77  mindf=3  maxf=200K  subTF=T  neg=T  norm=.LW  u0=1.00  o1=1.3  o2=1.3  cw=none  F1=0.7766  RRM=0.3313  MaxEnt=0.6441  (6.0s)
+  [25/60] stacked      C=  1.14  mindf=2  maxf=150K  subTF=F  neg=F  norm=...  u0=1.00  o1=1.0  o2=1.0  cw=none  F1=0.9146  RRM=0.1593  MaxEnt=0.4090  (95.6s)
+  [26/60] stacked      C=  0.97  mindf=5  maxf=100K  subTF=T  neg=T  norm=.LW  u0=0.85  o1=1.0  o2=1.0  cw=bal   F1=0.9155  RRM=0.1703  MaxEnt=0.4070  (84.4s)
+  [27/60] glove_mean   C=  7.26  mindf=2  maxf=100K  subTF=F  neg=F  norm=...  u0=1.00  o1=1.3  o2=1.0  cw=bal   F1=0.7715  RRM=0.3311  MaxEnt=0.6648  (7.2s)
+  [28/60] tfidf        C=  3.12  mindf=5  maxf=100K  subTF=T  neg=T  norm=...  u0=0.70  o1=1.3  o2=1.0  cw=bal   F1=0.9192  RRM=0.1445  MaxEnt=0.3985  (50.2s)
+  [29/60] stacked      C=  6.45  mindf=1  maxf=150K  subTF=F  neg=T  norm=..W  u0=0.55  o1=1.0  o2=1.3  cw=none  F1=0.9129  RRM=0.1264  MaxEnt=0.4411  (114.2s)
+  [30/60] glove_tfidf  C= 20.31  mindf=2  maxf=150K  subTF=F  neg=F  norm=.LW  u0=0.40  o1=1.0  o2=1.3  cw=none  F1=0.7664  RRM=0.3266  MaxEnt=0.7037  (5.9s)
+  [31/60] stacked      C=  5.76  mindf=5  maxf=150K  subTF=F  neg=F  norm=.LW  u0=0.55  o1=1.3  o2=1.0  cw=none  F1=0.9144  RRM=0.1250  MaxEnt=0.4404  (126.5s)
+  [32/60] glove_mean   C= 27.16  mindf=2  maxf=150K  subTF=F  neg=T  norm=..W  u0=0.85  o1=1.0  o2=1.3  cw=bal   F1=0.8108  RRM=0.2695  MaxEnt=0.6056  (4.9s)
+  [33/60] tfidf        C=  7.72  mindf=2  maxf=100K  subTF=T  neg=F  norm=.L.  u0=0.85  o1=1.0  o2=1.3  cw=none  F1=0.9229  RRM=0.1126  MaxEnt=0.4300  (30.5s)
+  [34/60] tfidf        C=  1.01  mindf=2  maxf=100K  subTF=F  neg=T  norm=.LW  u0=0.55  o1=1.0  o2=1.0  cw=none  F1=0.9122  RRM=0.2037  MaxEnt=0.3988  (19.8s)
+  [35/60] glove_tfidf  C=  3.06  mindf=5  maxf=100K  subTF=F  neg=F  norm=...  u0=0.55  o1=1.3  o2=1.3  cw=bal   F1=0.7795  RRM=0.3150  MaxEnt=0.6467  (7.9s)
+  [36/60] tfidf        C=  1.58  mindf=3  maxf=150K  subTF=F  neg=T  norm=...  u0=0.85  o1=1.0  o2=1.0  cw=none  F1=0.9160  RRM=0.1719  MaxEnt=0.3942  (36.3s)
+  [37/60] tfidf        C=  0.64  mindf=2  maxf=200K  subTF=F  neg=T  norm=S.W  u0=0.40  o1=1.3  o2=1.3  cw=bal   F1=0.9071  RRM=0.2329  MaxEnt=0.4080  (43.4s)
+  [38/60] stacked      C=  9.64  mindf=3  maxf=200K  subTF=F  neg=T  norm=.L.  u0=0.40  o1=1.3  o2=1.0  cw=bal   F1=0.9157  RRM=0.1214  MaxEnt=0.4452  (161.4s)
+  [39/60] glove_mean   C=  9.51  mindf=1  maxf=100K  subTF=T  neg=T  norm=.L.  u0=0.70  o1=1.0  o2=1.0  cw=none  F1=0.8048  RRM=0.2816  MaxEnt=0.5947  (7.7s)
+  [40/60] tfidf        C=  2.26  mindf=2  maxf=150K  subTF=T  neg=F  norm=...  u0=0.85  o1=1.0  o2=1.3  cw=bal   F1=0.9180  RRM=0.1559  MaxEnt=0.3927  (28.5s)
+  [41/60] glove_mean   C=  5.89  mindf=5  maxf=200K  subTF=T  neg=F  norm=.L.  u0=0.85  o1=1.3  o2=1.3  cw=bal   F1=0.8047  RRM=0.2786  MaxEnt=0.5978  (6.2s)
+  [42/60] tfidf        C=  1.27  mindf=3  maxf=200K  subTF=F  neg=F  norm=S.W  u0=0.40  o1=1.0  o2=1.3  cw=bal   F1=0.9133  RRM=0.1960  MaxEnt=0.4014  (53.8s)
+  [43/60] glove_tfidf  C= 37.23  mindf=3  maxf=100K  subTF=F  neg=F  norm=...  u0=1.00  o1=1.3  o2=1.0  cw=bal   F1=0.7807  RRM=0.3145  MaxEnt=0.6450  (8.4s)
+  [44/60] stacked      C=  1.61  mindf=3  maxf=150K  subTF=T  neg=T  norm=.L.  u0=0.70  o1=1.3  o2=1.0  cw=none  F1=0.9161  RRM=0.1562  MaxEnt=0.4071  (146.5s)
+  [45/60] glove_tfidf  C=  5.55  mindf=3  maxf=200K  subTF=F  neg=F  norm=S.W  u0=0.70  o1=1.0  o2=1.0  cw=bal   F1=0.7352  RRM=0.3869  MaxEnt=0.7039  (5.1s)
+  [46/60] tfidf        C=  0.75  mindf=2  maxf=150K  subTF=F  neg=T  norm=.L.  u0=0.40  o1=1.3  o2=1.0  cw=bal   F1=0.9100  RRM=0.2245  MaxEnt=0.4058  (30.0s)
+  [47/60] stacked      C=  1.74  mindf=5  maxf=150K  subTF=F  neg=T  norm=...  u0=0.85  o1=1.0  o2=1.3  cw=none  F1=0.9154  RRM=0.1513  MaxEnt=0.4095  (144.9s)
+  [48/60] glove_mean   C= 14.40  mindf=1  maxf=150K  subTF=F  neg=F  norm=.L.  u0=0.85  o1=1.3  o2=1.3  cw=none  F1=0.8042  RRM=0.2793  MaxEnt=0.5925  (6.6s)
+  [49/60] stacked      C= 39.94  mindf=2  maxf=100K  subTF=T  neg=F  norm=..W  u0=0.40  o1=1.3  o2=1.0  cw=none  F1=0.9109  RRM=0.1075  MaxEnt=0.5407  (106.5s)
+  [50/60] glove_tfidf  C=  4.05  mindf=3  maxf=200K  subTF=T  neg=T  norm=S..  u0=0.40  o1=1.0  o2=1.0  cw=none  F1=0.7249  RRM=0.3955  MaxEnt=0.7550  (6.7s)
+  [51/60] stacked      C=  0.83  mindf=2  maxf=200K  subTF=T  neg=F  norm=...  u0=0.55  o1=1.0  o2=1.3  cw=bal   F1=0.9046  RRM=0.1866  MaxEnt=0.4183  (133.5s)
+  [52/60] stacked      C=  9.98  mindf=3  maxf=100K  subTF=F  neg=F  norm=..W  u0=0.40  o1=1.0  o2=1.0  cw=none  F1=0.9098  RRM=0.1213  MaxEnt=0.4627  (108.0s)
+  [53/60] stacked      C= 33.13  mindf=2  maxf=150K  subTF=F  neg=T  norm=...  u0=1.00  o1=1.0  o2=1.0  cw=none  F1=0.9234  RRM=0.0963  MaxEnt=0.4962  (147.5s)
+  [54/60] stacked      C= 24.99  mindf=1  maxf=100K  subTF=F  neg=F  norm=S..  u0=0.40  o1=1.3  o2=1.0  cw=bal   F1=0.9138  RRM=0.1066  MaxEnt=0.5126  (97.1s)
+  [55/60] stacked      C=  1.27  mindf=1  maxf=100K  subTF=F  neg=F  norm=S.W  u0=0.70  o1=1.3  o2=1.3  cw=bal   F1=0.9119  RRM=0.1617  MaxEnt=0.4096  (79.9s)
+  [56/60] tfidf        C=  1.22  mindf=1  maxf=100K  subTF=T  neg=F  norm=.L.  u0=0.70  o1=1.3  o2=1.3  cw=bal   F1=0.9174  RRM=0.1819  MaxEnt=0.3887  (48.3s)
+  [57/60] glove_tfidf  C= 29.33  mindf=2  maxf=200K  subTF=T  neg=T  norm=..W  u0=0.85  o1=1.0  o2=1.3  cw=none  F1=0.7784  RRM=0.3214  MaxEnt=0.6488  (6.3s)
+  [58/60] glove_mean   C=  9.37  mindf=5  maxf=150K  subTF=T  neg=T  norm=.L.  u0=0.85  o1=1.3  o2=1.3  cw=none  F1=0.8037  RRM=0.2828  MaxEnt=0.5969  (9.2s)
+  [59/60] glove_tfidf  C= 38.03  mindf=1  maxf=100K  subTF=T  neg=F  norm=S.W  u0=0.55  o1=1.0  o2=1.3  cw=none  F1=0.7230  RRM=0.3930  MaxEnt=0.7402  (5.1s)
+  [60/60] tfidf        C=  2.03  mindf=3  maxf=150K  subTF=F  neg=F  norm=...  u0=0.70  o1=1.3  o2=1.3  cw=none  F1=0.9173  RRM=0.1589  MaxEnt=0.4009  (37.7s)
+
+>>> total sweep time: 3194.8s (53.2 min)
+>>> corpus cache: 12 variants
+>>> wrote /app/mk_9/experiments/09_vectorization_tokenization/results/sweep.json
+>>> wrote /app/mk_9/experiments/09_vectorization_tokenization/results/winners.json
+
+====================================================================================================
+=== Winner under each regime ===
+====================================================================================================
+
+  f1_tuned:
+      vectorization            = stacked_tfidf_glove
+      stemming                 = False
+      lemmatization            = False
+      remove_stopwords         = False
+      negation_applied         = True
+      C                        = 33.131908903964266
+      ngram_range              = [np.int64(1), np.int64(2)]
+      min_df                   = 2
+      max_features             = 150000
+      sublinear_tf             = False
+      class_weight             = None
+      class0_undersample       = 1.0
+      class1_oversample        = 1.0
+      class2_oversample        = 1.0
+      f1_macro                 = 0.9234
+      ECE                      = 0.0113
+      RRM_penalty              = 0.0963
+      MaxEnt_loss              = 0.4962
+
+  rrm_tuned:
+      vectorization            = stacked_tfidf_glove
+      stemming                 = False
+      lemmatization            = False
+      remove_stopwords         = False
+      negation_applied         = True
+      C                        = 33.131908903964266
+      ngram_range              = [np.int64(1), np.int64(2)]
+      min_df                   = 2
+      max_features             = 150000
+      sublinear_tf             = False
+      class_weight             = None
+      class0_undersample       = 1.0
+      class1_oversample        = 1.0
+      class2_oversample        = 1.0
+      f1_macro                 = 0.9234
+      ECE                      = 0.0113
+      RRM_penalty              = 0.0963
+      MaxEnt_loss              = 0.4962
+
+  maxent_tuned:
+      vectorization            = tfidf
+      stemming                 = False
+      lemmatization            = True
+      remove_stopwords         = False
+      negation_applied         = False
+      C                        = 1.2163343904029003
+      ngram_range              = [np.int64(1), np.int64(3)]
+      min_df                   = 1
+      max_features             = 100000
+      sublinear_tf             = True
+      class_weight             = balanced
+      class0_undersample       = 0.7
+      class1_oversample        = 1.3
+      class2_oversample        = 1.3
+      f1_macro                 = 0.9174
+      ECE                      = 0.0722
+      RRM_penalty              = 0.1819
+      MaxEnt_loss              = 0.3887
+
+====================================================================================================
+=== Comparison vs prior leaders ===
+====================================================================================================
+  mk_2 F1-tuned (Kaggle: 0.92758): val F1 = 0.9200
+  mk_5 F1-tuned (Kaggle: 0.92746): val F1 = 0.9228
+  mk_6 F1-tuned (Kaggle: 0.93121): val F1 = 0.9249  ← current Kaggle leader
+  mk_7 F1-tuned (Kaggle: 0.92950): val F1 = 0.9272
+  mk_9 F1-tuned                  : val F1 = 0.9234
