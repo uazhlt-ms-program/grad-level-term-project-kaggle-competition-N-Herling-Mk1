@@ -82,15 +82,15 @@ data/glove.*
 data/glove.*
 glove.*
 # Experiment outputs (regenerable from sweep.py / analyze.py)
-*/experiments/*/results/
-*/experiments/*/figures/
+**/experiments/*/results/
+**/experiments/*/figures/
 
 # === Phase 1 additions ===
 # Per-mk artifact / result / cache directories (large data, regenerable)
-*/artifacts/
-*/cache/
-*/results/
-*/figures/
+**/artifacts/
+**/cache/
+**/results/
+**/figures/
 # Numpy / cached array formats
 *.npy
 *.npz
