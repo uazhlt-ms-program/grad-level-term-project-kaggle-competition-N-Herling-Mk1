@@ -36,7 +36,54 @@ When deployed via GitHub Pages, the front end is reachable at:
 
 ---
 
-## 2. Quick start — reproduce the champion (≈5 min)
+## 2. Data setup (do this first)
+
+The `data/` directory is **not** committed to this repository — Kaggle competition data and the GloVe embeddings are too large for GitHub and shouldn't be redistributed publicly. Before running anything, create a `data/` directory at the repository root and place four files in it.
+
+### Required files
+
+| File | Source | Size |
+|---|---|---|
+| `train.csv` | Kaggle (link below) | ~62 MB |
+| `test.csv` | Kaggle (link below) | ~16 MB |
+| `sample_submission.csv` | Kaggle (link below) | ~250 KB |
+| `glove.6B.100d.txt` | Stanford NLP (link below) | ~332 MB |
+
+### Where to download
+
+**Kaggle data** — `train.csv`, `test.csv`, `sample_submission.csv`:
+
+> [https://www.kaggle.com/competitions/ling-539-competition-2026/data](https://www.kaggle.com/competitions/ling-539-competition-2026/data)
+>
+> Click the *Download All* button (or download each file individually). You must accept the competition rules first at [https://www.kaggle.com/t/03c8dd2e91474ec1b64203601079805b](https://www.kaggle.com/t/03c8dd2e91474ec1b64203601079805b).
+
+**GloVe embeddings** — `glove.6B.100d.txt`:
+
+> [https://nlp.stanford.edu/projects/glove/](https://nlp.stanford.edu/projects/glove/)
+>
+> Download `glove.6B.zip` (~822 MB compressed). Extract it and copy out **only** the `glove.6B.100d.txt` file (~332 MB) — you do not need the 50d / 200d / 300d variants.
+
+### Required directory structure after setup
+
+```
+grad-level-term-project-kaggle-competition-N-Herling-Mk1/
+├── README.md
+├── Dockerfile
+├── model_tests/                 (committed)
+└── data/                        (you create — gitignored)
+    ├── train.csv
+    ├── test.csv
+    ├── sample_submission.csv
+    └── glove.6B.100d.txt
+```
+
+### Minimum required for the champion quickstart
+
+The champion submission (Section 3) only reads `test.csv` and `sample_submission.csv` — the saved component probabilities (`.npy` files in `model_tests/mk_6b/models/` and `model_tests/mk_6d/.../val_data/`) are committed checkpoints, so the sweep doesn't refit anything. If you only want to reproduce the champion, you can skip downloading `train.csv` and `glove.6B.100d.txt`. Full reproduction (Section 4) requires all four files.
+
+---
+
+## 3. Quick start — reproduce the champion (≈5 min)
 
 The champion submission `mk_6d_weight_swept.csv` (Kaggle 0.93309) regenerates byte-identically from the saved component probabilities via three commands:
 
@@ -56,7 +103,7 @@ The sweep deterministically lands on weights `(mk_2 = 0.0462, mk_6 = 0.4919, mk_
 
 ---
 
-## 3. Full reproduction — every model in dependency order
+## 4. Full reproduction — every model in dependency order
 
 Each model lives under `model_tests/mk_*/`. From the repository root, every command takes the form `python3 -m model_tests.mk_X.experiments.Y.<script>` inside the Docker container.
 
@@ -155,15 +202,6 @@ docker run --rm -v "$(pwd):/app" -w /app info539-mk1 python3 -m model_tests.mk_1
     ├── mk_1/  ...  mk_12/          (each with shared/, experiments/, models/, submissions/, README.md)
     └── ...
 ```
-
-### Data setup
-
-The `data/` directory is gitignored (data is large and provided by Kaggle). Place the following files in `data/` before reproducing:
-
-- `train.csv` — Kaggle training data (~62 MB)
-- `test.csv` — Kaggle test data (~16 MB)
-- `sample_submission.csv` — Kaggle submission template
-- `glove.6B.100d.txt` — pre-trained 100-dimensional GloVe embeddings (~332 MB, https://nlp.stanford.edu/projects/glove/)
 
 ### Docker
 
