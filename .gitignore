@@ -97,3 +97,10 @@ glove.*
 # Backup files
 .gitignore.bak
 *.bak
+
+# === Champion reproduction whitelist ===
+# These .npy files are checkpoints required by mk_6d's sweep.
+# Without them, the champion submission cannot be regenerated
+# from a fresh clone in the 3-command quickstart.
+!model_tests/mk_6b/models/mk_6b_*_test_proba.npy
+!model_tests/mk_6d/experiments/6d1_weight_sweep/val_data/*.npy
