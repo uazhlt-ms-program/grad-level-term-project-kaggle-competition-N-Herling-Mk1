@@ -259,43 +259,49 @@ h1.title .num {
 .back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: var(--paper);
-  border: 1.5px solid var(--crucible-cyan);
+  border: 2px solid var(--crucible-cyan);
   color: var(--crucible-cyan-hi);
-  padding: 9px 18px;
-  margin: 0 0 16px;
-  border-radius: 3px;
+  padding: 12px 24px;
+  margin: 0 0 18px;
+  border-radius: 4px;
   cursor: pointer;
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
+  text-shadow: 0 0 8px rgba(6, 208, 249, 0.55);
   box-shadow:
-    0 0 0 1px rgba(6, 208, 249, 0.15),
-    0 0 12px rgba(0, 168, 230, 0.20);
-  transition: all 150ms ease-out;
+    inset 0 0 0 1px rgba(6, 208, 249, 0.25),
+    0 0 0 2px rgba(0, 168, 230, 0.18),
+    0 0 18px rgba(0, 168, 230, 0.40),
+    0 0 36px rgba(0, 168, 230, 0.18);
+  transition: all 180ms ease-out;
 }
 .back-btn:hover {
-  background: rgba(0, 168, 230, 0.12);
+  background: rgba(0, 168, 230, 0.18);
   border-color: var(--crucible-cyan-hi);
-  color: var(--crucible-cyan-soft);
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(6, 208, 249, 0.95);
   box-shadow:
-    0 0 0 1px var(--crucible-cyan-hi),
-    0 0 16px rgba(6, 208, 249, 0.45),
-    0 0 28px rgba(0, 168, 230, 0.30);
-  transform: translateY(-1px);
+    inset 0 0 0 1px var(--crucible-cyan-hi),
+    0 0 0 3px rgba(6, 208, 249, 0.35),
+    0 0 24px rgba(6, 208, 249, 0.65),
+    0 0 48px rgba(0, 168, 230, 0.45);
+  transform: translateY(-2px);
 }
 .back-btn:active {
   transform: translateY(0);
   box-shadow:
-    0 0 0 1px var(--crucible-cyan-hi),
-    0 0 8px rgba(0, 168, 230, 0.50);
+    inset 0 0 0 1px var(--crucible-cyan-hi),
+    0 0 0 2px var(--crucible-cyan-hi),
+    0 0 12px rgba(0, 168, 230, 0.65);
 }
 .back-btn .arrow {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
 }
 .detail h3 {
@@ -501,3 +507,94 @@ h1.title .num {
 
 /* Re-center the logo within the laser frame */
 .logo-wrap { justify-content: flex-start; }
+
+
+/* =============================================================
+   Title banner — C·R·U·C·I·B·L·E with per-letter gradient + dots
+   Mirrors the logo composition's CRUCIBLE word treatment
+   ============================================================= */
+
+h1.title {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-weight: 800;
+  font-size: 48px;
+  text-transform: uppercase;
+  margin: 18px 0 10px;
+  /* Reset all the gradient/clip stuff — we apply it per-letter now */
+  background: none;
+  color: inherit;
+  filter: drop-shadow(0 0 14px rgba(0, 168, 230, 0.30));
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* The "§ 0" prefix */
+h1.title .num {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  color: var(--crucible-cyan);
+  font-weight: 400;
+  margin-right: 18px;
+  font-size: 18px;
+  letter-spacing: 0.14em;
+  position: relative;
+  top: -10px;
+  filter: drop-shadow(0 0 6px rgba(0, 168, 230, 0.45));
+}
+
+/* The CRUCIBLE word — gradient applied as background-clip:text on this span,
+   so each letter inherits its share of the gradient based on position */
+h1.title .title-word {
+  display: inline-block;
+  letter-spacing: 0;
+  background: linear-gradient(
+    90deg,
+    var(--crucible-cyan-hi) 0%,
+    var(--crucible-cyan)    20%,
+    var(--crucible-gold)    50%,
+    var(--crucible-orange)  72%,
+    var(--crucible-red)     100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+}
+
+/* The dot separators between letters — they should be cyan and tiny,
+   regardless of the gradient zone they fall in */
+h1.title .title-word .dot {
+  /* Override the gradient — dots stay solid cyan */
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: var(--crucible-cyan);
+  color: var(--crucible-cyan);
+  font-size: 0.7em;
+  margin: 0 0.18em;
+  vertical-align: 0.18em;
+  font-weight: 400;
+  filter: drop-shadow(0 0 4px rgba(6, 208, 249, 0.7));
+}
+
+/* Sub-banner that replaces the old en-dash subtitle */
+.title-banner-sub {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--crucible-cyan-soft);
+  margin: 0 0 8px;
+  filter: drop-shadow(0 0 5px rgba(0, 168, 230, 0.35));
+}
+
+/* Existing .title-sub gets a small tightening */
+.title-sub {
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  color: var(--ink-dim);
+  margin: 0 0 26px;
+}
