@@ -17,30 +17,30 @@
   --crucible-amber:     #fb9c02;
   --crucible-gold:      #fdc801;
 
-  /* Light-theme surface palette ----------------------------- */
-  --bg:        #f7f8fa;
-  --paper:     #ffffff;
-  --ink:       #1c1f24;
-  --ink-dim:   #4a5160;
-  --ink-faint: #8892a0;
-  --rule:      #d4dce4;
-  --rule-soft: #e6ecf2;
+  /* Dark-theme surface palette ------------------------------ */
+  --bg:        #06070a;       /* near-black, matches logo background */
+  --paper:     #0e1117;       /* slightly lifted surface */
+  --ink:       #e8e8e0;       /* bright body text */
+  --ink-dim:   #b3b8c0;       /* secondary text */
+  --ink-faint: #6f7785;       /* tertiary / monospace labels */
+  --rule:      #1f2530;       /* subtle borders */
+  --rule-soft: #161b23;       /* even-softer fills */
 
   /* Functional aliases ------------------------------------- */
   --accent-1:        var(--crucible-cyan);
-  --accent-1-soft:   #dff1f9;
+  --accent-1-soft:   rgba(0, 168, 230, 0.12);    /* dark-mode cyan tint */
   --accent-2:        var(--crucible-orange);
-  --accent-2-soft:   #fff0e0;
-  --champion:        #a07810;
-  --champion-bg:     #fff8de;
-  --champion-border: #d0c890;
-  --good:            #1a6e3a;
-  --good-bg:         #e6f4ec;
-  --bad:             #a02020;
-  --bad-bg:          #fbeeee;
-  --neutral:         #666;
-  --neutral-bg:      #f5f5f5;
-  --navy:            #1a3a5c;
+  --accent-2-soft:   rgba(246, 93, 1, 0.12);     /* dark-mode orange tint */
+  --champion:        var(--crucible-gold);
+  --champion-bg:     rgba(253, 200, 1, 0.08);
+  --champion-border: rgba(253, 200, 1, 0.35);
+  --good:            #5fd394;
+  --good-bg:         rgba(95, 211, 148, 0.08);
+  --bad:             #f06464;
+  --bad-bg:          rgba(240, 100, 100, 0.08);
+  --neutral:         #8e95a0;
+  --neutral-bg:      rgba(142, 149, 160, 0.08);
+  --navy:            var(--crucible-cyan-soft);   /* heading color in dark mode */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -54,20 +54,20 @@ body {
   max-width: 1280px;
   padding: 36px 28px 80px;
   background-image:
-    radial-gradient(circle, rgba(26, 58, 92, 0.06) 1px, transparent 1.2px);
+    radial-gradient(circle, rgba(0, 168, 230, 0.08) 1px, transparent 1.2px);
   background-size: 16px 16px;
 }
 a { color: var(--accent-1); text-decoration: none; border-bottom: 1px dotted var(--accent-1); }
 a:hover { background: var(--accent-1-soft); border-bottom-style: solid; }
 code {
-  background: #eef0f2;
+  background: var(--rule-soft);
   padding: 1px 5px;
   border-radius: 2px;
   font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   font-size: 0.92em;
 }
 pre {
-  background: #f4f4f4;
+  background: var(--rule-soft);
   border: 1px solid var(--rule);
   border-radius: 3px;
   padding: 10px 14px;
@@ -138,6 +138,19 @@ h1.title .num {
 .intro p + p { margin-top: 10px; }
 .intro a { font-weight: 600; }
 
+/* Top hero row — logo with pulse + trailer video */
+.hero-top {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 32px;
+  align-items: start;
+  margin: 0 0 28px;
+}
+.hero-top .logo-laser-frame {
+  justify-self: start;
+  max-width: 320px;
+}
+
 /* Hero */
 .hero {
   display: grid;
@@ -184,7 +197,7 @@ h1.title .num {
 
 .howto {
   background: var(--accent-1-soft);
-  border: 1px solid #b6d8e6;
+  border: 1px solid rgba(0, 168, 230, 0.25);
   border-left: 3px solid var(--accent-1);
   padding: 12px 16px;
   margin: 4px 0 0;
@@ -202,7 +215,7 @@ h1.title .num {
   border: 1px solid var(--rule);
   border-radius: 4px;
   padding: 16px 18px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03);
   min-height: 540px;
 }
 .panel .panel-label { color: var(--accent-1); margin: 0 0 4px; }
@@ -225,7 +238,7 @@ h1.title .num {
   filter: brightness(1.05);
 }
 .legend {
-  background: #f8fafc;
+  background: var(--rule-soft);
   border: 1px solid var(--rule-soft);
   padding: 8px 12px;
   margin: 10px 0 0;
@@ -300,12 +313,12 @@ h1.title .num {
   vertical-align: top;
 }
 .detail th {
-  background: #eef2f6;
+  background: var(--rule-soft);
   font-weight: 600;
   color: var(--navy);
   font-size: 12.5px;
 }
-.detail tr:nth-child(even) td { background: #f8fafc; }
+.detail tr:nth-child(even) td { background: rgba(255, 255, 255, 0.02); }
 
 .callout {
   border: 1px solid;
@@ -316,8 +329,8 @@ h1.title .num {
   line-height: 1.55;
 }
 .callout.champion { background: var(--champion-bg); border-color: var(--champion-border); }
-.callout.bad      { background: var(--bad-bg);      border-color: #d8a0a0; }
-.callout.good     { background: var(--good-bg);     border-color: #b8d8c4; }
+.callout.bad      { background: var(--bad-bg);      border-color: rgba(240, 100, 100, 0.35); }
+.callout.good     { background: var(--good-bg);     border-color: rgba(95, 211, 148, 0.35); }
 
 .score, .score-best, .score-worse, .score-baseline {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
@@ -366,7 +379,7 @@ h1.title .num {
   font-weight: 600;
   margin-left: 8px;
 }
-.verdict.pass { background: var(--good-bg); color: var(--good); border: 1px solid #b8d8c4; }
+.verdict.pass { background: var(--good-bg); color: var(--good); border: 1px solid rgba(95, 211, 148, 0.35); }
 
 .note {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
@@ -388,7 +401,81 @@ h1.title .num {
 }
 
 @media (max-width: 880px) {
-  .hero { grid-template-columns: 1fr; }
+  .hero,
+  .hero-top { grid-template-columns: 1fr; }
+  .hero-top .logo-laser-frame { justify-self: center; max-width: 240px; }
   .logo-wrap img { max-width: 200px; }
   body { padding: 24px 16px 60px; }
 }
+
+
+/* =============================================================
+   Hero additions — laser-pulse logo + video on the right
+   Added to support the index.html hero layout
+   ============================================================= */
+
+.logo-laser-frame {
+  position: relative;
+  display: inline-block;
+  padding: 14px;
+  border-radius: 6px;
+  /* The pulsing border lives in the box-shadow so the inner img is untouched */
+  box-shadow:
+    0 0 0 1px var(--crucible-cyan),
+    0 0 12px 2px rgba(0, 168, 230, 0.35),
+    inset 0 0 0 1px rgba(0, 168, 230, 0.15);
+  animation: crucible-pulse 2.5s ease-in-out infinite;
+}
+
+.logo-laser-frame img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+@keyframes crucible-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px var(--crucible-cyan),
+      0 0 6px 1px rgba(0, 168, 230, 0.20),
+      inset 0 0 0 1px rgba(0, 168, 230, 0.10);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px var(--crucible-cyan-hi),
+      0 0 22px 4px rgba(6, 208, 249, 0.55),
+      inset 0 0 0 1px rgba(0, 168, 230, 0.25);
+  }
+}
+
+/* Video on the right side of the hero */
+.video-frame {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  box-shadow: 0 0 0 1px rgba(0, 168, 230, 0.08);
+}
+
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #000;
+}
+
+.video-caption {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-top: 1px solid var(--rule);
+  background: var(--rule-soft);
+}
+
+/* Re-center the logo within the laser frame */
+.logo-wrap { justify-content: flex-start; }
