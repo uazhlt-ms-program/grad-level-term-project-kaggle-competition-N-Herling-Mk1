@@ -138,7 +138,7 @@ h1.title .num {
 .intro p + p { margin-top: 10px; }
 .intro a { font-weight: 600; }
 
-/* Top hero row — logo with pulse + trailer video */
+/* Top hero row — logo with pulse + trailer video, each labeled */
 .hero-top {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -146,9 +146,32 @@ h1.title .num {
   align-items: start;
   margin: 0 0 28px;
 }
+
+.hero-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.hero-cell-label {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--crucible-cyan-hi);
+  padding: 0 2px;
+  text-shadow: 0 0 10px rgba(6, 208, 249, 0.55);
+  filter: drop-shadow(0 0 8px rgba(0, 168, 230, 0.55));
+}
+
 .hero-top .logo-laser-frame {
-  justify-self: start;
-  max-width: 320px;
+  justify-self: stretch;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  /* height is set by JS in matchLogoHeight() to mirror the video's rendered height */
 }
 
 /* Hero */
@@ -173,13 +196,17 @@ h1.title .num {
 }
 .acronym .acro-label,
 .howto .howto-label,
-.panel .panel-label {
+.panel .panel-label,
+.blurb .blurb-label {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  color: var(--ink-faint);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--crucible-cyan-hi);
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 8px rgba(6, 208, 249, 0.45);
+  filter: drop-shadow(0 0 6px rgba(0, 168, 230, 0.40));
 }
 .acronym table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 .acronym td { padding: 3px 0; vertical-align: baseline; }
@@ -205,7 +232,7 @@ h1.title .num {
   font-size: 13.5px;
   color: var(--ink-dim);
 }
-.howto .howto-label { color: var(--accent-1); margin-bottom: 6px; }
+.howto .howto-label { margin-bottom: 6px; }
 .howto ol { margin: 6px 0 0; padding-left: 22px; }
 .howto li { margin: 4px 0; }
 
@@ -218,7 +245,7 @@ h1.title .num {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03);
   min-height: 540px;
 }
-.panel .panel-label { color: var(--accent-1); margin: 0 0 4px; }
+.panel .panel-label { margin: 0 0 4px; }
 .panel .panel-title {
   font-family: 'Iowan Old Style', Georgia, serif;
   font-size: 17px;
@@ -370,44 +397,202 @@ h1.title .num {
 .delta-pos { color: var(--good); font-weight: 600; }
 .delta-neg { color: var(--bad); font-weight: 600; }
 
-/* Compliance page */
-.compliance-wrap { max-width: 880px; margin: 0 auto; }
-.compliance-wrap h2 {
-  font-family: 'Iowan Old Style', Georgia, serif;
-  font-size: 22px;
-  color: var(--navy);
+/* =============================================================
+   Compliance page — dark theme, bordered tables, bold headers
+   ============================================================= */
+
+.compliance-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Hero block: green check + title */
+.compliance-hero {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 22px 28px;
+  margin: 22px 0 28px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 5px solid #5fd394;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px rgba(95, 211, 148, 0.08),
+    0 0 24px rgba(95, 211, 148, 0.10);
+}
+
+.compliance-check {
+  flex: 0 0 auto;
+  width: 92px;
+  height: 92px;
+  filter: drop-shadow(0 0 18px rgba(95, 211, 148, 0.55));
+}
+.compliance-check svg { width: 100%; height: 100%; display: block; }
+
+.compliance-hero-text { flex: 1 1 auto; min-width: 0; }
+
+.compliance-h1 {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--crucible-cyan-hi);
+  margin: 0 0 6px;
+  text-shadow: 0 0 12px rgba(0, 168, 230, 0.45);
+}
+
+.compliance-hero-sub {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--crucible-cyan-soft);
+  text-shadow: 0 0 6px rgba(0, 168, 230, 0.30);
+}
+
+/* Section labels — match the // PROJECT LOGO style from index */
+.compliance-section-label {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--crucible-cyan-hi);
   margin: 32px 0 6px;
-  padding-bottom: 6px;
+  text-shadow: 0 0 8px rgba(6, 208, 249, 0.45);
+  filter: drop-shadow(0 0 6px rgba(0, 168, 230, 0.40));
+}
+
+/* Section H2 */
+.compliance-h2 {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin: 0 0 14px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--rule);
 }
-.compliance-wrap h2 .sn {
+
+/* Section H3 (per-rule headers like 'R1 — Use of class-covered techniques') */
+.compliance-h3 {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  color: var(--accent-1);
-  font-weight: 400;
-  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--crucible-cyan-soft);
+  margin: 24px 0 10px;
+}
+
+/* Bordered tables — used for every data block on the page */
+.compliance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 16px;
+  font-size: 14px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.compliance-table th,
+.compliance-table td {
+  border: 1px solid var(--rule);
+  padding: 9px 12px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.compliance-table thead th {
+  background: rgba(0, 168, 230, 0.06);
+  color: var(--crucible-cyan-hi);
+  font-weight: 700;
   font-size: 13px;
-  letter-spacing: 0.08em;
-  vertical-align: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
 }
-.compliance-wrap h3 {
-  font-family: 'Iowan Old Style', Georgia, serif;
-  font-style: italic;
+.compliance-table tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+.compliance-table td.check {
+  text-align: center;
+  color: #5fd394;
+  font-weight: 800;
   font-size: 17px;
-  color: var(--navy);
-  margin: 18px 0 6px;
+  text-shadow: 0 0 6px rgba(95, 211, 148, 0.5);
 }
+
+/* Verdict pills — PASS / CLEAN / FULLY COMPLIANT */
 .verdict {
   display: inline-block;
-  padding: 3px 10px;
-  border-radius: 2px;
+  padding: 4px 12px;
+  border-radius: 3px;
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
-  font-weight: 600;
-  margin-left: 8px;
+  font-weight: 800;
+  margin-left: 10px;
+  vertical-align: 2px;
 }
-.verdict.pass { background: var(--good-bg); color: var(--good); border: 1px solid rgba(95, 211, 148, 0.35); }
+.verdict.pass {
+  background: rgba(95, 211, 148, 0.10);
+  color: #5fd394;
+  border: 1.5px solid rgba(95, 211, 148, 0.55);
+  text-shadow: 0 0 6px rgba(95, 211, 148, 0.45);
+  box-shadow: 0 0 10px rgba(95, 211, 148, 0.18);
+}
+
+/* Severity HARD pill */
+.severity-hard {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 800;
+  background: rgba(246, 93, 1, 0.10);
+  color: var(--crucible-orange);
+  border: 1px solid rgba(246, 93, 1, 0.50);
+  text-shadow: 0 0 5px rgba(246, 93, 1, 0.40);
+}
+
+/* Inline call-out paragraph between tables */
+.callout-note {
+  margin: 10px 0 18px;
+  padding: 12px 16px;
+  background: rgba(246, 93, 1, 0.05);
+  border-left: 3px solid var(--crucible-orange);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  border-radius: 2px;
+}
+
+/* Bottom-line summary card */
+.bottom-line-card {
+  margin: 8px 0 24px;
+  padding: 18px 22px;
+  background: rgba(95, 211, 148, 0.05);
+  border: 1.5px solid rgba(95, 211, 148, 0.45);
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink);
+  box-shadow: 0 0 16px rgba(95, 211, 148, 0.10);
+}
+.bottom-line-card p:last-child { margin-bottom: 0; }
+
+/* Compliance page intro override (less aggressive than index intro) */
+.compliance-wrap .intro {
+  border-left-color: var(--crucible-cyan);
+  background: var(--paper);
+}
 
 .note {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
@@ -432,6 +617,8 @@ h1.title .num {
   .hero,
   .hero-top { grid-template-columns: 1fr; }
   .hero-top .logo-laser-frame { justify-self: center; max-width: 240px; }
+  .hero-cell { align-items: center; }
+  .hero-cell-label { text-align: center; }
   .logo-wrap img { max-width: 200px; }
   body { padding: 24px 16px 60px; }
 }
@@ -457,8 +644,9 @@ h1.title .num {
 
 .logo-laser-frame img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   border-radius: 4px;
 }
 
@@ -496,13 +684,15 @@ h1.title .num {
 
 .video-caption {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--ink-faint);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--crucible-cyan-soft);
   text-transform: uppercase;
-  padding: 8px 12px;
-  border-top: 1px solid var(--rule);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
   background: var(--rule-soft);
+  text-shadow: 0 0 6px rgba(0, 168, 230, 0.35);
 }
 
 /* Re-center the logo within the laser frame */
@@ -597,4 +787,160 @@ h1.title .title-word .dot {
   font-weight: 500;
   color: var(--ink-dim);
   margin: 0 0 26px;
+}
+
+
+/* =============================================================
+   Acronym box — preface + walkthrough additions
+   ============================================================= */
+
+.acronym .acro-preface {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+
+.acronym .acro-walkthrough {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px dashed var(--rule);
+}
+
+.acronym .acro-walkthrough-label {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--crucible-cyan-soft);
+  margin: 0 0 10px;
+  text-shadow: 0 0 6px rgba(0, 168, 230, 0.35);
+}
+
+.acronym .acro-walkthrough p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+.acronym .acro-walkthrough p:last-child { margin-bottom: 0; }
+
+.acronym .acro-walkthrough .acro-letter {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  color: var(--crucible-orange);
+  font-weight: 800;
+  font-size: 1.35em;
+  letter-spacing: 0.04em;
+  padding: 0 1px;
+  text-shadow:
+    0 0 6px rgba(246, 93, 1, 0.65),
+    0 0 14px rgba(246, 93, 1, 0.35);
+  filter: drop-shadow(0 0 4px rgba(246, 93, 1, 0.4));
+}
+
+
+/* =============================================================
+   Novelty blurb in the intro
+   ============================================================= */
+
+.intro .novelty-blurb {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--crucible-orange);
+  background: rgba(246, 93, 1, 0.06);
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--ink);
+}
+.intro .novelty-blurb strong:first-child {
+  color: var(--crucible-orange);
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 800;
+  display: inline-block;
+  margin-right: 6px;
+  text-shadow: 0 0 6px rgba(246, 93, 1, 0.45);
+}
+
+/* =============================================================
+   The "Sarcasm problem" section — § 0.5
+   ============================================================= */
+
+.sarcasm-section {
+  margin: 0 0 36px;
+  padding: 22px 26px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--crucible-orange);
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(246, 93, 1, 0.04);
+}
+
+.sarcasm-title {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--crucible-cyan-soft);
+  margin: 0 0 4px;
+  text-shadow: 0 0 10px rgba(0, 168, 230, 0.35);
+}
+.sarcasm-title .sarcasm-num {
+  color: var(--crucible-orange);
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  margin-right: 14px;
+  vertical-align: 4px;
+  text-shadow: 0 0 6px rgba(246, 93, 1, 0.5);
+}
+
+.sarcasm-sub {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--crucible-cyan);
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--rule);
+  text-shadow: 0 0 5px rgba(0, 168, 230, 0.30);
+}
+
+.sarcasm-h3 {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--crucible-amber);
+  margin: 22px 0 8px;
+  text-shadow: 0 0 6px rgba(246, 93, 1, 0.30);
+}
+.sarcasm-h3:first-of-type { margin-top: 12px; }
+
+.sarcasm-body p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+.sarcasm-body p:last-child { margin-bottom: 0; }
+
+.sarcasm-body .sarcasm-followup {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--rule);
+  font-size: 14.5px;
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+.sarcasm-body code {
+  font-size: 0.92em;
 }

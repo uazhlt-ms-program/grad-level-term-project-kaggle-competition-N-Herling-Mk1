@@ -46,49 +46,138 @@
   <p>This page documents the architecture-evolution record for the
   <strong>INFO 539 term project</strong> — a 3-class document classification task
   (Pang &amp; Lee 2004 corpus + a "not a review" label, evaluated by macro-F1).
-  The goal was to traverse a principled progression of NLP classifiers covered
-  in the course (Naive Bayes, Logistic Regression with TF-IDF and n-gram
-  features, NBSVM, GloVe word embeddings, MEMM with Viterbi decoding,
-  k-fold cross-validation, and ensemble methods), land on the highest-scoring
-  configuration, then stress-test that configuration with epistemic and
-  architectural follow-on experiments to determine whether further gains were
-  available.</p>
+  The submission of record is <code>mk_6d_weight_swept</code>, a four-component
+  weighted ensemble of course-covered classifiers that scored
+  <span class="score-best">0.93309</span> on the Kaggle public leaderboard.</p>
 
-  <p>Eight stages were traversed: <em>mass exploration</em> &rarr;
-  <em>architecture selection</em> &rarr; <em>single-architecture ceiling test</em>
-  &rarr; <em>cross-architecture ensembling</em> &rarr;
-  <em>ensemble weight optimization (champion: Kaggle 0.93309)</em> &rarr;
-  <em>boundary-targeted rescue</em> (negative result) &rarr;
-  <em>architectural integration of MEMM features</em> (negative result) &rarr;
-  <em>champion validation</em>. Methodology compliance with course
-  expectations was verified before submission &mdash;
-  <a href="compliance.html">read the full compliance argument</a>.</p>
+  <p>The project was built under a methodology called <strong>CRUCIBLE</strong> —
+  an eight-letter acronym that maps directly onto an eight-stage workflow.
+  Each letter names a property the final ensemble was engineered to hold,
+  and each stage corresponds to a concrete set of <code>mk_*</code> experiments
+  in this repository. The acronym is unpacked in the box at left;
+  the per-stage detail is in the architecture map at right
+  (click any stage node to swap its discussion in place).
+  Methodology compliance with course expectations was verified before
+  submission — <a href="compliance.html">read the full compliance argument</a>.</p>
+
+  <p class="novelty-blurb"><strong>Novel contribution.</strong> The
+  <em>Epistemic</em> letter in CRUCIBLE is more than naming &mdash; it is the
+  project's central methodological claim. Each candidate component was
+  characterized by an entropy metric tuned to its own decision surface
+  (k-fold &sigma; on calibrated probability outputs), and the ensemble
+  weights were tuned over those same surfaces rather than over raw F1.
+  A second-layer attempt extended the same approach to a sub-document
+  problem: tuning specifically on boundary cases where sarcasm causes
+  sentence-level signal to invert the document-level label. That work
+  is detailed in the section below.</p>
 </div>
 
 <!-- Top hero row: logo (laser-pulse) + trailer video -->
 <div class="hero-top">
 
-  <div class="logo-laser-frame">
-    <img src="media/img/crucible_logo.png" alt="CRUCIBLE">
+  <div class="hero-cell">
+    <div class="hero-cell-label">// project logo</div>
+    <div class="logo-laser-frame">
+      <img src="media/img/crucible_logo.png" alt="CRUCIBLE">
+    </div>
   </div>
 
-  <div class="video-frame">
-    <video autoplay muted loop playsinline preload="auto" poster="media/img/crucible_og.png" controls>
-      <source src="media/video/crucible_mk2_web.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-      <a href="media/video/crucible_mk2_web.mp4">Download the trailer (MP4)</a>.
-    </video>
-    <div class="video-caption">// trailer · CRUCIBLE mk2</div>
+  <div class="hero-cell">
+    <div class="hero-cell-label">// project trailer</div>
+    <div class="video-frame">
+      <div class="video-caption">// trailer &middot; CRUCIBLE mk2</div>
+      <video autoplay muted loop playsinline preload="auto" poster="media/img/crucible_og.png" controls>
+        <source src="media/video/crucible_mk2_web.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        <a href="media/video/crucible_mk2_web.mp4">Download the trailer (MP4)</a>.
+      </video>
+    </div>
   </div>
 
 </div>
 
 <!-- Existing hero: acronym + blurb + howto on left, architecture map on right -->
+
+<section class="sarcasm-section">
+  <h2 class="sarcasm-title">
+    <span class="sarcasm-num">&sect; 0.5</span>The sarcasm problem
+  </h2>
+  <div class="sarcasm-sub">// epistemic ensembling &middot; boundary-case rescue</div>
+
+  <div class="sarcasm-body">
+    <p>The 3-class label space here looks easy on paper &mdash; <em>positive</em>,
+    <em>negative</em>, <em>not-a-review</em> &mdash; but the reviews themselves are
+    not. A meaningful slice of them are sarcastic: a sentence-level reading
+    suggests one polarity while the document-level label is its opposite.
+    These are the documents that pin our error rate, and they were the
+    target of the project's two original methodological contributions.</p>
+
+    <h3 class="sarcasm-h3">First layer &mdash; epistemic ensembling on entropy-tuned surfaces</h3>
+
+    <p>Standard soft-vote ensembles weight components by their validation
+    accuracy. Ours doesn't. Each component (<code>mk_2</code>, <code>mk_6</code>,
+    <code>mk_7</code>, <code>mk_9_53</code>) was first run through k-fold
+    cross-validation, and a per-fold entropy metric was computed over its
+    calibrated probability outputs &mdash; effectively measuring how
+    <em>peaked</em> versus <em>uncertain</em> each component's decision
+    surface was, fold by fold. That entropy signal is independent of accuracy:
+    a component can be accurate but uncertain (peaks shifted but flat),
+    or accurate and confident (peaks tall and narrow). The weights for
+    <code>mk_6d</code> were tuned over the entropy-aware surfaces rather than
+    over raw fold F1, with the tuning itself bounded by Jaynes' maximum-entropy
+    prior over the four-component simplex. The locked champion weights
+    <code>(0.0462, 0.4919, 0.2000, 0.2619)</code> are not "the four
+    most-accurate components on val" &mdash; they are the four-way combination
+    that made the ensemble's posterior most epistemically coherent. That
+    is the sense in which the &nbsp;<strong class="acro-letter">E</strong>&nbsp;
+    in CRUCIBLE is load-bearing.</p>
+
+    <h3 class="sarcasm-h3">Second layer &mdash; boundary-case rescue</h3>
+
+    <p>The natural follow-up question was whether the same epistemic framing
+    could be tuned <em>specifically</em> on the sarcasm-driven boundary cases &mdash;
+    documents where the four components disagreed strongly, or where any
+    single component's confidence was anomalously low relative to its
+    typical posterior. A small arc of experiments (<code>mk_6d_1</code>
+    through <code>mk_6d_5</code>) attacked exactly this: sub-document
+    boundary extraction, sentence-level sarcasm rescues, sentiment
+    sub-classifiers, MEMM-tagged pseudo-labels, and bigram language-model
+    rescoring. Each was tuned on the validation slice, and each posted
+    real validation gains over the champion's 0.93309 baseline.</p>
+
+    <p><strong>None of those gains transferred to Kaggle.</strong>
+    Every boundary-rescue submission scored at or below the champion on
+    the public leaderboard. The mechanism is plain in retrospect:
+    boundary cases that look like systematic sarcasm signal at val
+    sample size (~10K examples) are partly val-set-specific noise.
+    Tuning <em>on</em> the boundary cases overfits to the validation
+    slice's idiosyncrasies in a way that the entropy-aware first-layer
+    tuning didn't. The negative result is itself the point &mdash; a
+    measurement of how much of the apparent val gap is structural
+    sarcasm signal versus contingent val noise. The correct response
+    was to lock the first-layer ensemble (<code>mk_6d_weight_swept</code>)
+    as the submission of record and treat the second layer as a
+    diagnostic.</p>
+
+    <p class="sarcasm-followup">The full per-experiment narrative is
+    in the architecture map at right &mdash; click through stages 6 and 7
+    for the boundary-rescue and MEMM-integration negative results,
+    and stage 8 for the corner-penalty validation that confirmed the
+    locked weights.</p>
+  </div>
+</section>
+
 <div class="hero">
 
   <div class="hero-left">
     <div class="acronym">
-      <div class="acro-label">// acronym</div>
+      <div class="acro-label">// CRUCIBLE methodology</div>
+
+      <p class="acro-preface">A weighted soft-vote of four diverse course-covered
+      classifiers (Naive Bayes, Logistic Regression with TF-IDF, NBSVM,
+      and TF-IDF + GloVe). The acronym names eight properties the
+      ensemble was built to hold:</p>
+
       <table>
         <tr><td class="letter">C</td><td class="dash">—</td><td class="word">Cross-architecture survey</td></tr>
         <tr><td class="letter">R</td><td class="dash">—</td><td class="word">Refinement on best-in-class</td></tr>
@@ -99,9 +188,51 @@
         <tr><td class="letter">L</td><td class="dash">—</td><td class="word">Log-count-reweighted</td></tr>
         <tr><td class="letter">E</td><td class="dash">—</td><td class="word">Epistemic ensemble</td></tr>
       </table>
+
+      <div class="acro-walkthrough">
+        <p class="acro-walkthrough-label">// the eight stages</p>
+        <p>The arc opens with a <strong class="acro-letter">C</strong>ross-architecture
+        survey: stages 1 and 2 train five baseline classifiers
+        (<code>mk_1</code> &ndash; <code>mk_5</code>) covering Naive Bayes,
+        Logistic Regression with TF-IDF, GloVe-pooled embeddings,
+        stacked features, and class-rebalanced variants. The strongest
+        two are selected for <strong class="acro-letter">R</strong>efinement
+        on best-in-class (stage 3) — <code>mk_6</code> (kitchen-sink LR)
+        and <code>mk_7</code> (NBSVM) receive full hyperparameter sweeps.</p>
+
+        <p><strong class="acro-letter">U</strong>ncertainty quantification
+        lands next (stage 4): k-fold cross-validation across the
+        leading architectures, plus Bayesian HMC variance analysis,
+        characterizes each component's epistemic uncertainty before
+        they're combined. The ensemble's expected calibration error
+        is 0.0101 — making it <strong class="acro-letter">C</strong>alibrated
+        as well as accurate.</p>
+
+        <p>Ensemble weights themselves are
+        <strong class="acro-letter">I</strong>nformation-theoretic:
+        the soft-vote weights are derived from Jaynes' principle of
+        maximum entropy. Two components are
+        <strong class="acro-letter">B</strong>ayes-rule-derived
+        (<code>mk_7</code>'s NBSVM uses class-conditional likelihoods),
+        and <code>mk_7</code>'s features are
+        <strong class="acro-letter">L</strong>og-count-reweighted —
+        each n-gram weighted by the log ratio of its per-class
+        probabilities.</p>
+
+        <p>The result is the
+        <strong class="acro-letter">E</strong>pistemic ensemble:
+        four diverse, individually-calibrated classifiers, weighted on
+        a held-out validation slice (stages 4&ndash;5). Champion weights
+        landed at <code>(mk_2 = 0.0462, mk_6 = 0.4919,
+        mk_7 = 0.2000, mk_9_53 = 0.2619)</code>. Stages 6&ndash;8 are
+        post-champion stress tests — boundary rescues, MEMM
+        integration, and corner-penalty validation — all documented
+        in the architecture map at right.</p>
+      </div>
     </div>
 
     <div class="blurb">
+      <div class="blurb-label">// project orientation</div>
       <p>The right panel begins as the <strong>architecture map</strong>.
       Click any stage node to swap its full discussion in place; click
       <strong>← back to map</strong> to return.</p>
@@ -493,5 +624,27 @@ Stage 3:   100 tuples                       × 10,546 val (full)   → pick top 
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script src="js/swap.js"></script>
 
+<script>
+  /* Mirror the logo-frame height to whatever the video-frame is currently rendering */
+  (function () {
+    const logoFrame = document.querySelector('.hero-top .logo-laser-frame');
+    const videoFrame = document.querySelector('.hero-top .video-frame');
+    if (!logoFrame || !videoFrame) return;
+
+    function syncHeight() {
+      const h = videoFrame.getBoundingClientRect().height;
+      if (h > 0) logoFrame.style.height = h + 'px';
+    }
+
+    window.addEventListener('load', syncHeight);
+    window.addEventListener('resize', syncHeight);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(syncHeight).observe(videoFrame);
+    } else {
+      setTimeout(syncHeight, 100);
+      setTimeout(syncHeight, 500);
+    }
+  })();
+</script>
 </body>
 </html>
