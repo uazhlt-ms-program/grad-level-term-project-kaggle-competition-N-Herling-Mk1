@@ -259,23 +259,45 @@ h1.title .num {
 .back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: var(--paper);
-  border: 1px solid var(--rule);
-  color: var(--accent-1);
-  padding: 6px 12px;
-  margin: 0 0 14px;
-  border-radius: 2px;
+  border: 1.5px solid var(--crucible-cyan);
+  color: var(--crucible-cyan-hi);
+  padding: 9px 18px;
+  margin: 0 0 16px;
+  border-radius: 3px;
   cursor: pointer;
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: background 80ms;
   text-decoration: none;
+  box-shadow:
+    0 0 0 1px rgba(6, 208, 249, 0.15),
+    0 0 12px rgba(0, 168, 230, 0.20);
+  transition: all 150ms ease-out;
 }
-.back-btn:hover { background: var(--accent-1-soft); border-bottom-style: solid; }
-.back-btn .arrow { font-size: 13px; }
+.back-btn:hover {
+  background: rgba(0, 168, 230, 0.12);
+  border-color: var(--crucible-cyan-hi);
+  color: var(--crucible-cyan-soft);
+  box-shadow:
+    0 0 0 1px var(--crucible-cyan-hi),
+    0 0 16px rgba(6, 208, 249, 0.45),
+    0 0 28px rgba(0, 168, 230, 0.30);
+  transform: translateY(-1px);
+}
+.back-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 0 1px var(--crucible-cyan-hi),
+    0 0 8px rgba(0, 168, 230, 0.50);
+}
+.back-btn .arrow {
+  font-size: 14px;
+  font-weight: 700;
+}
 .detail h3 {
   font-family: 'Iowan Old Style', Georgia, serif;
   font-size: 20px;
