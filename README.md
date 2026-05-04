@@ -103,7 +103,107 @@ The sweep deterministically lands on weights `(mk_2 = 0.0462, mk_6 = 0.4919, mk_
 
 ---
 
-## 4. Full reproduction — every model in dependency order
+## 4. Submission of record — file chain
+
+The submission file `mk_6d_weight_swept.csv` (Kaggle public LB **0.93309** ★) is produced by `mk_6d`'s hyperband weight sweep. The complete chain of files involved in producing it, in dependency order:
+
+### Input data (user-supplied per Section 2)
+
+| File | Used by | Purpose |
+|---|---|---|
+| `data/test.csv` | `sweep_weights.py` | Test set IDs and review text (no labels) |
+| `data/sample_submission.csv` | `sweep_weights.py` | Canonical ID ordering for the output CSV |
+
+### Saved component test-probability checkpoints (committed under `model_tests/mk_6b/models/`)
+
+These four `.npy` files are the test-set probability arrays from each ensemble component, refit on the full training data. They are committed checkpoints — the sweep does not refit anything.
+
+| File | Component | Architecture |
+|---|---|---|
+| `mk_6b_mk2_full_test_proba.npy` | `mk_2` | TF-IDF + Logistic Regression (F1-tuned) |
+| `mk_6b_full_data_test_proba.npy` | `mk_6` | Kitchen-sink TF-IDF + LR with sentiment tokens, negation, class balance |
+| `mk_6b_mk7_full_test_proba.npy` | `mk_7` | NBSVM (Wang & Manning 2012) — Naive Bayes log-count features fed into LR |
+| `mk_6b_mk9_53_full_test_proba.npy` | `mk_9_53` | TF-IDF + 100d GloVe embedding stack + LR |
+
+### Saved validation probability checkpoints (committed under `model_tests/mk_6d/experiments/6d1_weight_sweep/val_data/`)
+
+These five `.npy` files contain each component's predictions on a held-out 15% validation slice plus the slice's true labels. The hyperband sweep maximizes macro-F1 on these.
+
+| File | Purpose |
+|---|---|
+| `mk2_val_proba.npy` | mk_2 component's predictions on val |
+| `mk6_val_proba.npy` | mk_6 component's predictions on val |
+| `mk7_val_proba.npy` | mk_7 component's predictions on val |
+| `mk9_53_val_proba.npy` | mk_9_53 component's predictions on val |
+| `val_labels.npy` | True labels for the held-out val slice (10,546 examples) |
+
+### Source code that produces the submission
+
+| File | Role |
+|---|---|
+| `model_tests/mk_6d/experiments/6d1_weight_sweep/sweep_weights.py` | Hyperband random-search sweep over the 4-simplex; writes the submission CSV |
+
+### Output
+
+| File | Description |
+|---|---|
+| `model_tests/mk_6d/submissions/mk_6d_weight_swept.csv` | The Kaggle submission of record (17,580 rows: ID, LABEL) |
+
+### What the sweep actually does
+
+`sweep_weights.py` samples 5,000 random weight tuples from a uniform Dirichlet(1,1,1,1) distribution over the 4-simplex, then applies successive halving across 4 stages (5,000 → 1,500 → 400 → 100 → 1 tuples) using progressively larger subsamples of the val set (1,000 → 3,000 → 7,000 → 10,546 examples). The procedure is deterministic given a fixed random seed: it converges on weights `(mk_2 = 0.0462, mk_6 = 0.4919, mk_7 = 0.2000, mk_9_53 = 0.2619)` with full-val macro-F1 = 0.9281. Those weights are then applied to the four test-set probability arrays via weighted soft vote, and the argmax of the result is written to `mk_6d_weight_swept.csv`.
+
+---
+
+## 5. Compliance — course-rule alignment
+
+The course rubric requires that **at least one of the submitted models must use one or more of the classification algorithms covered in INFO/LING 539**. The submission of record satisfies this requirement multiply:
+
+### The champion is an ensemble of four course-covered classifiers
+
+| Component | Course-covered algorithm(s) used |
+|---|---|
+| `mk_2` | **Logistic Regression** with TF-IDF features. LR was covered in lecture as a discriminative log-linear model; TF-IDF was covered as a feature representation for text. |
+| `mk_6` | **Logistic Regression** with TF-IDF features, augmented by class re-balancing. The added preprocessing (sentiment-preserving tokenization, negation-scope marking, per-class oversampling) does not change the underlying classifier — it remains LR. |
+| `mk_7` | **Naive Bayes Support Vector Machine** (Wang & Manning 2012). The "NB" component is **Multinomial Naive Bayes** — a course-covered probabilistic generative model — used to derive log-count-ratio features. Those features are then fed to a Logistic Regression classifier. Both NB and LR are course-covered. |
+| `mk_9_53` | **Logistic Regression** with stacked TF-IDF + 100d GloVe features. LR is course-covered; word embeddings were discussed as a feature representation. |
+
+### The ensemble itself
+
+The four components are combined via **weighted soft-vote averaging** of their predicted probabilities, with weights selected to maximize macro-F1 on a held-out validation slice. Both the soft-vote ensemble and held-out validation are standard practices covered in the course's discussion of model evaluation and combination.
+
+### Single-classifier baselines also submitted
+
+In addition to the ensemble, simpler single-classifier submissions were made and recorded on the Kaggle leaderboard:
+
+- `mk_6_kitchen_sink.csv` — Logistic Regression alone (F1 = 0.93121, single-classifier baseline)
+- `mk_6b_full_data.csv` — Logistic Regression refit on full data (F1 = 0.93170)
+
+Both are pure LR submissions and would each independently satisfy the "one course-covered algorithm" requirement.
+
+### See also
+
+A detailed assignment-rules audit — mapping every rubric requirement to specific files in this repository — is provided at [`compliance.html`](compliance.html).
+
+---
+
+## 6. Reproducibility verification
+
+The reproducibility chain documented in Section 4 was independently verified end-to-end on May 3, 2026 by performing a fresh-clone-from-scratch test that mirrors what a grader will experience:
+
+1. **Fresh `git clone`** of the public repository into a separate, empty directory.
+2. **Provided `data/test.csv` and `data/sample_submission.csv`** (the only data files needed for the champion quickstart).
+3. **Fresh Docker image build** with `docker build --no-cache -t info539-cloneverify .` — no cached layers from the working environment.
+4. **Ran the Section 3 quickstart command** against the freshly-built image.
+5. **Compared the regenerated `mk_6d_weight_swept.csv` against the working-repo copy via `md5sum`.**
+
+The two MD5 hashes matched byte-for-byte, confirming that the saved component probabilities, the val-data checkpoints, the patched path resolution, and the deterministic hyperband sweep all produce the same submission CSV from a cold start. No working-environment state, cached Docker images, or previously-built artifacts contributed to the reproduced result.
+
+The hyperband sweep also lands on the locked weights `(mk_2 = 0.0462, mk_6 = 0.4919, mk_7 = 0.2000, mk_9_53 = 0.2619)` byte-identically across runs because the random seed in `sweep_weights.py` is fixed. An additional consistency check is provided by `mk_12_corner_penalty`: an independent sweep with a corner-penalty objective lands on the same locked weights and produces predictions that differ from `mk_6d_weight_swept.csv` in zero of 17,580 test examples.
+
+---
+
+## 7. Full reproduction — every model in dependency order
 
 Each model lives under `model_tests/mk_*/`. From the repository root, every command takes the form `python3 -m model_tests.mk_X.experiments.Y.<script>` inside the Docker container.
 
