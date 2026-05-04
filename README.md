@@ -17,7 +17,7 @@ The pipeline begins with a Multinomial Naive Bayes baseline (`mk_1`, F1 ≈ 0.81
 
 These four components — `mk_2`, `mk_6`, `mk_7`, `mk_9_53` — are then refit on full training data (`mk_6b`), composed into post-hoc ensembles (`mk_6c`), and finally weight-tuned via a **hyperband random-search sweep on a held-out validation slice** (`mk_6d`). The hyperband stack samples 5,000 weight tuples from a uniform Dirichlet(1,1,1,1) over the 4-simplex, then applies successive halving across 4 stages (5,000 → 1,500 → 400 → 100 → 1) to land on weights `(mk_2 = 0.0462, mk_6 = 0.4919, mk_7 = 0.2000, mk_9_53 = 0.2619)` — the **mk_6d** champion at Kaggle 0.93309.
 
-Beyond the champion, eight rescue / boundary-case experiments (`mk_6d_1` through `mk_6d_5`, `mk_11`, `mk_12`) probe whether sub-document analysis, sarcasm features, sentence-level MEMM tagging, or cross-fitted inference can break the 0.933 ceiling. The recurring finding — documented across these experiments and elaborated in `architecture_summary.html` — is that boundary-targeted gains on validation **do not transfer to Kaggle**: they capture validation-specific quirks rather than generalizable signal. The methodology of *measuring the val→test gap and trusting it as a transfer-failure signal* is the project's central methodological contribution.
+Beyond the champion, eight rescue / boundary-case experiments (`mk_6d_1` through `mk_6d_5`, `mk_11`, `mk_12`) probe whether sub-document analysis, sarcasm features, sentence-level MEMM tagging, or cross-fitted inference can break the 0.933 ceiling. The recurring finding — documented across these experiments and elaborated in `index.html` — is that boundary-targeted gains on validation **do not transfer to Kaggle**: they capture validation-specific quirks rather than generalizable signal. The methodology of *measuring the val→test gap and trusting it as a transfer-failure signal* is the project's central methodological contribution.
 
 Optimization techniques deployed across the project include: TF-IDF with word- and character-level n-grams; mean-pooled 100d GloVe embeddings; sentiment-preserving custom tokenization; negation-scope preprocessing (Hutto-style); per-class oversample/undersample class balance; F1-tuned, RRM-tuned, and MaxEnt-tuned regimes (the third derived from a Jaynesian σ-keyed entropy correction); 5-fold cross-validation with σ_fold reporting; refit-on-full-data variants; hyperband random search with successive halving; cross-fitted out-of-fold inference (`mk_12_crossfit`); blend-with-uniform fallback (`mk_12_blend`); corner-penalty re-sweeping (`mk_12_corner_penalty`); MEMM cross-fit with Viterbi feature extraction (`mk_11`); per-class threshold tuning; epistemic-uncertainty diagnostics (Bayesian σ, ECE, AUROC of uncertainty, RRM penalty); and a frozen reproducibility receipt — `mk_12_corner_penalty` lands on the champion's locked weights byte-identically.
 
@@ -27,12 +27,12 @@ Optimization techniques deployed across the project include: TF-IDF with word- a
 
 The static HTML front end at the repository root supplies the verbose narrative and assignment-rule audit:
 
-- **[`architecture_summary.html`](architecture_summary.html)** — the full Stage 1–8 narrative. Walks through every architecture decision, every val score, every Kaggle outcome, every transfer-failure analysis. Includes the locked champion weights, the val→Kaggle gap table for all 7 leaderboard submissions, and the documented negative-result chain through the boundary-rescue experiments. This is the long-form "why" behind every choice.
+- **[`index.html`](index.html)** — the full Stage 1–8 narrative. Walks through every architecture decision, every val score, every Kaggle outcome, every transfer-failure analysis. Includes the locked champion weights, the val→Kaggle gap table for all 7 leaderboard submissions, and the documented negative-result chain through the boundary-rescue experiments. This is the long-form "why" behind every choice.
 
 - **[`compliance.html`](compliance.html)** — assignment-rules audit. Maps each rubric requirement (one course-covered algorithm, ≥1 alternate approach, Linux/Mac portability, etc.) to specific files and runs in this repository. Confirms the project meets every assessment criterion in the D2L rubric.
 
 When deployed via GitHub Pages, the front end is reachable at:
-`https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/architecture_summary.html`
+`https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/`
 
 ---
 
@@ -221,7 +221,7 @@ docker run --rm -v "$(pwd):/app" -w /app info539-mk1 python3 -m model_tests.mk_8
 docker run --rm -v "$(pwd):/app" -w /app info539-mk1 python3 -m model_tests.mk_9.experiments.09_vectorization_tokenization.layer9_best_params      # mk_9_53 stack   F1 0.9234
 ```
 
-`mk_10` (dependency-parsing diagnostic) is documented but excluded from the default reproduction loop — its full sweep is 50–70 minutes and confirmed in `architecture_summary.html` as producing no improvement over the BoW + LR ceiling.
+`mk_10` (dependency-parsing diagnostic) is documented but excluded from the default reproduction loop — its full sweep is 50–70 minutes and confirmed in `index.html` as producing no improvement over the BoW + LR ceiling.
 
 ### Phase 2 — full-data refits and ensembles
 
@@ -294,7 +294,7 @@ docker run --rm -v "$(pwd):/app" -w /app info539-mk1 python3 -m model_tests.mk_1
 ├── README.md                       (this file)
 ├── Dockerfile                      (builds info539-mk1 on uazhlt/python-playground)
 ├── requirements.txt                (joblib, numpy, scipy, pandas, sklearn, matplotlib, seaborn)
-├── architecture_summary.html       (full Stage 1–8 narrative — front-end main page)
+├── index.html       (full Stage 1–8 narrative — front-end main page)
 ├── compliance.html                 (assignment-rules audit)
 ├── css/, js/, media/               (static-site assets)
 ├── data/                           (gitignored — train.csv, test.csv, sample_submission.csv, glove.6B.100d.txt)
