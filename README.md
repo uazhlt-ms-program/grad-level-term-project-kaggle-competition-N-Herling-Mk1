@@ -1,5 +1,10 @@
 # CRUCIBLE — INFO/LING 539 Term Project
 
+<p align="center">
+  <img src="https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/media/img/crucible_og.png" alt="CRUCIBLE — INFO 539 Term Project" width="600">
+</p>
+
+
 **Author:** Nathan Herling
 **Course:** INFO/LING 539 — Statistical Natural Language Processing, Spring 2026
 **Task:** [Kaggle competition](https://www.kaggle.com/competitions/ling-539-competition-2026/) — 3-class document classification (0 = not-a-review, 1 = positive review, 2 = negative review). Evaluated by macro-F1.
@@ -27,9 +32,9 @@ Optimization techniques deployed across the project include: TF-IDF with word- a
 
 The static HTML front end at the repository root supplies the verbose narrative and assignment-rule audit:
 
-- **[`index.html`](index.html)** — the full Stage 1–8 narrative. Walks through every architecture decision, every val score, every Kaggle outcome, every transfer-failure analysis. Includes the locked champion weights, the val→Kaggle gap table for all 7 leaderboard submissions, and the documented negative-result chain through the boundary-rescue experiments. This is the long-form "why" behind every choice.
+- **[Live front end on GitHub Pages](https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/)** — the full Stage 1–8 narrative. Walks through every architecture decision, every val score, every Kaggle outcome, every transfer-failure analysis. Includes the locked champion weights, the val→Kaggle gap table for all 7 leaderboard submissions, and the documented negative-result chain through the boundary-rescue experiments. This is the long-form "why" behind every choice.
 
-- **[`compliance.html`](compliance.html)** — assignment-rules audit. Maps each rubric requirement (one course-covered algorithm, ≥1 alternate approach, Linux/Mac portability, etc.) to specific files and runs in this repository. Confirms the project meets every assessment criterion in the D2L rubric.
+- **[Live compliance page on GitHub Pages](https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/compliance.html)** — assignment-rules audit. Maps each rubric requirement (one course-covered algorithm, ≥1 alternate approach, Linux/Mac portability, etc.) to specific files and runs in this repository. Confirms the project meets every assessment criterion in the D2L rubric.
 
 When deployed via GitHub Pages, the front end is reachable at:
 `https://uazhlt-ms-program.github.io/grad-level-term-project-kaggle-competition-N-Herling-Mk1/`
